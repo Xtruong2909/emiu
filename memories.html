@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <title>📸 Kỷ niệm của chúng mình</title>
+  <style>
+    .gallery-section { margin-top: 60px; }
+    .gallery-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 42px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 28px;
+      text-shadow: 0 0 20px rgba(255,150,180,0.8);
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .photo-item {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+      border: 2px solid rgba(255,150,180,0.25);
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease, border-color 0.3s;
+    }
+    .photo-item:hover {
+      transform: scale(1.04) translateY(-6px);
+      box-shadow: 0 20px 50px rgba(255,30,110,0.35);
+      border-color: rgba(255,150,180,0.7);
+      z-index: 2;
+    }
+    .photo-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .photo-item:hover img { transform: scale(1.08); }
+    .photo-item .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(120,0,50,0.6) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+    .photo-item:hover .photo-overlay { opacity: 1; }
+    .photo-overlay span {
+      font-size: 20px;
+      color: #fff;
+      font-family: 'Dancing Script', cursive;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0;
+      background: rgba(10,0,10,0.92);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 88vw;
+      max-height: 88vh;
+      border-radius: 20px;
+      object-fit: contain;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      animation: lbFadeIn 0.3s ease;
+    }
+    @keyframes lbFadeIn { from { opacity:0; transform: scale(0.9); } to { opacity:1; transform: scale(1); } }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 32px;
+      font-size: 36px; color: #fff; cursor: pointer;
+      opacity: 0.7; transition: opacity 0.2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    .lightbox-prev, .lightbox-next {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      font-size: 40px; color: #fff;
+      cursor: pointer; opacity: 0.7;
+      transition: opacity 0.2s, transform 0.2s;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%; width: 56px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .lightbox-prev { left: 24px; }
+    .lightbox-next { right: 24px; }
+    .lightbox-prev:hover { opacity:1; transform: translateY(-50%) scale(1.1); }
+    .lightbox-next:hover { opacity:1; transform: translateY(-50%) scale(1.1); }
+    @media (max-width: 600px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    }
+  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Những kỷ niệm đẹp của chúng mình bên nhau" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <div id="bg"></div>
+    <div class="hearts-container" id="heartsContainer"></div>
+    <div id="petalsContainer"></div>
+
+    <!-- Navigation -->
+    <nav class="love-nav">
+      <a href="index.html" id="nav-home">🏠 <span class="nav-label">Trang chủ</span></a>
+      <a href="reasons.html" id="nav-reasons">💝 <span class="nav-label">Lý do</span></a>
+      <a href="memories.html" class="active" id="nav-memories">📸 <span class="nav-label">Kỷ niệm</span></a>
+      <a href="letter.html" id="nav-letter">💌 <span class="nav-label">Thư tình</span></a>
+      <a href="promise.html" id="nav-promise">🌹 <span class="nav-label">Lời hứa</span></a>
+    </nav>
+
+    <div class="page-container">
+      <div class="page-title-wrap">
+        <div class="anniversary-badge">
+          <span class="badge-sparkle">✨</span>
+          <span>KỶ NIỆM 24/10 • HÀNH TRÌNH TÌNH YÊU</span>
+          <span class="badge-sparkle">✨</span>
+        </div>
+        <h1 class="page-title">Kỷ Niệm Của Chúng Mình 📸</h1>
+        <span class="page-subtitle">Nhìn lại chặng đường đến ngày 24/10 — mỗi khoảnh khắc bên em đều là vô giá 🌸</span>
+      </div>
+
+      <!-- Hero image - ảnh ôm nhau đẹp nhất -->
+      <img src="img/p2.jpg" alt="Kỷ niệm đẹp của chúng mình" class="memory-hero" />
+
+      <!-- Timeline -->
+      <ul class="timeline" id="timeline">
+
+        <li class="timeline-item">
+          <div class="timeline-dot">🌟</div>
+          <div class="timeline-content" style="overflow:hidden; padding:0;">
+            <img src="img/p3.jpg" style="width:100%;height:160px;object-fit:cover;border-radius:20px 20px 0 0;" alt="" />
+            <div style="padding:16px 20px 20px;">
+            <div class="timeline-date">Ngày đầu tiên ✨</div>
+            <div class="timeline-title">Lần đầu gặp nhau</div>
+            <div class="timeline-text">Anh vẫn còn nhớ lần đầu tiên gặp em, tim anh đã đập loạn lên không kiểm soát được. Anh đã biết ngay đây là người anh muốn quen. 🥺</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot">☕</div>
+          <div class="timeline-content" style="overflow:hidden; padding:0;">
+            <img src="img/p5.jpg" style="width:100%;height:160px;object-fit:cover;border-radius:20px 20px 0 0;" alt="" />
+            <div style="padding:16px 20px 20px;">
+            <div class="timeline-date">Buổi chiều đáng nhớ ☁️</div>
+            <div class="timeline-title">Cùng đi chơi</div>
+            <div class="timeline-text">Chúng mình đi chơi suốt cả buổi mà vẫn không hết chuyện để nói. Em cười nhiều lắm hôm đó, và anh biết mình đã thích em mất rồi. 💕</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot">🎬</div>
+          <div class="timeline-content" style="overflow:hidden; padding:0;">
+            <img src="img/p4.jpg" style="width:100%;height:160px;object-fit:cover;border-radius:20px 20px 0 0;" alt="" />
+            <div style="padding:16px 20px 20px;">
+            <div class="timeline-date">Khoảnh khắc ngọt ngào 🤝</div>
+            <div class="timeline-title">Nắm tay nhau</div>
+            <div class="timeline-text">Khoảnh khắc nắm tay nhau lần đầu, tim anh đập nhanh lắm. Cảm giác đó anh sẽ không bao giờ quên được. ❤️</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot">🌅</div>
+          <div class="timeline-content" style="overflow:hidden; padding:0;">
+            <img src="img/p6.jpg" style="width:100%;height:160px;object-fit:cover;border-radius:20px 20px 0 0;" alt="" />
+            <div style="padding:16px 20px 20px;">
+            <div class="timeline-date">Selfie đôi 📸</div>
+            <div class="timeline-title">Chụp ảnh cùng nhau</div>
+            <div class="timeline-text">Mỗi tấm ảnh chụp cùng em đều là kỷ niệm quý giá với anh. Em trong ảnh nào cũng đẹp, anh chụp mãi không chán. 🌸</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot">🎂</div>
+          <div class="timeline-content" style="overflow:hidden; padding:0;">
+            <img src="img/p7.jpg" style="width:100%;height:160px;object-fit:cover;border-radius:20px 20px 0 0;" alt="" />
+            <div style="padding:16px 20px 20px;">
+            <div class="timeline-date">Khoảnh khắc hạnh phúc 🥳</div>
+            <div class="timeline-title">Những chuyến đi cùng nhau</div>
+            <div class="timeline-text">Mỗi chuyến đi cùng em đều là một cuộc phiêu lưu nhỏ tuyệt vời. Anh muốn cùng em đi thật nhiều nơi hơn nữa. 🎁✨</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot">💞</div>
+          <div class="timeline-content" style="overflow:hidden; padding:0;">
+            <img src="img/p9.jpg" style="width:100%;height:160px;object-fit:cover;border-radius:20px 20px 0 0;" alt="" />
+            <div style="padding:16px 20px 20px;">
+            <div class="timeline-date">Mãi mãi về sau 🌙</div>
+            <div class="timeline-title">Và còn nhiều hơn nữa...</div>
+            <div class="timeline-text">Những kỷ niệm này chỉ là bắt đầu thôi em ơi. Anh muốn cùng em tạo ra thật nhiều kỷ niệm đẹp hơn nữa trong tương lai. Anh yêu em! 💖</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot" style="background:linear-gradient(135deg, #ffd700, #ff1a6e); box-shadow:0 0 25px rgba(255,215,0,0.8);">💍</div>
+          <div class="timeline-content" style="overflow:hidden; padding:0; border:2px solid rgba(255,215,0,0.7); box-shadow:0 12px 40px rgba(255,105,180,0.35);">
+            <img src="img/p2.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:20px 20px 0 0;" alt="Kỷ niệm 24/10" />
+            <div style="padding:18px 22px 22px; background:linear-gradient(to bottom, rgba(255,215,0,0.12), transparent);">
+              <div class="timeline-date" style="color:#ffd700; font-size:13px; font-weight:800;">🎉 24 THÁNG 10 • NGÀY KỶ NIỆM 🎉</div>
+              <div class="timeline-title" style="color:#fff; font-size:28px;">Ngày Kỷ Niệm Của Đôi Mình</div>
+              <div class="timeline-text">Hôm nay là 24/10, ngày tình yêu của hai đứa bước sang một cột mốc ý nghĩa. Cảm ơn em vì đã đến và sưởi ấm thế giới của anh. Chúc mừng ngày kỷ niệm 24/10 của chúng mình! 💖✨</div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+
+      <!-- Photo Gallery -->
+      <div class="gallery-section">
+        <div class="gallery-title">📷 Album ảnh của chúng mình</div>
+        <div class="photo-grid">
+          <div class="photo-item" onclick="openLightbox(0)">
+            <img src="img/p1.jpg" alt="Ảnh 1" />
+            <div class="photo-overlay"><span>💕</span></div>
+          </div>
+          <div class="photo-item" onclick="openLightbox(1)">
+            <img src="img/p2.jpg" alt="Ảnh 2" />
+            <div class="photo-overlay"><span>🤗</span></div>
+          </div>
+          <div class="photo-item" onclick="openLightbox(2)">
+            <img src="img/p3.jpg" alt="Ảnh 3" />
+            <div class="photo-overlay"><span>🌸</span></div>
+          </div>
+          <div class="photo-item" onclick="openLightbox(3)">
+            <img src="img/p4.jpg" alt="Ảnh 4" />
+            <div class="photo-overlay"><span>🤝</span></div>
+          </div>
+          <div class="photo-item" onclick="openLightbox(4)">
+            <img src="img/p5.jpg" alt="Ảnh 5" />
+            <div class="photo-overlay"><span>💑</span></div>
+          </div>
+          <div class="photo-item" onclick="openLightbox(5)">
+            <img src="img/p6.jpg" alt="Ảnh 6" />
+            <div class="photo-overlay"><span>📸</span></div>
+          </div>
+          <div class="photo-item" onclick="openLightbox(6)">
+            <img src="img/p7.jpg" alt="Ảnh 7" />
+            <div class="photo-overlay"><span>✨</span></div>
+          </div>
+          <div class="photo-item" onclick="openLightbox(7)">
+            <img src="img/p8.jpg" alt="Ảnh 8" />
+            <div class="photo-overlay"><span>💖</span></div>
+          </div>
+          <div class="photo-item" onclick="openLightbox(8)">
+            <img src="img/p9.jpg" alt="Ảnh 9" />
+            <div class="photo-overlay"><span>🌙</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="next-step-wrap">
+        <a href="letter.html" class="next-step-btn">
+          <span>Bức thư tình anh viết riêng cho em ngày 24/10</span> 💌 ➔
+        </a>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+      <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+      <span class="lightbox-prev" onclick="event.stopPropagation(); changePhoto(-1)">&#8249;</span>
+      <img id="lightboxImg" src="" alt="" />
+      <span class="lightbox-next" onclick="event.stopPropagation(); changePhoto(1)">&#8250;</span>
+    </div>
+  </div>
+
+  <script src="js/particles.js"></script>
+  <script>
+    // Scroll reveal for timeline items
+    const items = document.querySelectorAll('.timeline-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    items.forEach((item, i) => {
+      item.style.transitionDelay = (i * 0.1) + 's';
+      observer.observe(item);
+    });
+
+    // Lightbox
+    const photos = ['img/p1.jpg','img/p2.jpg','img/p3.jpg','img/p4.jpg','img/p5.jpg','img/p6.jpg','img/p7.jpg','img/p8.jpg','img/p9.jpg'];
+    let currentPhoto = 0;
+
+    function openLightbox(idx) {
+      currentPhoto = idx;
+      document.getElementById('lightboxImg').src = photos[idx];
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+      if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+    function changePhoto(dir) {
+      currentPhoto = (currentPhoto + dir + photos.length) % photos.length;
+      const img = document.getElementById('lightboxImg');
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = photos[currentPhoto];
+        img.style.opacity = '1';
+        img.style.transition = 'opacity 0.2s';
+      }, 150);
+    }
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('lightbox').classList.contains('open')) {
+        if (e.key === 'ArrowRight') changePhoto(1);
+        if (e.key === 'ArrowLeft') changePhoto(-1);
+        if (e.key === 'Escape') closeLightbox({ target: document.getElementById('lightbox') });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+/* spinload.css - kept for backward compatibility, main preloader now in style.css */
+#preloader {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, #ff6b9d, #c0395c, #6b0f3a);
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  transition: opacity 0.5s ease;
+}

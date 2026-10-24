@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <title>🌹 Kỷ Niệm 24/10 - Những Lời Hứa Tình Yêu</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Những lời hứa từ trái tim anh dành tặng em nhân ngày kỷ niệm 24/10" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <div id="bg"></div>
+    <div class="hearts-container" id="heartsContainer"></div>
+    <div id="petalsContainer"></div>
+
+    <!-- Navigation -->
+    <nav class="love-nav">
+      <a href="index.html" id="nav-home">🏠 <span class="nav-label">Trang chủ</span></a>
+      <a href="reasons.html" id="nav-reasons">💝 <span class="nav-label">Lý do</span></a>
+      <a href="memories.html" id="nav-memories">📸 <span class="nav-label">Kỷ niệm</span></a>
+      <a href="letter.html" id="nav-letter">💌 <span class="nav-label">Thư tình</span></a>
+      <a href="promise.html" class="active" id="nav-promise">🌹 <span class="nav-label">Lời hứa</span></a>
+    </nav>
+
+    <div class="page-container">
+      <div class="page-title-wrap">
+        <div class="anniversary-badge">
+          <span class="badge-sparkle">✨</span>
+          <span>KỶ NIỆM 24/10 • LỜI HỨA TRỌN ĐỜI</span>
+          <span class="badge-sparkle">✨</span>
+        </div>
+        <h1 class="page-title">Những Lời Hứa Ngày 24/10 🌹</h1>
+        <span class="page-subtitle">Nhân ngày kỷ niệm 24/10, chạm vào từng điều để anh xác nhận với em nhé~ 💍</span>
+      </div>
+
+      <div class="promise-counter" id="promiseCounter">0 / 8 lời hứa đã được chấp nhận 💕</div>
+
+      <div class="promise-grid" id="promiseGrid">
+
+        <div class="promise-item" data-index="0">
+          <div class="promise-checkbox">🤍</div>
+          <div class="promise-text">Anh hứa sẽ luôn yêu thương và che chở cho em, bất kể nắng mưa hay bão giông 🌦️💖</div>
+        </div>
+
+        <div class="promise-item" data-index="1">
+          <div class="promise-checkbox">🤍</div>
+          <div class="promise-text">Anh hứa mỗi năm đến ngày 24/10 sẽ luôn dành tặng em những điều bất ngờ ngọt ngào nhất 🎁✨</div>
+        </div>
+
+        <div class="promise-item" data-index="2">
+          <div class="promise-checkbox">🤍</div>
+          <div class="promise-text">Anh hứa sẽ luôn lắng nghe, chia sẻ và không bao giờ để em cảm thấy cô đơn 👂💕</div>
+        </div>
+
+        <div class="promise-item" data-index="3">
+          <div class="promise-checkbox">🤍</div>
+          <div class="promise-text">Anh hứa sẽ cố gắng khiến em mỉm cười và cảm thấy hạnh phúc mỗi ngày khi ở bên anh 😊🌸</div>
+        </div>
+
+        <div class="promise-item" data-index="4">
+          <div class="promise-checkbox">🤍</div>
+          <div class="promise-text">Anh hứa sẽ luôn trân trọng từng khoảnh khắc bên em như ngày đầu tiên gặp gỡ 🤝❤️</div>
+        </div>
+
+        <div class="promise-item" data-index="5">
+          <div class="promise-checkbox">🤍</div>
+          <div class="promise-text">Anh hứa sẽ luôn tự hào nắm tay em và dành trọn lòng chung thủy cho em 🏆💍</div>
+        </div>
+
+        <div class="promise-item" data-index="6">
+          <div class="promise-checkbox">🤍</div>
+          <div class="promise-text">Anh hứa sẽ cùng em đi khắp muôn nơi và viết tiếp câu chuyện tình yêu tuyệt đẹp của hai đứa 📸✈️</div>
+        </div>
+
+        <div class="promise-item" data-index="7">
+          <div class="promise-checkbox">🤍</div>
+          <div class="promise-text">Anh hứa sẽ yêu em mãi mãi, cùng em đón thật nhiều ngày 24/10 hạnh phúc về sau 💖🌙</div>
+        </div>
+
+      </div>
+
+      <button class="promise-sign-btn" id="signBtn" onclick="celebrate()">
+        💍 Anh cam kết tất cả! Ký tên nhân ngày 24/10~
+      </button>
+
+      <div class="next-step-wrap" id="homeReplay" style="display:none;">
+        <a href="index.html" class="next-step-btn">
+          <span>🏠 Về lại trang đầu kỷ niệm 24/10</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/particles.js"></script>
+  <script>
+    let checkedCount = 0;
+    const total = 8;
+    const items = document.querySelectorAll('.promise-item');
+    const counter = document.getElementById('promiseCounter');
+    const signBtn = document.getElementById('signBtn');
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach((item, i) => {
+      item.style.transitionDelay = (i * 0.08) + 's';
+      observer.observe(item);
+
+      item.addEventListener('click', () => {
+        const checkbox = item.querySelector('.promise-checkbox');
+        if (item.classList.contains('checked')) {
+          item.classList.remove('checked');
+          checkbox.textContent = '🤍';
+          checkedCount--;
+        } else {
+          item.classList.add('checked');
+          checkbox.textContent = '❤️';
+          checkedCount++;
+          // Small bounce
+          item.style.transform = 'scale(1.04) translateY(-4px)';
+          setTimeout(() => item.style.transform = '', 400);
+        }
+        updateCounter();
+      });
+    });
+
+    function updateCounter() {
+      counter.textContent = `${checkedCount} / ${total} lời hứa đã được chấp nhận 💕`;
+      if (checkedCount === total) {
+        counter.classList.add('all-done');
+        counter.textContent = `✅ Tất cả ${total} lời hứa ngày 24/10 đã được cam kết! 🎉`;
+        signBtn.classList.add('ready');
+      } else {
+        counter.classList.remove('all-done');
+        signBtn.classList.remove('ready');
+      }
+    }
+
+    function celebrate() {
+      const colors = ['#ff4d8d','#ff1a6e','#ffb3d1','#ff6b9d','#fff','#ffd700','#ff69b4'];
+      for (let i = 0; i < 140; i++) {
+        setTimeout(() => {
+          const piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.cssText = `
+            left: ${Math.random() * 100}vw;
+            top: -20px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            width: ${Math.random() * 12 + 6}px;
+            height: ${Math.random() * 12 + 6}px;
+            border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+            animation-duration: ${Math.random() * 2 + 1.5}s;
+            animation-delay: ${Math.random() * 0.5}s;
+          `;
+          document.body.appendChild(piece);
+          setTimeout(() => piece.remove(), 3500);
+        }, i * 25);
+      }
+
+      // Show final anniversary celebration message
+      setTimeout(() => {
+        signBtn.textContent = '💍 Happy Anniversary 24/10 - Yêu Em Mãi Mãi! 💖🎉';
+        signBtn.style.background = 'linear-gradient(135deg, #ffd700, #ff1a6e, #c0155a)';
+        document.getElementById('homeReplay').style.display = 'block';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
