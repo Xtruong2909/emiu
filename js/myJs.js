@@ -2,7 +2,7 @@ const textConfig = {
   text1: "Happy Anniversary 24/10! 🎉💖",
   text2: "Hôm nay là ngày kỷ niệm 24/10 vô cùng đặc biệt của hai đứa mình... Anh có điều này muốn hỏi em nè! 🥰",
   text3: "24/10 này, em có yêu anh nhiều nhất trên đời không? 🥺💖",
-  text4: "Nếu em không trả lời mà thoát ra thì tức là đồng ý làm vợ anh suốt đời luôn đó nha! 😏💍",
+  text4: "Nếu em không trả lời mà thoát ra thì cho anh 100k nha! 😏💍",
   text5: "Hông yêu đâu 😏",
   text6: "💖 Yêu anh nhiều nhất trần đời!",
   text7: "Điều em muốn nhắn gửi đến anh nhân ngày kỷ niệm 24/10 là gì nè? 🥰💌",
@@ -100,7 +100,7 @@ $(document).ready(function () {
         imageWidth: 240,
         imageHeight: 240,
         background: '#fff url("img/iput-bg.jpg")',
-        confirmButtonText: "Dạ em biết òi, để em bấm yêu anh 💕",
+        confirmButtonText: "Bấm iu anh nhanh lên, tét đít bây giờ💕",
         confirmButtonColor: "#ff4d8d",
       }).then(() => {
         isAlertShowing = false;

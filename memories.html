@@ -172,7 +172,7 @@
             <div style="padding:16px 20px 20px;">
             <div class="timeline-date">Khoảnh khắc ngọt ngào 🤝</div>
             <div class="timeline-title">Nắm tay nhau</div>
-            <div class="timeline-text">Khoảnh khắc nắm tay nhau lần đầu, tim anh đập nhanh lắm. Cảm giác đó anh sẽ không bao giờ quên được. ❤️</div>
+            <div class="timeline-text">Khoảnh khắc nắm tay nhau lần đầu, tim anh đập nhanh lắm. Cảm giác đó anh sẽ không bao giờ quên được và lần đâu tiên thấy em ở sân bay, anh cũng nghĩ là con bé này sao cute thế hehe. ❤️</div>
             </div>
           </div>
         </li>
@@ -196,7 +196,7 @@
             <div style="padding:16px 20px 20px;">
             <div class="timeline-date">Khoảnh khắc hạnh phúc 🥳</div>
             <div class="timeline-title">Những chuyến đi cùng nhau</div>
-            <div class="timeline-text">Mỗi chuyến đi cùng em đều là một cuộc phiêu lưu nhỏ tuyệt vời. Anh muốn cùng em đi thật nhiều nơi hơn nữa. 🎁✨</div>
+            <div class="timeline-text">Mỗi lần trở em đi, anh thích lắm, anh luôn muốn trở em đi thật xa, và nhớ là biết coi gg map nha. 🎁✨</div>
             </div>
           </div>
         </li>
@@ -333,6 +333,60 @@
         if (e.key === 'Escape') closeLightbox({ target: document.getElementById('lightbox') });
       }
     });
+
+    // Background Music Player
+    const bgAudio = document.getElementById('bgAudio');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicLabel = document.getElementById('musicLabel');
+
+    function playMusic() {
+      bgAudio.play().then(() => {
+        musicToggle.classList.add('playing');
+        musicLabel.textContent = 'Đang phát nhạc 💕';
+      }).catch(() => {
+        musicToggle.classList.remove('playing');
+        musicLabel.textContent = 'Bật nhạc 🎵';
+      });
+    }
+
+    function toggleMusic(e) {
+      if (e) e.stopPropagation();
+      if (bgAudio.paused) {
+        playMusic();
+      } else {
+        bgAudio.pause();
+        musicToggle.classList.remove('playing');
+        musicLabel.textContent = 'Bật nhạc 🎵';
+      }
+    }
+
+    musicToggle.addEventListener('click', toggleMusic);
+
+    // Try auto-play immediately
+    playMusic();
+
+    // Browser policy fallback: play on first interaction/scroll
+    const autoPlayOnGesture = () => {
+      if (bgAudio.paused) {
+        playMusic();
+      }
+      document.removeEventListener('click', autoPlayOnGesture);
+      document.removeEventListener('touchstart', autoPlayOnGesture);
+      document.removeEventListener('scroll', autoPlayOnGesture);
+    };
+    document.addEventListener('click', autoPlayOnGesture);
+    document.addEventListener('touchstart', autoPlayOnGesture);
+    document.addEventListener('scroll', autoPlayOnGesture);
   </script>
+
+  <!-- Background Audio & Floating Music Toggle -->
+  <audio id="bgAudio" src="./sound/sound.mp3" loop></audio>
+  <button class="music-toggle-btn" id="musicToggle" type="button" title="Bật / Tắt nhạc">
+    <div class="music-disk">🎵</div>
+    <div class="music-equalizer">
+      <span></span><span></span><span></span>
+    </div>
+    <span class="music-label" id="musicLabel">Bật nhạc 🎵</span>
+  </button>
 </body>
 </html>
