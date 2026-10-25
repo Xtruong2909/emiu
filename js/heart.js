@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * 💖 I LOVE YOU - INTERACTIVE HEART EXPERIENCE
+ * 💖 I LOVE YOU - INTERACTIVE HEART & ROMANTIC 6-SONG PLAYLIST EXPERIENCE
  * ============================================================================
  */
 
@@ -11,11 +11,27 @@
   const canvas = document.getElementById('loveCanvas');
   const ctx = canvas.getContext('2d');
 
-  // Audio & UI Elements
-  const bgMusic = document.getElementById('bgMusic');
-  const musicToggle = document.getElementById('musicToggle');
-  const centerHeart = document.getElementById('centerHeart');
+  // Audio & Music Player Elements
+  const mainAudio = document.getElementById('mainAudio');
+  const vinylDisc = document.getElementById('vinylDisc');
+  const songTicker = document.getElementById('songTicker');
+  const tickerTitle = document.getElementById('tickerTitle');
+  const tickerArtist = document.getElementById('tickerArtist');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  const btnPlayPause = document.getElementById('btnPlayPause');
+  const iconPlay = document.getElementById('iconPlay');
+  const iconPause = document.getElementById('iconPause');
+  const btnPlaylistToggle = document.getElementById('btnPlaylistToggle');
+  const playlistDrawer = document.getElementById('playlistDrawer');
+  const playlistItems = document.getElementById('playlistItems');
+  const drawerNowPlaying = document.getElementById('drawerNowPlaying');
+  const progressBarWrap = document.getElementById('progressBarWrap');
+  const progressBarFill = document.getElementById('progressBarFill');
+  const currentTimeEl = document.getElementById('currentTime');
+  const totalDurationEl = document.getElementById('totalDuration');
   const bottomPrompt = document.getElementById('bottomPrompt');
+  const centerHeart = document.getElementById('centerHeart');
 
   let width = 0;
   let height = 0;
@@ -28,54 +44,243 @@
   handleResize();
 
   // ============================================================================
-  // AUDIO CONTROLS & AUTOPLAY LOGIC
+  // 6-SONG ROMANTIC PLAYLIST
   // ============================================================================
-  let isPlaying = false;
+  const PLAYLIST = [
+    {
+      title: "Để Dành Khi Thức Giấc",
+      artist: "SIVAN",
+      src: "./sound/de_danh_khi_thuc_giac.m4a"
+    },
+    {
+      title: "Ánh Sao Và Bầu Trời",
+      artist: "T.R.I x Cá",
+      src: "./sound/anh_sao_va_bau_troi.m4a"
+    },
+    {
+      title: "Nàng Thơ",
+      artist: "Hoàng Dũng",
+      src: "./sound/nang_tho.m4a"
+    },
+    {
+      title: "Chuyện Đôi Ta",
+      artist: "Emcee L (Da LAB) ft. Muội",
+      src: "./sound/chuyen_doi_ta.m4a"
+    },
+    {
+      title: "11:11",
+      artist: "MiiNa x RIN9",
+      src: "./sound/11_11.m4a"
+    },
+    {
+      title: "Có Em",
+      artist: "Madihu ft. Low G",
+      src: "./sound/co_em.m4a"
+    }
+  ];
 
-  function playMusic() {
-    if (!bgMusic) return;
-    bgMusic.play().then(() => {
-      isPlaying = true;
-      if (musicToggle) musicToggle.classList.add('playing');
-      if (bottomPrompt) {
-        bottomPrompt.textContent = "💕 Đang phát bản nhạc tình yêu dịu êm 💕";
-        setTimeout(() => {
-          bottomPrompt.style.opacity = '0';
-        }, 4000);
+  let currentSongIdx = 0;
+  let isAudioPlaying = false;
+
+  function formatTime(seconds) {
+    if (isNaN(seconds) || seconds < 0) return "00:00";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  function showToast(msg) {
+    if (!bottomPrompt) return;
+    bottomPrompt.textContent = msg;
+    bottomPrompt.style.opacity = '1';
+    clearTimeout(bottomPrompt._timer);
+    bottomPrompt._timer = setTimeout(() => {
+      bottomPrompt.style.opacity = '0.5';
+    }, 4500);
+  }
+
+  function updatePlaylistUI() {
+    const song = PLAYLIST[currentSongIdx];
+    if (tickerTitle) tickerTitle.textContent = song.title;
+    if (tickerArtist) tickerArtist.textContent = song.artist;
+    if (drawerNowPlaying) drawerNowPlaying.textContent = `Đang phát: ${song.title} - ${song.artist}`;
+
+    // Update list items
+    const items = playlistItems ? playlistItems.querySelectorAll('.song-item') : [];
+    items.forEach((item, idx) => {
+      if (idx === currentSongIdx) {
+        item.classList.add('active');
+        if (isAudioPlaying) item.classList.add('playing');
+        else item.classList.remove('playing');
+      } else {
+        item.classList.remove('active', 'playing');
       }
-    }).catch(err => {
-      console.log('Autoplay deferred until user gesture:', err);
     });
-  }
 
-  function pauseMusic() {
-    if (!bgMusic) return;
-    bgMusic.pause();
-    isPlaying = false;
-    if (musicToggle) musicToggle.classList.remove('playing');
-  }
-
-  function toggleMusic(e) {
-    if (e) e.stopPropagation();
-    if (isPlaying) {
-      pauseMusic();
+    if (isAudioPlaying) {
+      if (iconPlay) iconPlay.style.display = 'none';
+      if (iconPause) iconPause.style.display = 'block';
+      if (vinylDisc) vinylDisc.classList.add('spinning');
     } else {
-      playMusic();
+      if (iconPlay) iconPlay.style.display = 'block';
+      if (iconPause) iconPause.style.display = 'none';
+      if (vinylDisc) vinylDisc.classList.remove('spinning');
     }
   }
 
-  if (musicToggle) {
-    musicToggle.addEventListener('click', toggleMusic);
+  function loadSong(idx, shouldPlay = false) {
+    currentSongIdx = (idx + PLAYLIST.length) % PLAYLIST.length;
+    const song = PLAYLIST[currentSongIdx];
+    mainAudio.src = song.src;
+    mainAudio.load();
+    updatePlaylistUI();
+
+    if (shouldPlay) {
+      playSong();
+    }
   }
 
-  // Auto-play on first user gesture anywhere
-  window.addEventListener('click', () => {
-    if (!isPlaying) playMusic();
-  }, { once: true });
+  function playSong() {
+    mainAudio.play().then(() => {
+      isAudioPlaying = true;
+      updatePlaylistUI();
+      const song = PLAYLIST[currentSongIdx];
+      showToast(`🎵 Đang phát: ${song.title} - ${song.artist} 💕`);
+    }).catch(err => {
+      console.log('Autoplay waiting for user gesture:', err);
+    });
+  }
 
-  window.addEventListener('touchstart', () => {
-    if (!isPlaying) playMusic();
-  }, { once: true });
+  function pauseSong() {
+    mainAudio.pause();
+    isAudioPlaying = false;
+    updatePlaylistUI();
+  }
+
+  function togglePlay(e) {
+    if (e) e.stopPropagation();
+    if (isAudioPlaying) {
+      pauseSong();
+    } else {
+      playSong();
+    }
+  }
+
+  function nextSong(e) {
+    if (e) e.stopPropagation();
+    loadSong(currentSongIdx + 1, true);
+  }
+
+  function prevSong(e) {
+    if (e) e.stopPropagation();
+    loadSong(currentSongIdx - 1, true);
+  }
+
+  // Generate Playlist DOM
+  function initPlaylistDrawer() {
+    if (!playlistItems) return;
+    playlistItems.innerHTML = '';
+    PLAYLIST.forEach((song, idx) => {
+      const item = document.createElement('div');
+      item.className = 'song-item' + (idx === currentSongIdx ? ' active' : '');
+      item.innerHTML = `
+        <div class="song-left">
+          <span class="song-idx">${idx + 1 < 10 ? '0' : ''}${idx + 1}</span>
+          <div class="song-meta">
+            <span class="song-name">${song.title}</span>
+            <span class="song-artist">${song.artist}</span>
+          </div>
+        </div>
+        <div class="song-equalizer">
+          <div class="eq-bar-item"></div>
+          <div class="eq-bar-item"></div>
+          <div class="eq-bar-item"></div>
+        </div>
+      `;
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        loadSong(idx, true);
+      });
+      playlistItems.appendChild(item);
+    });
+  }
+
+  // Audio Event Listeners
+  mainAudio.addEventListener('timeupdate', () => {
+    if (!isNaN(mainAudio.duration) && mainAudio.duration > 0) {
+      const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
+      if (progressBarFill) progressBarFill.style.width = `${progress}%`;
+      if (currentTimeEl) currentTimeEl.textContent = formatTime(mainAudio.currentTime);
+      if (totalDurationEl) totalDurationEl.textContent = formatTime(mainAudio.duration);
+    }
+  });
+
+  mainAudio.addEventListener('ended', () => {
+    // Automatically play next song in playlist
+    nextSong();
+  });
+
+  mainAudio.addEventListener('play', () => {
+    isAudioPlaying = true;
+    updatePlaylistUI();
+  });
+
+  mainAudio.addEventListener('pause', () => {
+    isAudioPlaying = false;
+    updatePlaylistUI();
+  });
+
+  // Scrubber Click
+  if (progressBarWrap) {
+    progressBarWrap.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const rect = progressBarWrap.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      if (!isNaN(mainAudio.duration)) {
+        mainAudio.currentTime = pos * mainAudio.duration;
+      }
+    });
+  }
+
+  // Button Controls
+  if (btnPlayPause) btnPlayPause.addEventListener('click', togglePlay);
+  if (vinylDisc) vinylDisc.addEventListener('click', togglePlay);
+  if (btnNext) btnNext.addEventListener('click', nextSong);
+  if (btnPrev) btnPrev.addEventListener('click', prevSong);
+
+  // Playlist Drawer Toggle
+  if (btnPlaylistToggle) {
+    btnPlaylistToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (playlistDrawer) playlistDrawer.classList.toggle('open');
+    });
+  }
+  if (songTicker) {
+    songTicker.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (playlistDrawer) playlistDrawer.classList.toggle('open');
+    });
+  }
+
+  // Close drawer when clicking outside
+  document.addEventListener('click', (e) => {
+    if (playlistDrawer && !playlistDrawer.contains(e.target) && !btnPlaylistToggle.contains(e.target) && !songTicker.contains(e.target)) {
+      playlistDrawer.classList.remove('open');
+    }
+  });
+
+  // Autoplay on first user interaction anywhere
+  const triggerAutoPlay = () => {
+    if (!isAudioPlaying) {
+      playSong();
+    }
+  };
+  window.addEventListener('click', triggerAutoPlay, { once: true });
+  window.addEventListener('touchstart', triggerAutoPlay, { once: true });
+
+  // Initialize
+  initPlaylistDrawer();
+  loadSong(0, false);
 
   // ============================================================================
   // MATHEMATICAL BEZIER HEART SPLINE & ARC LENGTH LOOKUP TABLE
@@ -188,7 +393,6 @@
     });
   }
 
-  // Initial floating hearts
   for (let i = 0; i < 28; i++) {
     floatingHearts.push({
       x: Math.random() * window.innerWidth,
@@ -425,7 +629,6 @@
       const pt = getPointAlongHeart(dist);
 
       let ang = pt.angle;
-      // Auto-normalize angle so letters never flip upside down
       if (Math.abs(ang) > Math.PI / 2) {
         ang += Math.PI;
       }
@@ -521,7 +724,7 @@
     }
     ctx.restore();
 
-    // Update motion offsets
+    // Motion offsets
     offsetOuter += 0.0028;
     offsetInner += 0.0022;
 

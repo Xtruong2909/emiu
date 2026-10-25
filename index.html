@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>💖 I LOVE YOU 💖</title>
-  <meta name="description" content="Trái tim tình yêu với viền chữ I Love You lung linh và lãng mạn" />
+  <meta name="description" content="Trái tim tình yêu với viền chữ I Love You lung linh và danh sách nhạc lãng mạn" />
   <meta name="theme-color" content="#18031d" />
 
   <!-- Google Fonts Preconnect & Styles -->
@@ -16,8 +16,8 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Romantic Background Music -->
-  <audio id="bgMusic" src="./sound/sound.mp3" loop preload="auto"></audio>
+  <!-- Romantic Audio Player (Dynamic Playlist) -->
+  <audio id="mainAudio" preload="auto"></audio>
 
   <!-- Canvas for Heart, Borders, Particles, Stars, and Interactive Visuals -->
   <canvas id="loveCanvas"></canvas>
@@ -28,20 +28,65 @@
     <div class="top-pill" id="topPill">✨ Chạm vào trái tim hoặc màn hình để gửi trọn yêu thương ✨</div>
 
     <!-- Bottom Status / Hint -->
-    <div class="bottom-prompt" id="bottomPrompt">🎵 Nhấp vào màn hình để bật nhạc lãng mạn</div>
+    <div class="bottom-prompt" id="bottomPrompt">🎵 Nhấp vào màn hình để phát "Để Dành Khi Thức Giấc" 💕</div>
   </div>
 
-  <!-- Music Toggle Floating Button -->
-  <button class="music-toggle" id="musicToggle" aria-label="Bật hoặc tắt nhạc nền" title="Bật/Tắt nhạc">
-    <svg viewBox="0 0 24 24">
-      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-    </svg>
-    <div class="eq-bars">
-      <div class="eq-bar"></div>
-      <div class="eq-bar"></div>
-      <div class="eq-bar"></div>
+  <!-- Romantic Glassmorphism Music Player Widget (Top-Right) -->
+  <div class="music-widget" id="musicWidget">
+    <!-- Mini Bar Header -->
+    <div class="player-minibar" id="playerMiniBar">
+      <div class="vinyl-disc" id="vinylDisc" title="Bật/Tắt nhạc">
+        <div class="disc-grooves"></div>
+        <div class="disc-heart">♥</div>
+      </div>
+      <div class="song-info-ticker" id="songTicker" title="Xem danh sách phát">
+        <span class="ticker-title" id="tickerTitle">Để Dành Khi Thức Giấc</span>
+        <span class="ticker-artist" id="tickerArtist">SIVAN</span>
+      </div>
+      <div class="minibar-controls">
+        <button class="mini-btn" id="btnPrev" title="Bài trước" aria-label="Bài trước">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="mini-btn play-pause-btn" id="btnPlayPause" title="Phát/Dừng" aria-label="Phát hoặc dừng">
+          <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="iconPause" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <button class="mini-btn" id="btnNext" title="Bài kế tiếp" aria-label="Bài kế tiếp">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <button class="mini-btn playlist-toggle-btn" id="btnPlaylistToggle" title="Danh sách bài hát (6 bài)" aria-label="Danh sách phát">
+          <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+          <span class="playlist-badge">6</span>
+        </button>
+      </div>
     </div>
-  </button>
+
+    <!-- Dropdown Playlist Card -->
+    <div class="playlist-drawer" id="playlistDrawer">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <span>💖 Playlist Tình Yêu (6 Bài)</span>
+        </div>
+        <div class="drawer-now-playing" id="drawerNowPlaying">Đang phát: Để Dành Khi Thức Giấc</div>
+      </div>
+
+      <!-- Scrubber & Time -->
+      <div class="scrubber-container">
+        <div class="progress-bar-wrap" id="progressBarWrap">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        <div class="time-display">
+          <span id="currentTime">00:00</span>
+          <span id="totalDuration">00:00</span>
+        </div>
+      </div>
+
+      <!-- Song List (6 songs) -->
+      <div class="playlist-items" id="playlistItems">
+        <!-- Generated dynamically via JS -->
+      </div>
+    </div>
+  </div>
 
   <!-- Interactive Center Heart Message -->
   <div class="center-heart-message" id="centerHeart" title="Nhấp vào để đập rộn ràng!">
@@ -49,7 +94,7 @@
     <p class="heart-subtext">MÃI MÃI BÊN EM 💕</p>
   </div>
 
-  <!-- Main Animation Script -->
+  <!-- Main Animation & Playlist Script -->
   <script src="js/heart.js"></script>
 </body>
 </html>
