@@ -1,66 +1,55 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <title>💖 Kỷ Niệm 24/10 - Mãi Yêu Em 💖</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="Kỷ niệm ngày 24/10 - Món quà từ trái tim dành tặng em yêu" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>💖 I LOVE YOU 💖</title>
+  <meta name="description" content="Trái tim tình yêu với viền chữ I Love You lung linh và lãng mạn" />
+  <meta name="theme-color" content="#18031d" />
+
+  <!-- Google Fonts Preconnect & Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/spinload.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 </head>
 <body>
-  <div class="wrapper">
-    <!-- Preloader -->
-    <div id="preloader">
-      <div class="heart-loader"></div>
-      <div class="preloader-text">Món quà kỷ niệm 24/10 đang tải... 💕</div>
-    </div>
+  <!-- Romantic Background Music -->
+  <audio id="bgMusic" src="./sound/sound.mp3" loop preload="auto"></audio>
 
-    <!-- Background -->
-    <div id="bg"></div>
+  <!-- Canvas for Heart, Borders, Particles, Stars, and Interactive Visuals -->
+  <canvas id="loveCanvas"></canvas>
 
-    <!-- Floating Hearts -->
-    <div class="hearts-container" id="heartsContainer"></div>
-    <div id="petalsContainer"></div>
+  <!-- Floating UI Overlay -->
+  <div class="ui-layer">
+    <!-- Top Romantic Badge -->
+    <div class="top-pill" id="topPill">✨ Chạm vào trái tim hoặc màn hình để gửi trọn yêu thương ✨</div>
 
-    <!-- Navigation -->
-    <nav class="love-nav">
-      <a href="index.html" class="active" id="nav-home">🏠 <span class="nav-label">Trang chủ</span></a>
-      <a href="reasons.html" id="nav-reasons">💝 <span class="nav-label">Lý do</span></a>
-      <a href="memories.html" id="nav-memories">📸 <span class="nav-label">Kỷ niệm</span></a>
-      <a href="letter.html" id="nav-letter">💌 <span class="nav-label">Thư tình</span></a>
-      <a href="promise.html" id="nav-promise">🌹 <span class="nav-label">Lời hứa</span></a>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="content">
-      <header>
-        <div class="anniversary-badge">
-          <span class="badge-sparkle">✨</span>
-          <span>KỶ NIỆM 24/10 • HAPPY ANNIVERSARY</span>
-          <span class="badge-sparkle">✨</span>
-        </div>
-        <h1 id="text3">24/10 này, em có yêu anh không nào? 🥺💖</h1>
-        <h4 id="text4">
-          Nếu em không trả lời thì anh dỗi ấy nha! 😏💍
-        </h4>
-      </header>
-      <button id="yes" type="button">Yêu anh ơi là yêu!</button>
-      <button id="no" type="button">😏 Em mơ à :333</button>
-    </div>
+    <!-- Bottom Status / Hint -->
+    <div class="bottom-prompt" id="bottomPrompt">🎵 Nhấp vào màn hình để bật nhạc lãng mạn</div>
   </div>
 
-  <audio id="bgAudio" src="./sound/sound.mp3" autoplay loop></audio>
+  <!-- Music Toggle Floating Button -->
+  <button class="music-toggle" id="musicToggle" aria-label="Bật hoặc tắt nhạc nền" title="Bật/Tắt nhạc">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+    <div class="eq-bars">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
+  </button>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-  <script src="js/myJs.js"></script>
-  <script src="js/particles.js"></script>
+  <!-- Interactive Center Heart Message -->
+  <div class="center-heart-message" id="centerHeart" title="Nhấp vào để đập rộn ràng!">
+    <h1 class="heart-calligraphy">I Love You</h1>
+    <p class="heart-subtext">MÃI MÃI BÊN EM 💕</p>
+  </div>
+
+  <!-- Main Animation Script -->
+  <script src="js/heart.js"></script>
 </body>
 </html>
