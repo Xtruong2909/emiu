@@ -1,42 +1,238 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>💖 I LOVE YOU 💖</title>
-  <meta name="description" content="Trái tim tình yêu với viền chữ I Love You lung linh và danh sách nhạc lãng mạn" />
-  <meta name="theme-color" content="#18031d" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>🌌 Una Galaxia de Amor para Ti - Thiên Hà Tình Yêu 🌌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700;800;900&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Fullscreen WebGL Canvas */
+    #webglCanvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      display: block;
+    }
 
-  <!-- Google Fonts Preconnect & Styles -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    /* Intro Screen Overlay (Exact match to video frame 00:00) */
+    .intro-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(ellipse at center, rgba(30, 4, 35, 0.88) 0%, rgba(10, 1, 14, 0.96) 60%, #030005 100%);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .intro-overlay.hidden {
+      opacity: 0;
+      transform: scale(1.18);
+      pointer-events: none;
+    }
+    .intro-card {
+      background: rgba(28, 5, 34, 0.68);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 90, 160, 0.32);
+      border-radius: 32px;
+      padding: 38px 34px;
+      max-width: 440px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), 0 0 40px rgba(255, 42, 112, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      animation: floatCard 6s ease-in-out infinite;
+    }
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .intro-title {
+      font-family: 'Playfair Display', 'Dancing Script', serif;
+      font-size: clamp(30px, 5vw, 42px);
+      font-weight: 600;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(255, 70, 140, 0.8);
+      line-height: 1.25;
+    }
+    .intro-img-wrap {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(255, 120, 180, 0.65);
+      box-shadow: 0 0 30px rgba(255, 42, 112, 0.6);
+      position: relative;
+    }
+    .intro-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .intro-subtitle {
+      font-size: 13px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: rgba(255, 205, 235, 0.9);
+      font-weight: 600;
+    }
+    .enter-btn {
+      background: linear-gradient(135deg, #ff2a70 0%, #ff528c 100%);
+      color: #fff;
+      border: none;
+      border-radius: 35px;
+      padding: 15px 36px;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 28px rgba(255, 42, 112, 0.65);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .enter-btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 40px rgba(255, 42, 112, 0.95);
+    }
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css" />
+    /* 3D Love Memory Modal (Video frame 00:08) */
+    .memory-modal {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: rgba(22, 3, 28, 0.92);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 90, 160, 0.4);
+      border-radius: 26px;
+      padding: 26px;
+      max-width: 370px;
+      width: 88%;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.85), 0 0 45px rgba(255, 42, 112, 0.45);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .memory-modal.open {
+      display: flex;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .modal-img-wrap {
+      width: 100%;
+      height: 190px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 120, 180, 0.35);
+      box-shadow: 0 0 20px rgba(255, 42, 112, 0.25);
+    }
+    .modal-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', 'Dancing Script', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: #ff85b3;
+      text-shadow: 0 0 12px rgba(255, 42, 112, 0.6);
+    }
+    .modal-text {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: rgba(255, 225, 242, 0.92);
+    }
+    .modal-close-btn {
+      background: linear-gradient(135deg, #ff2a70 0%, #ff528c 100%);
+      border: none;
+      color: #fff;
+      padding: 9px 28px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 20px rgba(255, 42, 112, 0.5);
+    }
+    .modal-close-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 28px rgba(255, 42, 112, 0.8);
+    }
+
+    /* Bottom 3D navigation hint */
+    .interaction-hint {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: rgba(255, 205, 235, 0.85);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 7px 22px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      pointer-events: none;
+      animation: pulseHint 2.5s infinite;
+      white-space: nowrap;
+    }
+    @keyframes pulseHint {
+      0%, 100% { opacity: 0.65; transform: translateX(-50%) scale(1); }
+      50% { opacity: 1; transform: translateX(-50%) scale(1.02); }
+    }
+  </style>
+
+  <!-- Three.js + OrbitControls + Tween.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
 </head>
 <body>
-  <!-- Romantic Audio Player (Dynamic Playlist) -->
+  <!-- Audio player with 6 songs -->
   <audio id="mainAudio" preload="auto"></audio>
 
-  <!-- Canvas for Heart, Borders, Particles, Stars, and Interactive Visuals -->
-  <canvas id="loveCanvas"></canvas>
+  <!-- WebGL 3D Canvas -->
+  <canvas id="webglCanvas"></canvas>
 
-  <!-- Floating UI Overlay -->
-  <div class="ui-layer">
-    <!-- Top Romantic Badge -->
-    <div class="top-pill" id="topPill">✨ Chạm vào trái tim hoặc màn hình để gửi trọn yêu thương ✨</div>
-
-    <!-- Bottom Status / Hint -->
-    <div class="bottom-prompt" id="bottomPrompt">🎵 Nhấp vào màn hình để phát "Để Dành Khi Thức Giấc" 💕</div>
+  <!-- Intro Screen Card (Matches video frame 00:00) -->
+  <div class="intro-overlay" id="introOverlay">
+    <div class="intro-card">
+      <h1 class="intro-title">Una Galaxia de Amor para Ti</h1>
+      <div class="intro-img-wrap">
+        <img src="img/memory_couple.jpg" alt="Love">
+      </div>
+      <p class="intro-subtitle">FELIZ CUMPLEAÑOS, MI VIDA 💕</p>
+      <button class="enter-btn" id="enterBtn">
+        <span>ENTRAR A NUESTRO UNIVERSO</span>
+        <span>✨</span>
+      </button>
+    </div>
   </div>
 
-  <!-- Romantic Glassmorphism Music Player Widget (Top-Right) -->
+  <!-- Music Player Widget (Top-Right) -->
   <div class="music-widget" id="musicWidget">
-    <!-- Mini Bar Header -->
     <div class="player-minibar" id="playerMiniBar">
       <div class="vinyl-disc" id="vinylDisc" title="Bật/Tắt nhạc">
-        <div class="disc-grooves"></div>
         <div class="disc-heart">♥</div>
       </div>
       <div class="song-info-ticker" id="songTicker" title="Xem danh sách phát">
@@ -64,13 +260,9 @@
     <!-- Dropdown Playlist Card -->
     <div class="playlist-drawer" id="playlistDrawer">
       <div class="drawer-header">
-        <div class="drawer-title">
-          <span>💖 Playlist Tình Yêu (6 Bài)</span>
-        </div>
+        <div class="drawer-title">💖 Playlist Tình Yêu (6 Bài)</div>
         <div class="drawer-now-playing" id="drawerNowPlaying">Đang phát: Để Dành Khi Thức Giấc</div>
       </div>
-
-      <!-- Scrubber & Time -->
       <div class="scrubber-container">
         <div class="progress-bar-wrap" id="progressBarWrap">
           <div class="progress-bar-fill" id="progressBarFill"></div>
@@ -80,21 +272,24 @@
           <span id="totalDuration">00:00</span>
         </div>
       </div>
-
-      <!-- Song List (6 songs) -->
-      <div class="playlist-items" id="playlistItems">
-        <!-- Generated dynamically via JS -->
-      </div>
+      <div class="playlist-items" id="playlistItems"></div>
     </div>
   </div>
 
-  <!-- Interactive Center Heart Message -->
-  <div class="center-heart-message" id="centerHeart" title="Nhấp vào để đập rộn ràng!">
-    <h1 class="heart-calligraphy">I Love You</h1>
-    <p class="heart-subtext">MÃI MÃI BÊN EM 💕</p>
+  <!-- Memory Modal Popup (Video frame 00:08) -->
+  <div class="memory-modal" id="memoryModal">
+    <div class="modal-img-wrap">
+      <img id="modalImg" src="img/memory_couple.jpg" alt="Memory">
+    </div>
+    <h2 class="modal-title" id="modalTitle">Amor de mi vida</h2>
+    <p class="modal-text" id="modalText">Cuanto más tiempo estamos juntos, más te amo.</p>
+    <button class="modal-close-btn" id="modalCloseBtn">ESCRIBIR CON AMOR ♥</button>
   </div>
 
-  <!-- Main Animation & Playlist Script -->
-  <script src="js/heart.js"></script>
+  <!-- 3D Navigation Hint -->
+  <div class="interaction-hint">🌌 Xoay 360° • Cuộn để phóng to/thu nhỏ • Nhấp vào ảnh để xem kỷ niệm 💕</div>
+
+  <!-- Main 3D Galaxy Script -->
+  <script src="js/galaxy.js"></script>
 </body>
 </html>
