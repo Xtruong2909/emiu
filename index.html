@@ -3,293 +3,512 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>🌌 Una Galaxia de Amor para Ti - Thiên Hà Tình Yêu 🌌</title>
+  <title>💖 Nhật Ký Tình Yêu - Hành Trình Kỷ Niệm Của Chúng Mình 💖</title>
+  <meta name="description" content="Trang nhật ký tình yêu lãng mạn, lưu giữ từng khoảnh khắc ngọt ngào và đếm ngày bên nhau.">
+  
+  <!-- Google Fonts Preconnect & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700;800;900&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Fullscreen WebGL Canvas */
-    #webglCanvas {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
-      display: block;
-    }
-
-    /* Intro Screen Overlay (Exact match to video frame 00:00) */
-    .intro-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 50;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(ellipse at center, rgba(30, 4, 35, 0.88) 0%, rgba(10, 1, 14, 0.96) 60%, #030005 100%);
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .intro-overlay.hidden {
-      opacity: 0;
-      transform: scale(1.18);
-      pointer-events: none;
-    }
-    .intro-card {
-      background: rgba(28, 5, 34, 0.68);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(255, 90, 160, 0.32);
-      border-radius: 32px;
-      padding: 38px 34px;
-      max-width: 440px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), 0 0 40px rgba(255, 42, 112, 0.35);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      animation: floatCard 6s ease-in-out infinite;
-    }
-    @keyframes floatCard {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    .intro-title {
-      font-family: 'Playfair Display', 'Dancing Script', serif;
-      font-size: clamp(30px, 5vw, 42px);
-      font-weight: 600;
-      color: #fff;
-      text-shadow: 0 0 20px rgba(255, 70, 140, 0.8);
-      line-height: 1.25;
-    }
-    .intro-img-wrap {
-      width: 145px;
-      height: 145px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid rgba(255, 120, 180, 0.65);
-      box-shadow: 0 0 30px rgba(255, 42, 112, 0.6);
-      position: relative;
-    }
-    .intro-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .intro-subtitle {
-      font-size: 13px;
-      letter-spacing: 3.5px;
-      text-transform: uppercase;
-      color: rgba(255, 205, 235, 0.9);
-      font-weight: 600;
-    }
-    .enter-btn {
-      background: linear-gradient(135deg, #ff2a70 0%, #ff528c 100%);
-      color: #fff;
-      border: none;
-      border-radius: 35px;
-      padding: 15px 36px;
-      font-size: 13.5px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 0 28px rgba(255, 42, 112, 0.65);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .enter-btn:hover {
-      transform: scale(1.07);
-      box-shadow: 0 0 40px rgba(255, 42, 112, 0.95);
-    }
-
-    /* 3D Love Memory Modal (Video frame 00:08) */
-    .memory-modal {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0.9);
-      background: rgba(22, 3, 28, 0.92);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(255, 90, 160, 0.4);
-      border-radius: 26px;
-      padding: 26px;
-      max-width: 370px;
-      width: 88%;
-      text-align: center;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.85), 0 0 45px rgba(255, 42, 112, 0.45);
-      z-index: 100;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      opacity: 0;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .memory-modal.open {
-      display: flex;
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    .modal-img-wrap {
-      width: 100%;
-      height: 190px;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 120, 180, 0.35);
-      box-shadow: 0 0 20px rgba(255, 42, 112, 0.25);
-    }
-    .modal-img-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-    .modal-title {
-      font-family: 'Playfair Display', 'Dancing Script', serif;
-      font-size: 26px;
-      font-weight: 600;
-      color: #ff85b3;
-      text-shadow: 0 0 12px rgba(255, 42, 112, 0.6);
-    }
-    .modal-text {
-      font-size: 13.5px;
-      line-height: 1.65;
-      color: rgba(255, 225, 242, 0.92);
-    }
-    .modal-close-btn {
-      background: linear-gradient(135deg, #ff2a70 0%, #ff528c 100%);
-      border: none;
-      color: #fff;
-      padding: 9px 28px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      transition: all 0.25s ease;
-      box-shadow: 0 0 20px rgba(255, 42, 112, 0.5);
-    }
-    .modal-close-btn:hover {
-      transform: scale(1.06);
-      box-shadow: 0 0 28px rgba(255, 42, 112, 0.8);
-    }
-
-    /* Bottom 3D navigation hint */
-    .interaction-hint {
-      position: absolute;
-      bottom: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      font-size: 12px;
-      letter-spacing: 1.5px;
-      color: rgba(255, 205, 235, 0.85);
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      padding: 7px 22px;
-      border-radius: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      pointer-events: none;
-      animation: pulseHint 2.5s infinite;
-      white-space: nowrap;
-    }
-    @keyframes pulseHint {
-      0%, 100% { opacity: 0.65; transform: translateX(-50%) scale(1); }
-      50% { opacity: 1; transform: translateX(-50%) scale(1.02); }
-    }
-  </style>
-
-  <!-- Three.js + OrbitControls + Tween.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
 </head>
 <body>
-  <!-- Audio player with 6 songs -->
+
+  <!-- Ambient Light Glow Backgrounds -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Background Particle & Petal FX Canvas -->
+  <canvas id="fxCanvas"></canvas>
+
+  <!-- Audio Element for 6 Songs -->
   <audio id="mainAudio" preload="auto"></audio>
 
-  <!-- WebGL 3D Canvas -->
-  <canvas id="webglCanvas"></canvas>
+  <!-- =========================================================================
+       1. ROYAL WAX-SEALED ENVELOPE (INTRO SCREEN)
+       ========================================================================= -->
+  <div class="envelope-screen" id="envelopeScreen">
+    <div class="envelope-container" id="envelopeContainer" title="Nhấp để mở phong thư tình gửi em">
+      <div class="envelope-shadow"></div>
+      
+      <!-- Envelope Pocket Structure -->
+      <div class="envelope-pocket">
+        <!-- Letter Inside Peeking Out -->
+        <div class="letter-peek">
+          <div class="letter-peek-title">Gửi Em Yêu ♥</div>
+          <div class="letter-peek-text">Món quà bất ngờ nhỏ dành riêng cho cô gái anh yêu nhất...</div>
+        </div>
 
-  <!-- Intro Screen Card (Matches video frame 00:00) -->
-  <div class="intro-overlay" id="introOverlay">
-    <div class="intro-card">
-      <h1 class="intro-title">Una Galaxia de Amor para Ti</h1>
-      <div class="intro-img-wrap">
-        <img src="img/memory_couple.jpg" alt="Love">
+        <!-- Flaps -->
+        <div class="envelope-flap-left"></div>
+        <div class="envelope-flap-right"></div>
+        <div class="envelope-flap-bottom"></div>
+        <div class="envelope-flap-top" id="envelopeFlapTop"></div>
       </div>
-      <p class="intro-subtitle">FELIZ CUMPLEAÑOS, MI VIDA 💕</p>
-      <button class="enter-btn" id="enterBtn">
-        <span>ENTRAR A NUESTRO UNIVERSO</span>
-        <span>✨</span>
-      </button>
+
+      <!-- Wax Seal Stamp -->
+      <div class="wax-seal" id="waxSeal">
+        <span class="wax-seal-icon">♥</span>
+      </div>
+    </div>
+
+    <!-- Opening Prompt -->
+    <div class="envelope-prompt">
+      <div class="envelope-prompt-badge">
+        <span>✨</span> Chạm vào dấu niêm phong sáp để mở thư <span>✨</span>
+      </div>
     </div>
   </div>
 
-  <!-- Music Player Widget (Top-Right) -->
-  <div class="music-widget" id="musicWidget">
-    <div class="player-minibar" id="playerMiniBar">
-      <div class="vinyl-disc" id="vinylDisc" title="Bật/Tắt nhạc">
-        <div class="disc-heart">♥</div>
+  <!-- =========================================================================
+       2. NAVIGATION BAR
+       ========================================================================= -->
+  <nav class="main-nav" id="mainNav">
+    <a href="#" class="nav-brand">
+      <span class="brand-heart">♥</span>
+      <span class="brand-title">Our Love Story</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#heroSection" class="nav-link active">Trang Chủ</a></li>
+      <li><a href="#timelineSection" class="nav-link">Hành Trình</a></li>
+      <li><a href="#gallerySection" class="nav-link">Album Kỷ Niệm</a></li>
+      <li><a href="#letterSection" class="nav-link">Bức Thư Tình</a></li>
+      <li><a href="#surpriseSection" class="nav-link">Lời Chúc</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-btn" id="openSettingsBtn" title="Chỉnh sửa tên và ngày kỷ niệm">
+        <span>⚙️</span> Tuỳ Biến
+      </button>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       3. MAIN SITE WRAPPER
+       ========================================================================= -->
+  <div class="site-wrapper" id="siteWrapper">
+
+    <!-- HERO SECTION: COUPLE AVATAR & LOVE DAYS COUNTER -->
+    <section class="hero-section" id="heroSection">
+      <div class="container">
+        <!-- Couple Avatar Frame with Conic Gradient Glow -->
+        <div class="couple-avatar-wrap">
+          <div class="couple-avatar-glow"></div>
+          <div class="couple-avatar-img">
+            <img src="img/p5.jpg" alt="Khoảnh khắc hạnh phúc của chúng mình">
+          </div>
+          <div class="couple-badge-heart">♥</div>
+        </div>
+
+        <!-- Couple Names -->
+        <h1 class="hero-names" id="heroNames">Xuân Trường <span class="heart-symbol">♥</span> Quỳnh Như</h1>
+        <p class="hero-quote" id="heroQuote">Dẫu cho năm tháng đổi thay, chỉ cần ngoảnh lại, anh vẫn sẽ luôn ở đây cạnh em...</p>
+
+        <!-- Live Love Days Counter Card -->
+        <div class="counter-card">
+          <div class="counter-header">
+            <span>⏳</span> Chúng mình đã bên nhau được <span>💖</span>
+          </div>
+          <div class="counter-grid">
+            <div class="counter-unit">
+              <div class="unit-number" id="countDays">0</div>
+              <div class="unit-label">Ngày</div>
+            </div>
+            <div class="counter-unit">
+              <div class="unit-number" id="countHours">00</div>
+              <div class="unit-label">Giờ</div>
+            </div>
+            <div class="counter-unit">
+              <div class="unit-number" id="countMins">00</div>
+              <div class="unit-label">Phút</div>
+            </div>
+            <div class="counter-unit">
+              <div class="unit-number" id="countSecs">00</div>
+              <div class="unit-label">Giây</div>
+            </div>
+          </div>
+          <div class="counter-footer">
+            Mỗi giây phút bên em đều là món quà ngọt ngào nhất mà cuộc đời trao cho anh ✨
+          </div>
+        </div>
       </div>
-      <div class="song-info-ticker" id="songTicker" title="Xem danh sách phát">
-        <span class="ticker-title" id="tickerTitle">Để Dành Khi Thức Giấc</span>
-        <span class="ticker-artist" id="tickerArtist">SIVAN</span>
+    </section>
+
+    <!-- SECTION 1: OUR STORY TIMELINE -->
+    <section class="timeline-section" id="timelineSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Hành Trình Tình Yêu</span>
+          <h2 class="section-title">Từng Chặng Đường Mình Đi Qua</h2>
+          <p class="section-subtitle">Mỗi dấu mốc đều là một mảnh ghép quý báu trên chuyến hành trình đầy ắp yêu thương.</p>
+        </div>
+
+        <div class="timeline-wrapper">
+          <div class="timeline-line"></div>
+
+          <!-- Timeline Item 1 -->
+          <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-photo" title="Nhấp để xem rõ nét">
+                <img src="img/p1.jpg" alt="Ngày định mệnh gặp gỡ">
+              </div>
+              <span class="timeline-date">Khoảnh khắc đầu tiên</span>
+              <h3 class="timeline-item-title">Ánh Mắt Định Mệnh</h3>
+              <p class="timeline-item-desc">Giữa hàng vạn người lướt qua trên phố, khoảnh khắc ánh mắt ta vô tình chạm nhau đã khiến tim anh lỡ mất một nhịp.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-photo" title="Nhấp để xem rõ nét">
+                <img src="img/p4.jpg" alt="Cái nắm tay đầu tiên">
+              </div>
+              <span class="timeline-date">Bước ngoặt ngọt ngào</span>
+              <h3 class="timeline-item-title">Cái Nắm Tay Đầu Tiên</h3>
+              <p class="timeline-item-desc">Những ngón tay khẽ chạm rồi đan chặt vào nhau. Hơi ấm từ bàn tay nhỏ bé của em khiến anh nhận ra: Em chính là định mệnh của anh.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3 -->
+          <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-photo" title="Nhấp để xem rõ nét">
+                <img src="img/p2.jpg" alt="Những cái ôm ấm áp">
+              </div>
+              <span class="timeline-date">Chốn bình yên nhất</span>
+              <h3 class="timeline-item-title">Những Chiếc Ôm Vỗ Về</h3>
+              <p class="timeline-item-desc">Sau những bộn bề mỏi mệt ngoài kia, chỉ cần được ôm em thật chặt vào lòng, mọi giông bão bỗng chốc hóa thành bình yên dịu ngọt.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 4 -->
+          <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-photo" title="Nhấp để xem rõ nét">
+                <img src="img/p5.jpg" alt="Những chuyến đi cùng nhau">
+              </div>
+              <span class="timeline-date">Hành trình rong ruổi</span>
+              <h3 class="timeline-item-title">Nụ Cười Trên Mọi Nẻo Đường</h3>
+              <p class="timeline-item-desc">Đi đâu chẳng còn quan trọng nữa, bởi vì trên mỗi chặng đường anh đi, điều tuyệt vời nhất luôn là được nhìn thấy nụ cười rạng rỡ của em.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 5 -->
+          <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-photo" title="Nhấp để xem rõ nét">
+                <img src="img/p7.jpg" alt="Tựa đầu bên anh">
+              </div>
+              <span class="timeline-date">Khoảnh khắc đời thường</span>
+              <h3 class="timeline-item-title">Hạnh Phúc Giản Đơn</h3>
+              <p class="timeline-item-desc">Chỉ là những buổi chiều tựa vai nhau lặng ngắm hoàng hôn, cùng chia nhau ly trà sữa và những câu chuyện vụn vặt cũng đủ làm lòng xao xuyến.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 6 -->
+          <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-photo" title="Nhấp để xem rõ nét">
+                <img src="img/p9.jpg" alt="Bóng hình đôi ta">
+              </div>
+              <span class="timeline-date">Mãi mãi về sau</span>
+              <h3 class="timeline-item-title">Lời Hứa Tương Lai</h3>
+              <p class="timeline-item-desc">Dù năm tháng có trôi qua bao lâu, anh vẫn nguyện luôn ở đây, cùng em viết tiếp những trang kỷ niệm ngọt ngào nhất của cuộc đời.</p>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="minibar-controls">
-        <button class="mini-btn" id="btnPrev" title="Bài trước" aria-label="Bài trước">
+    </section>
+
+    <!-- SECTION 2: 3D POLAROID GALLERY (ALL 9 REAL PHOTOS) -->
+    <section class="gallery-section" id="gallerySection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Album Kỷ Niệm</span>
+          <h2 class="section-title">Góc Nhỏ Kỷ Niệm Của Hai Đứa</h2>
+          <p class="section-subtitle">Chạm vào từng tấm ảnh Polaroid để phóng to và đọc những dòng tâm sự đáng yêu nhé!</p>
+        </div>
+
+        <div class="gallery-grid">
+          <!-- Polaroid 1 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p1.jpg" alt="Ánh mắt trong veo">
+            </div>
+            <div class="polaroid-caption">Ánh mắt trong veo 💕</div>
+            <div class="polaroid-sub">Mỗi lần nhìn em là tim anh đập rộn ràng</div>
+          </div>
+
+          <!-- Polaroid 2 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p2.jpg" alt="Chốn bình yên">
+            </div>
+            <div class="polaroid-caption">Chốn bình yên nhất 🌸</div>
+            <div class="polaroid-sub">Cái ôm ấm áp xua tan mọi mỏi mệt</div>
+          </div>
+
+          <!-- Polaroid 3 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p3.jpg" alt="Nụ cười tỏa nắng">
+            </div>
+            <div class="polaroid-caption">Nụ cười tỏa nắng ✨</div>
+            <div class="polaroid-sub">Em bé xinh đẹp nhất trong mắt anh</div>
+          </div>
+
+          <!-- Polaroid 4 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p4.jpg" alt="Nắm chặt tay nhau">
+            </div>
+            <div class="polaroid-caption">Nắm chặt tay nhau 🤝</div>
+            <div class="polaroid-sub">Đan chặt tay nhau qua mọi giông bão</div>
+          </div>
+
+          <!-- Polaroid 5 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p5.jpg" alt="Hạnh phúc bên nhau">
+            </div>
+            <div class="polaroid-caption">Hạnh phúc bên em 💖</div>
+            <div class="polaroid-sub">Nụ cười rạng rỡ của hai đứa mình</div>
+          </div>
+
+          <!-- Polaroid 6 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p6.jpg" alt="Những ngày ngọt ngào">
+            </div>
+            <div class="polaroid-caption">Những ngày ngọt ngào 🍬</div>
+            <div class="polaroid-sub">Bên em ngày nào cũng là ngày vui</div>
+          </div>
+
+          <!-- Polaroid 7 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p7.jpg" alt="Tựa đầu bên anh">
+            </div>
+            <div class="polaroid-caption">Tựa đầu bên anh 🌹</div>
+            <div class="polaroid-sub">Chỗ dựa vững chãi này là của riêng em</div>
+          </div>
+
+          <!-- Polaroid 8 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p8.jpg" alt="Em bé ngoan">
+            </div>
+            <div class="polaroid-caption">Em bé đáng yêu 🥺</div>
+            <div class="polaroid-sub">Dù lớn thế nào vẫn là em bé của anh</div>
+          </div>
+
+          <!-- Polaroid 9 -->
+          <div class="polaroid-card">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-img-wrap">
+              <img src="img/p9.jpg" alt="Bóng hình đôi ta">
+            </div>
+            <div class="polaroid-caption">I Love You 3000 💍</div>
+            <div class="polaroid-sub">Bóng hình đôi ta in sâu vào ký ức</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: TYPEWRITER LOVE LETTER -->
+    <section class="letter-section" id="letterSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Thư Tình Gửi Em</span>
+          <h2 class="section-title">Những Lời Từ Tận Đáy Lòng</h2>
+          <p class="section-subtitle">Từng dòng chữ được viết bằng tất cả sự chân thành và tình cảm anh dành cho em.</p>
+        </div>
+
+        <div class="letter-paper-wrap">
+          <div class="letter-paper">
+            <span class="letter-corner-flower">🌸</span>
+            
+            <div class="letter-header">
+              <div class="letter-salutation" id="letterSalutation">Gửi Quỳnh Như - Em bé ngoan của anh ♥</div>
+              <div class="letter-date-stamp">💌 FROM WITH LOVE</div>
+            </div>
+
+            <!-- Typewriter Text Container -->
+            <div class="letter-body" id="letterBody"></div><span class="letter-cursor"></span>
+
+            <div class="letter-signature">
+              <div class="letter-sign-text">Người yêu em nhất trên đời,</div>
+              <div class="letter-sign-name" id="letterSignName">Xuân Trường ♥</div>
+            </div>
+          </div>
+
+          <div class="letter-actions">
+            <button class="letter-btn" id="replayLetterBtn">
+              <span>✍️</span> Gõ Lại Thư
+            </button>
+            <button class="letter-btn" id="editLetterBtn">
+              <span>✏️</span> Viết Lời Mới
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: LOVE SURPRISES & HEART CANNON -->
+    <section class="surprise-section" id="surpriseSection">
+      <div class="container">
+        <div class="surprise-box">
+          <h2 class="section-title" style="margin-bottom: 8px;">Gửi Triệu Trái Tim & Lời Chúc</h2>
+          <p class="section-subtitle" style="margin-bottom: 28px;">Nhấp vào nút bên dưới để nhận một lời nhắn bất ngờ ngọt ngào từ anh nhé!</p>
+          
+          <button class="heart-cannon-btn" id="heartCannonBtn">
+            <span>💖</span> BẮN TRIỆU YÊU THƯƠNG <span>✨</span>
+          </button>
+
+          <div class="love-toast-container" id="loveQuoteToast">
+            <span class="love-quote-badge">Chạm vào nút để nhận điều bất ngờ ngọt ngào dành riêng cho em! 💕</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SITE FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>Được thiết kế với tất cả tình yêu thương <span class="footer-heart">♥</span> Dành riêng cho em</p>
+        <p style="margin-top: 6px; font-size: 11.5px; opacity: 0.65;">Our Beautiful Story • Forever & Always</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- =========================================================================
+       4. ROMANTIC VINYL MUSIC PLAYER (FLOATING WIDGET)
+       ========================================================================= -->
+  <div class="vinyl-player-widget" id="vinylPlayerWidget">
+    
+    <!-- Dropdown Playlist Card -->
+    <div class="playlist-popup" id="playlistPopup">
+      <div class="popup-header">
+        <span class="popup-title">💖 Playlist Tình Yêu (6 Bài)</span>
+        <button class="popup-close" id="playlistCloseBtn">✕</button>
+      </div>
+
+      <!-- Scrubber -->
+      <div class="progress-area">
+        <div class="progress-track" id="progressTrack">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="time-labels">
+          <span id="currTimeLabel">00:00</span>
+          <span id="totalDurationLabel">00:00</span>
+        </div>
+      </div>
+
+      <!-- Song rows -->
+      <div class="playlist-list" id="playlistList"></div>
+    </div>
+
+    <!-- Mini Player Capsule Bar -->
+    <div class="player-capsule" id="playerCapsule">
+      <!-- Spinning Vinyl Record -->
+      <div class="vinyl-disc-wrap" id="vinylDisc" title="Phát / Tạm dừng">
+        <div class="disc-center">♥</div>
+      </div>
+
+      <!-- Song info ticker -->
+      <div class="song-info" id="playlistToggleBtn" title="Xem danh sách bài hát">
+        <div class="song-title-text" id="currentSongTitle">Để Dành Khi Thức Giấc</div>
+        <div class="song-artist-text" id="currentSongArtist">SIVAN</div>
+      </div>
+
+      <!-- Controls -->
+      <div class="player-btns">
+        <button class="ctrl-btn" id="prevBtn" title="Bài trước">
           <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
         </button>
-        <button class="mini-btn play-pause-btn" id="btnPlayPause" title="Phát/Dừng" aria-label="Phát hoặc dừng">
+        <button class="ctrl-btn play-pause-btn" id="playPauseBtn" title="Phát hoặc Dừng">
           <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           <svg id="iconPause" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
         </button>
-        <button class="mini-btn" id="btnNext" title="Bài kế tiếp" aria-label="Bài kế tiếp">
+        <button class="ctrl-btn" id="nextBtn" title="Bài kế tiếp">
           <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
         </button>
-        <button class="mini-btn playlist-toggle-btn" id="btnPlaylistToggle" title="Danh sách bài hát (6 bài)" aria-label="Danh sách phát">
-          <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-          <span class="playlist-badge">6</span>
-        </button>
       </div>
     </div>
 
-    <!-- Dropdown Playlist Card -->
-    <div class="playlist-drawer" id="playlistDrawer">
-      <div class="drawer-header">
-        <div class="drawer-title">💖 Playlist Tình Yêu (6 Bài)</div>
-        <div class="drawer-now-playing" id="drawerNowPlaying">Đang phát: Để Dành Khi Thức Giấc</div>
+  </div>
+
+  <!-- =========================================================================
+       5. LIGHTBOX MODAL FOR MEMORY PHOTOS
+       ========================================================================= -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-content">
+      <div class="lightbox-img-wrap">
+        <img id="lightboxImg" src="img/p1.jpg" alt="Kỷ niệm đôi ta">
       </div>
-      <div class="scrubber-container">
-        <div class="progress-bar-wrap" id="progressBarWrap">
-          <div class="progress-bar-fill" id="progressBarFill"></div>
-        </div>
-        <div class="time-display">
-          <span id="currentTime">00:00</span>
-          <span id="totalDuration">00:00</span>
-        </div>
-      </div>
-      <div class="playlist-items" id="playlistItems"></div>
+      <h3 class="lightbox-title" id="lightboxTitle">Kỷ Niệm Của Chúng Mình</h3>
+      <p class="lightbox-desc" id="lightboxDesc">Mỗi khoảnh khắc bên em đều là một kỷ niệm ngọt ngào vô giá.</p>
+      <button class="lightbox-close-btn" id="lightboxCloseBtn">ĐÓNG LẠI ♥</button>
     </div>
   </div>
 
-  <!-- Memory Modal Popup (Video frame 00:08) -->
-  <div class="memory-modal" id="memoryModal">
-    <div class="modal-img-wrap">
-      <img id="modalImg" src="img/memory_couple.jpg" alt="Memory">
+  <!-- =========================================================================
+       6. QUICK CUSTOMIZE & SETTINGS MODAL
+       ========================================================================= -->
+  <div class="settings-modal" id="settingsModal">
+    <div class="settings-card">
+      <div class="settings-header">
+        <div class="settings-title"><span>⚙️</span> Tuỳ Biến Thông Tin Đôi Bạn</div>
+        <button class="settings-close" id="settingsCloseBtn">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Tên bạn trai:</label>
+        <input type="text" class="form-input" id="inputMaleName" placeholder="Ví dụ: Xuân Trường">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Tên bạn gái (người nhận):</label>
+        <input type="text" class="form-input" id="inputFemaleName" placeholder="Ví dụ: Quỳnh Như">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Ngày bắt đầu yêu nhau:</label>
+        <input type="date" class="form-input" id="inputStartDate">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Câu quote tựa đề:</label>
+        <input type="text" class="form-input" id="inputQuote" placeholder="Câu nói yêu thích của hai bạn...">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Nội dung bức thư tình:</label>
+        <textarea class="form-textarea" id="inputLetterBody" rows="5" placeholder="Gõ lời tâm sự ngọt ngào gửi đến em..."></textarea>
+      </div>
+
+      <button class="settings-save-btn" id="saveSettingsBtn">💾 LƯU & ÁP DỤNG NGAY</button>
     </div>
-    <h2 class="modal-title" id="modalTitle">Amor de mi vida</h2>
-    <p class="modal-text" id="modalText">Cuanto más tiempo estamos juntos, más te amo.</p>
-    <button class="modal-close-btn" id="modalCloseBtn">ESCRIBIR CON AMOR ♥</button>
   </div>
 
-  <!-- 3D Navigation Hint -->
-  <div class="interaction-hint">🌌 Xoay 360° • Cuộn để phóng to/thu nhỏ • Nhấp vào ảnh để xem kỷ niệm 💕</div>
-
-  <!-- Main 3D Galaxy Script -->
-  <script src="js/galaxy.js"></script>
+  <!-- Main JavaScript Controller -->
+  <script src="js/story.js"></script>
 </body>
 </html>
