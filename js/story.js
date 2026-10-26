@@ -14,10 +14,10 @@
   // ============================================================================
   const DEFAULT_CONFIG = {
     maleName: "Xuân Trường",
-    femaleName: "Quỳnh Như",
-    startDate: "2023-10-20", // YYYY-MM-DD
+    femaleName: "Lan Anh",
+    startDate: "2025-10-26", // YYYY-MM-DD
     quote: "Dẫu cho năm tháng đổi thay, chỉ cần ngoảnh lại, anh vẫn sẽ luôn ở đây cạnh em...",
-    letterSalutation: "Gửi Quỳnh Như - Em bé ngoan của anh ♥",
+    letterSalutation: "Gửi Lan Anh - Em bé ngoan của anh ♥",
     letterBody: `Gửi em, cô gái đã thắp sáng cả bầu trời trong lòng anh...
 
 Cảm ơn em vì đã đến bên anh, vì những nụ cười trong veo, những cái ôm ấm áp và cả những khoảnh khắc giản đơn mà vô cùng quý giá. 
@@ -32,7 +32,15 @@ Anh mong rằng dù 1 năm, 5 năm, 10 năm hay cả cuộc đời sau này, ch�
   function loadConfig() {
     try {
       const saved = localStorage.getItem('love_story_config');
-      if (saved) return { ...DEFAULT_CONFIG, ...JSON.parse(saved) };
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.femaleName === "Quỳnh Như") {
+          parsed.femaleName = "Lan Anh";
+          if (parsed.letterSalutation) parsed.letterSalutation = parsed.letterSalutation.replace("Quỳnh Như", "Lan Anh");
+          localStorage.setItem('love_story_config', JSON.stringify(parsed));
+        }
+        return { ...DEFAULT_CONFIG, ...parsed };
+      }
     } catch (e) {
       console.warn('Error reading config from localStorage:', e);
     }
