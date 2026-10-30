@@ -6,6 +6,7 @@
 
 // --- Global State ---
 let currentM = 0.1;
+let targetM = 0.1;
 let currentMode = 'standard'; // 'standard', 'pulse16', 'grid4'
 let isPlaying = false;
 let isUserDraggingSlider = false;
@@ -51,28 +52,28 @@ const gridContexts = gridCanvases.map(c => c ? c.getContext('2d') : null);
 const bgAudio = document.getElementById('bgAudio');
 
 // --- Timeline synchronization for the video ---
-// [timeInSec, mValue, primaryLyric, secondaryLyric, modeTrigger]
+// Keep m = 100 once reached so heart NEVER collapses or disappears!
 const TIMELINE = [
-  { t: 0.0, m: 0.1, p: '', s: '', mode: 'standard' },
-  { t: 0.9, m: 0.3, p: 'GIỜ ĐÂY', s: '', mode: 'standard' },
-  { t: 1.8, m: 0.5, p: 'GIỜ ĐÂY', s: '', mode: 'standard' },
-  { t: 2.7, m: 0.8, p: 'GIỜ ĐÂY', s: '~ DẠT DÀO TỪNG TIẾNG MƯA RÀO ~', mode: 'standard' },
-  { t: 3.8, m: 1.4, p: 'GIỜ ĐÂY', s: '~ DẠT DÀO TỪNG TIẾNG MƯA RÀO ~', mode: 'standard' },
-  { t: 4.8, m: 2.1, p: 'GIỜ ĐÂY', s: '~ DẠT DÀO TỪNG TIẾNG MƯA RÀO ~', mode: 'standard' },
-  { t: 5.8, m: 3.3, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '', mode: 'standard' },
-  { t: 6.8, m: 4.9, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '', mode: 'standard' },
-  { t: 7.8, m: 7.4, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '', mode: 'standard' },
-  { t: 8.8, m: 11.0, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~', mode: 'standard' },
-  { t: 9.9, m: 16.4, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~', mode: 'standard' },
-  { t: 11.0, m: 24.4, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~', mode: 'standard' },
-  { t: 12.0, m: 35.5, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~', mode: 'standard' },
-  { t: 13.0, m: 52.7, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~', mode: 'standard' },
-  { t: 14.0, m: 78.0, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~', mode: 'standard' },
-  { t: 14.8, m: 100.0, p: 'CÓ AI TỪNG KHÓC VÌ MỘT', s: '~ MÙA HẠ KHÔNG NẮNG ~', mode: 'grid4' },
-  { t: 18.5, m: 16.0, p: 'CÓ AI MỘT ĐỜI MÀ QUÊN ĐI', s: '~ SỰ THIẾU VẮNG ~', mode: 'pulse16' },
-  { t: 22.0, m: 16.0, p: 'CÓ NGƯỜI TỪNG NÓI SẼ LÀM', s: '~ MẶT TRỜI DỊU DÀNG ~', mode: 'pulse16' },
-  { t: 25.0, m: 16.0, p: 'NHƯNG GIỜ CHÌM TRONG', s: '~ BIỂN KHƠI ~', mode: 'pulse16' },
-  { t: 28.5, m: 100.0, p: 'TOÁN HỌC CŨNG NHƯ TÌNH YÊU', s: '~ MÃI MÃI HƯỚNG VỀ EM ~ ❤️', mode: 'standard' }
+  { t: 0.0, m: 0.1, p: '', s: '' },
+  { t: 0.9, m: 0.3, p: 'GIỜ ĐÂY', s: '' },
+  { t: 1.8, m: 0.5, p: 'GIỜ ĐÂY', s: '' },
+  { t: 2.7, m: 0.8, p: 'GIỜ ĐÂY', s: '~ DẠT DÀO TỪNG TIẾNG MƯA RÀO ~' },
+  { t: 3.8, m: 1.4, p: 'GIỜ ĐÂY', s: '~ DẠT DÀO TỪNG TIẾNG MƯA RÀO ~' },
+  { t: 4.8, m: 2.1, p: 'GIỜ ĐÂY', s: '~ DẠT DÀO TỪNG TIẾNG MƯA RÀO ~' },
+  { t: 5.8, m: 3.3, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '' },
+  { t: 6.8, m: 4.9, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '' },
+  { t: 7.8, m: 7.4, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '' },
+  { t: 8.8, m: 11.0, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~' },
+  { t: 9.9, m: 16.4, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~' },
+  { t: 11.0, m: 24.4, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~' },
+  { t: 12.0, m: 35.5, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~' },
+  { t: 13.0, m: 52.7, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~' },
+  { t: 14.0, m: 78.0, p: 'CÔ ĐƠN KHÔNG SẮC KHÔNG MÀU', s: '~ HỎI AI ĐÃ ĐÁNH CẮP NỤ CƯỜI ~' },
+  { t: 14.8, m: 100.0, p: 'CÓ AI TỪNG KHÓC VÌ MỘT', s: '~ MÙA HẠ KHÔNG NẮNG ~' },
+  { t: 18.5, m: 100.0, p: 'CÓ AI MỘT ĐỜI MÀ QUÊN ĐI', s: '~ SỰ THIẾU VẮNG ~' },
+  { t: 22.0, m: 100.0, p: 'CÓ NGƯỜI TỪNG NÓI SẼ LÀM', s: '~ MẶT TRỜI DỊU DÀNG ~' },
+  { t: 25.0, m: 100.0, p: 'NHƯNG GIỜ CHÌM TRONG', s: '~ BIỂN KHƠI ~' },
+  { t: 28.5, m: 100.0, p: 'TOÁN HỌC CŨNG NHƯ TÌNH YÊU', s: '~ MÃI MÃI HƯỚNG VỀ EM ~ ❤️' }
 ];
 
 // Confession Letter Text
@@ -157,14 +158,25 @@ function evalEnvelopeBottom(x) {
   return Math.cbrt(x2) - Math.sqrt(Math.max(0, 3 - x2));
 }
 
+// --- Smooth Physiological Heartbeat (lub-dub) ---
+function getSmoothHeartbeat(time) {
+  const cycle = (time % 1.1) / 1.1; // 1.1s per cardiac cycle
+  let pump = 0;
+  if (cycle < 0.16) {
+    pump = Math.sin((cycle / 0.16) * Math.PI) * 0.052;
+  } else if (cycle >= 0.20 && cycle < 0.36) {
+    pump = Math.sin(((cycle - 0.20) / 0.16) * Math.PI) * 0.026;
+  }
+  return 1.0 + pump;
+}
+
 // --- Canvas Drawing & Coordinate Transform ---
 function drawChalkboardGraph(ctx, width, height, mVal, options = {}) {
   const {
     isPurple = false,
     pulseScale = 1.0,
     phase = 0,
-    showGridText = true,
-    samples = 3200
+    showGridText = true
   } = options;
 
   ctx.clearRect(0, 0, width, height);
@@ -269,80 +281,90 @@ function drawChalkboardGraph(ctx, width, height, mVal, options = {}) {
   }
   ctx.restore();
 
-  // 4. Inner Heart Fill (Appears as m increases)
-  if (mVal > 15) {
-    const fillAlpha = Math.min(0.85, ((mVal - 15) / 50) * 0.82);
+  // 4. Inner Heart Fill (Appears smoothly as m increases, never disappears!)
+  if (mVal > 12) {
+    const fillAlpha = Math.min(0.88, ((mVal - 12) / 45) * 0.88);
     ctx.save();
     ctx.beginPath();
     
-    // Top boundary from -SQRT_3 to SQRT_3
-    const N_FILL = 200;
-    for (let i = 0; i <= N_FILL; i++) {
-      const x = -SQRT_3 + (2 * SQRT_3 * i) / N_FILL;
+    const halfFill = 250;
+    // Top boundary: from -SQRT_3 to 0
+    for (let i = halfFill; i >= 0; i--) {
+      const x = - (SQRT_3 * i) / halfFill;
       const y = evalEnvelopeTop(x);
-      const px = toPxX(x);
-      const py = toPxY(y);
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
+      if (i === halfFill) ctx.moveTo(toPxX(x), toPxY(y));
+      else ctx.lineTo(toPxX(x), toPxY(y));
     }
-    // Bottom boundary from SQRT_3 back to -SQRT_3
-    for (let i = N_FILL; i >= 0; i--) {
-      const x = -SQRT_3 + (2 * SQRT_3 * i) / N_FILL;
+    // Top boundary: from 0 to SQRT_3
+    for (let i = 1; i <= halfFill; i++) {
+      const x = (SQRT_3 * i) / halfFill;
+      const y = evalEnvelopeTop(x);
+      ctx.lineTo(toPxX(x), toPxY(y));
+    }
+    // Bottom boundary: from SQRT_3 to 0
+    for (let i = halfFill; i >= 0; i--) {
+      const x = (SQRT_3 * i) / halfFill;
       const y = evalEnvelopeBottom(x);
-      const px = toPxX(x);
-      const py = toPxY(y);
-      ctx.lineTo(px, py);
+      ctx.lineTo(toPxX(x), toPxY(y));
+    }
+    // Bottom boundary: from 0 to -SQRT_3
+    for (let i = 1; i <= halfFill; i++) {
+      const x = - (SQRT_3 * i) / halfFill;
+      const y = evalEnvelopeBottom(x);
+      ctx.lineTo(toPxX(x), toPxY(y));
     }
     ctx.closePath();
 
     // Heart Gradient Fill
     const grad = ctx.createRadialGradient(
-      toPxX(0), toPxY(0.7), 10,
+      toPxX(0), toPxY(0.7), 8,
       toPxX(0), toPxY(0.3), scale * 2.2
     );
     if (!isPurple) {
-      grad.addColorStop(0, `rgba(255, 50, 100, ${fillAlpha})`);
-      grad.addColorStop(0.7, `rgba(230, 20, 65, ${fillAlpha * 0.85})`);
-      grad.addColorStop(1, `rgba(180, 10, 45, ${fillAlpha * 0.7})`);
+      grad.addColorStop(0, `rgba(255, 60, 110, ${fillAlpha})`);
+      grad.addColorStop(0.65, `rgba(235, 25, 75, ${fillAlpha * 0.92})`);
+      grad.addColorStop(1, `rgba(180, 10, 45, ${fillAlpha * 0.75})`);
     } else {
       grad.addColorStop(0, `rgba(232, 121, 249, ${fillAlpha})`);
-      grad.addColorStop(0.7, `rgba(192, 132, 252, ${fillAlpha * 0.85})`);
-      grad.addColorStop(1, `rgba(147, 51, 234, ${fillAlpha * 0.7})`);
+      grad.addColorStop(0.65, `rgba(192, 132, 252, ${fillAlpha * 0.92})`);
+      grad.addColorStop(1, `rgba(147, 51, 234, ${fillAlpha * 0.75})`);
     }
     ctx.fillStyle = grad;
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = isPurple ? 'rgba(216, 70, 239, 0.6)' : 'rgba(255, 45, 85, 0.7)';
+    ctx.shadowBlur = 24;
+    ctx.shadowColor = isPurple ? 'rgba(216, 70, 239, 0.75)' : 'rgba(255, 45, 85, 0.85)';
     ctx.fill();
     ctx.restore();
   }
 
-  // 5. Draw the Dynamic Mathematical Curve
+  // 5. Draw the Dynamic Mathematical Curve with Symmetrical High-Res Sampling
   ctx.save();
   ctx.beginPath();
 
-  const numPoints = Math.max(samples, Math.round(mVal * 80));
-  const step = (2 * SQRT_3) / numPoints;
-
-  for (let i = 0; i <= numPoints; i++) {
-    const x = -SQRT_3 + i * step;
+  const halfSamples = Math.max(1800, Math.round(mVal * 55));
+  // Left half: from -SQRT_3 to 0
+  for (let i = halfSamples; i >= 0; i--) {
+    const x = - (SQRT_3 * i) / halfSamples;
     const y = evalF(x, mVal, phase);
-    const px = toPxX(x);
-    const py = toPxY(y);
-
-    if (i === 0) {
-      ctx.moveTo(px, py);
+    if (i === halfSamples) {
+      ctx.moveTo(toPxX(x), toPxY(y));
     } else {
-      ctx.lineTo(px, py);
+      ctx.lineTo(toPxX(x), toPxY(y));
     }
+  }
+  // Right half: from 0 to SQRT_3
+  for (let i = 1; i <= halfSamples; i++) {
+    const x = (SQRT_3 * i) / halfSamples;
+    const y = evalF(x, mVal, phase);
+    ctx.lineTo(toPxX(x), toPxY(y));
   }
 
   const strokeColor = isPurple ? '#e879f9' : '#ff2d55';
-  const glowColor = isPurple ? 'rgba(232, 121, 249, 0.85)' : 'rgba(255, 45, 85, 0.9)';
+  const glowColor = isPurple ? 'rgba(232, 121, 249, 0.9)' : 'rgba(255, 45, 85, 0.95)';
   
   ctx.strokeStyle = strokeColor;
-  ctx.lineWidth = mVal > 40 ? 1.6 : 2.2;
+  ctx.lineWidth = mVal > 40 ? 1.8 : 2.2;
   ctx.shadowColor = glowColor;
-  ctx.shadowBlur = mVal > 40 ? 12 : 16;
+  ctx.shadowBlur = mVal > 40 ? 14 : 18;
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
   ctx.stroke();
@@ -372,15 +394,39 @@ function updateFormulaDisplay(mVal, isPulseMode = false) {
   }
 }
 
-// --- Slider & UI Value Sync ---
+// --- Smooth Parameter m Interpolation (Lerp) ---
 function setM(val, updateInput = true) {
-  currentM = Math.max(0.1, Math.min(100.0, parseFloat(val.toFixed(1))));
-  mValueDisplay.textContent = currentM.toFixed(1);
-  if (updateInput && mSlider) {
-    mSlider.value = currentM;
-    // Update track gradient fill
-    const percent = (currentM - 0.1) / (100.0 - 0.1) * 100;
+  targetM = Math.max(0.1, Math.min(100.0, parseFloat(val.toFixed(1))));
+  if (!isPlaying || isUserDraggingSlider) {
+    currentM = targetM;
+    mValueDisplay.textContent = currentM.toFixed(1);
+    if (updateInput && mSlider) {
+      mSlider.value = currentM;
+      updateSliderGradient(currentM);
+    }
+  }
+}
+
+function updateSliderGradient(val) {
+  if (mSlider) {
+    const percent = (val - 0.1) / (100.0 - 0.1) * 100;
     mSlider.style.background = `linear-gradient(to right, var(--gold) 0%, var(--gold) ${percent}%, rgba(255, 255, 255, 0.2) ${percent}%, rgba(255, 255, 255, 0.2) 100%)`;
+  }
+}
+
+function updateMLerp() {
+  if (isPlaying && !isUserDraggingSlider) {
+    if (Math.abs(targetM - currentM) > 0.005) {
+      currentM += (targetM - currentM) * 0.16;
+      mValueDisplay.textContent = currentM.toFixed(1);
+      if (mSlider) {
+        mSlider.value = currentM;
+        updateSliderGradient(currentM);
+      }
+    } else {
+      currentM = targetM;
+      mValueDisplay.textContent = currentM.toFixed(1);
+    }
   }
 }
 
@@ -402,27 +448,43 @@ function renderFrame(timestamp) {
     syncTimeline(curTime);
   }
 
-  // Heartbeat pulse calculation
+  // Smooth parameter lerping for buttery visual morphing
+  updateMLerp();
+
+  // Smooth physiological heartbeat pulse (lub-dub)
   let pulseScale = 1.0;
-  if (currentMode === 'pulse16' || currentM >= 95) {
-    // Realistic double-beat rhythm: lub-dub
-    const beat = (Math.sin(phaseTime * 5.0) + Math.sin(phaseTime * 10.0) * 0.3);
-    pulseScale = 1.0 + Math.max(0, beat) * 0.055;
+  if (currentMode === 'pulse16' || currentM >= 55) {
+    pulseScale = getSmoothHeartbeat(phaseTime);
   }
 
   // Render main canvas or grid
   if (currentMode === 'grid4') {
     graphCanvas.style.display = 'none';
     gridContainer.style.display = 'grid';
-    // Draw on the 4 mini canvases
-    gridContexts.forEach((ctx, idx) => {
-      if (ctx && gridCssSizes[idx]) {
-        drawChalkboardGraph(ctx, gridCssSizes[idx].w, gridCssSizes[idx].h, 100.0, {
-          isPurple: false,
-          pulseScale: pulseScale,
-          showGridText: false,
-          samples: 1800
-        });
+    const dpr = window.devicePixelRatio || 1;
+
+    // Draw on the 4 mini canvases dynamically
+    gridCanvases.forEach((c, idx) => {
+      if (c) {
+        const rect = c.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          const targetW = Math.round(rect.width * dpr);
+          const targetH = Math.round(rect.height * dpr);
+          if (c.width !== targetW || c.height !== targetH) {
+            c.width = targetW;
+            c.height = targetH;
+          }
+          const ctx = gridContexts[idx];
+          if (ctx) {
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+            drawChalkboardGraph(ctx, rect.width, rect.height, 100.0, {
+              isPurple: false,
+              pulseScale: pulseScale,
+              showGridText: true
+            });
+          }
+        }
       }
     });
   } else {
@@ -430,14 +492,13 @@ function renderFrame(timestamp) {
     gridContainer.style.display = 'none';
     const isPurple = (currentMode === 'pulse16');
     const mToDraw = (currentMode === 'pulse16') ? 16.0 : currentM;
-    const wavePhase = (currentMode === 'pulse16') ? -phaseTime * 4.5 : 0;
+    const wavePhase = (currentMode === 'pulse16') ? -phaseTime * 4.0 : 0;
 
     drawChalkboardGraph(graphCtx, canvasCssWidth, canvasCssHeight, mToDraw, {
       isPurple: isPurple,
       pulseScale: pulseScale,
       phase: wavePhase,
-      showGridText: true,
-      samples: Math.min(4500, Math.max(2500, Math.round(mToDraw * 80)))
+      showGridText: true
     });
   }
 
@@ -459,21 +520,17 @@ function syncTimeline(time) {
   const currentSlot = TIMELINE[activeIndex];
   const nextSlot = TIMELINE[activeIndex + 1];
 
-  // Interpolate mValue if there's a next slot
-  let targetM = currentSlot.m;
-  if (nextSlot && nextSlot.mode === 'standard' && currentSlot.mode === 'standard') {
+  // Interpolate mValue smoothly
+  let nextTargetM = currentSlot.m;
+  if (nextSlot) {
     const fraction = (time - currentSlot.t) / (nextSlot.t - currentSlot.t);
-    // Smooth exponential progression matching the video
-    targetM = currentSlot.m + (nextSlot.m - currentSlot.m) * Math.min(1, Math.max(0, fraction));
+    nextTargetM = currentSlot.m + (nextSlot.m - currentSlot.m) * Math.min(1, Math.max(0, fraction));
+  } else {
+    // Keep at 100 - NEVER decrease or disappear!
+    nextTargetM = 100.0;
   }
 
-  // Update mode if changed
-  if (currentSlot.mode !== currentMode) {
-    switchMode(currentSlot.mode, false);
-  }
-
-  // Set M and formula
-  setM(targetM, true);
+  setM(nextTargetM, false);
 
   // Update Lyrics
   if (currentSlot.p !== lyricPrimary.textContent) {
@@ -492,19 +549,20 @@ function switchMode(newMode, manual = true) {
   modePulseBtn.classList.toggle('active', newMode === 'pulse16');
   modeGridBtn.classList.toggle('active', newMode === 'grid4');
 
-  if (newMode === 'pulse16') {
-    updateFormulaDisplay(16.0, true);
-    setM(16.0, true);
-  } else if (newMode === 'grid4') {
+  if (newMode === 'grid4') {
+    graphCanvas.style.display = 'none';
+    gridContainer.style.display = 'grid';
     updateFormulaDisplay(100.0, false);
     setM(100.0, true);
   } else {
-    updateFormulaDisplay(currentM, false);
-  }
-
-  // If user clicked manually while audio is running, let them explore
-  if (manual && isPlaying) {
-    // Keep playing sound, but let user enjoy mode
+    graphCanvas.style.display = 'block';
+    gridContainer.style.display = 'none';
+    if (newMode === 'pulse16') {
+      updateFormulaDisplay(16.0, true);
+      setM(16.0, true);
+    } else {
+      updateFormulaDisplay(currentM, false);
+    }
   }
 }
 
@@ -518,7 +576,6 @@ async function startPlayback() {
     audioIndicator.style.display = 'flex';
   } catch (err) {
     console.warn('Audio play error / user interaction required:', err);
-    // Fallback: simulate timer without sound if autoplay policy blocks
     isPlaying = true;
     playBtnText.textContent = 'Đang Chạy';
     playBtnIcon.textContent = '▶';
@@ -528,7 +585,7 @@ async function startPlayback() {
 function pausePlayback() {
   bgAudio.pause();
   isPlaying = false;
-  playBtnText.textContent = 'Phát Nhạc & Xem Tự Động';
+  playBtnText.textContent = 'Tiếp Tục Phát';
   playBtnIcon.textContent = '▶';
   audioIndicator.style.display = 'none';
 }
@@ -537,6 +594,13 @@ function togglePlayback() {
   if (isPlaying) {
     pausePlayback();
   } else {
+    // If finished or at end, replay from beginning smoothly
+    if (bgAudio.ended || bgAudio.currentTime >= 29) {
+      bgAudio.currentTime = 0;
+      targetM = 0.1;
+      currentM = 0.1;
+      setM(0.1, true);
+    }
     startPlayback();
   }
 }
@@ -651,8 +715,14 @@ function initEvents() {
 
   // Audio events
   bgAudio.addEventListener('ended', () => {
-    pausePlayback();
-    bgAudio.currentTime = 0;
+    isPlaying = false;
+    playBtnText.textContent = 'Phát Lại Nhạc';
+    playBtnIcon.textContent = '🔁';
+    audioIndicator.style.display = 'none';
+    // Giữ nguyên trái tim rực rỡ và đập nhịp, tuyệt đối KHÔNG làm mất đi!
+    targetM = 100.0;
+    currentM = 100.0;
+    setM(100.0, true);
   });
 
   // Mode buttons
