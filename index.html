@@ -3,55 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>🌸 Bó Hoa Ảnh - Dành Riêng Cho Em 🌸</title>
-  <meta name="description" content="Một bó hoa ảnh lãng mạn chứa đựng triệu yêu thương dành riêng cho em.">
+  <title>Cách Chuyên Toán Tỏ Tình ❤️</title>
+  <meta name="description" content="Đồ thị hàm số trái tim lãng mạn của dân chuyên toán - Một phương trình, triệu yêu thương.">
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/bouquet.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Beautiful LaTeX Math Typography -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/math_heart.css">
 </head>
 <body>
-  <canvas id="starCanvas"></canvas>
 
-  <div class="bouquet-screen" id="bouquetScreen">
-    <div class="bouquet-wrap" id="bouquetWrap">
-      <img src="img/bouquet.jpg" alt="Bó hoa dành tặng em" class="bouquet-img" id="bouquetImg">
-      <div class="bouquet-glow"></div>
-    </div>
-    <p class="bouquet-hint" id="bouquetHint">Chạm vào bó hoa</p>
-  </div>
+  <!-- Floating Star & Dust Particles Canvas -->
+  <canvas id="bgCanvas"></canvas>
 
-  <div class="galaxy-screen" id="galaxyScreen">
-    <div class="galaxy-actions">
-      <button class="galaxy-btn" id="closeBouquetBtn" title="Đóng lại">&#10005;</button>
-      <button class="galaxy-btn envelope-btn" id="openLetterBtn" title="Xem thư tình">&#9993;</button>
-    </div>
-    <div class="scene-container" id="sceneContainer">
-      <div class="scene-world" id="sceneWorld"></div>
-    </div>
-    <div class="galaxy-hint">
-      <span id="galaxyHintText">Kéo để xoay, cuộn hoặc chụm hai ngón để phóng to</span>
-    </div>
-  </div>
+  <!-- Audio Media Source from Video -->
+  <video id="bgAudio" playsinline preload="auto" style="display:none;">
+    <source src="sound/math_heart.mp4" type="video/mp4">
+  </video>
 
-  <div class="letter-modal" id="letterModal">
-    <div class="letter-modal-card">
-      <button class="letter-modal-close" id="letterModalClose" title="Đóng">&#10005;</button>
-      <div class="letter-modal-corner">&#127800;</div>
-      <div class="letter-modal-header">
-        <div class="letter-modal-salutation">Gửi Em Yêu &#9829;</div>
-        <div class="letter-modal-stamp">&#128140; FROM WITH LOVE</div>
+  <!-- Main Application Container -->
+  <main class="app-container">
+    
+    <!-- Header -->
+    <header class="header-box">
+      <h1 class="main-title">
+        Cách chuyên toán tỏ tình: <span class="sparkle">✨</span>
+      </h1>
+      <nav class="mode-bar">
+        <button class="mode-btn active" id="modeStandard" title="Chế độ biến thiên tham số m">📈 Hàm số f(x)</button>
+        <button class="mode-btn" id="modePulse" title="Chế độ trái tim đập 16π">💓 16π Rung động</button>
+        <button class="mode-btn" id="modeGrid" title="Chế độ 4 trái tim như video">💖 4 Trái tim</button>
+      </nav>
+    </header>
+
+    <!-- Graph Canvas Area -->
+    <section class="graph-wrapper">
+      <canvas id="graphCanvas"></canvas>
+
+      <!-- 4 Hearts Grid View (shown at 00:15 in the video) -->
+      <div class="grid-hearts-container" id="gridHeartsContainer">
+        <div class="grid-heart-cell"><canvas id="gridCanvas1"></canvas></div>
+        <div class="grid-heart-cell"><canvas id="gridCanvas2"></canvas></div>
+        <div class="grid-heart-cell"><canvas id="gridCanvas3"></canvas></div>
+        <div class="grid-heart-cell"><canvas id="gridCanvas4"></canvas></div>
       </div>
-      <div class="letter-modal-body" id="letterModalBody"></div>
-      <span class="letter-modal-cursor" id="letterCursor">|</span>
-      <div class="letter-modal-signature">
-        <div class="letter-sign-line">Người yêu em nhất trên đời,</div>
-        <div class="letter-sign-name">Xuân Trường &#9829;</div>
+    </section>
+
+    <!-- Lyrics Subtitles Display -->
+    <section class="lyrics-box" aria-live="polite">
+      <div class="lyric-primary" id="lyricPrimary"></div>
+      <div class="lyric-secondary" id="lyricSecondary"></div>
+    </section>
+
+    <!-- Interactive Controls & Formula Section -->
+    <footer class="controls-card">
+      
+      <!-- Mathematical Formula Display -->
+      <div class="formula-container" id="formulaDisplay">
+        <!-- Rendered via KaTeX -->
+      </div>
+
+      <!-- Slider for parameter m -->
+      <div class="slider-row">
+        <div class="m-label-box">
+          <span class="m-var">m</span> = <span class="m-val-number" id="mValueDisplay">0.1</span>
+        </div>
+        <input 
+          type="range" 
+          id="mSlider" 
+          class="custom-range" 
+          min="0.1" 
+          max="100.0" 
+          step="0.1" 
+          value="0.1"
+          aria-label="Điều chỉnh tham số m"
+        >
+      </div>
+
+      <!-- Control Buttons -->
+      <div class="action-row">
+        <button class="primary-btn" id="playBtn" title="Bật nhạc và tự động biểu diễn theo video">
+          <span id="playBtnIcon">▶</span>
+          <span id="playBtnText">Phát Nhạc & Xem Tự Động</span>
+          <div class="music-playing-indicator" id="audioIndicator" style="display: none;">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </button>
+
+        <button class="icon-btn" id="letterBtn" title="Xem thư tỏ tình gửi Crush">
+          💌
+        </button>
+      </div>
+
+    </footer>
+
+  </main>
+
+  <!-- Confession Love Letter Modal -->
+  <div class="modal-overlay" id="letterModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="letterModalClose" title="Đóng">&times;</button>
+      
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>💌</span> Gửi Người Con Gái Anh Thương
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <span id="letterContent"></span><span class="typing-cursor"></span>
+      </div>
+
+      <div class="modal-footer">
+        <button class="modal-heart-btn" id="sendHeartModalBtn">Gửi Ngàn Tim 💕</button>
       </div>
     </div>
   </div>
 
-  <div class="transition-overlay" id="transitionOverlay"></div>
-  <script src="js/bouquet.js"></script>
+  <!-- App Script -->
+  <script src="js/math_heart.js"></script>
 </body>
 </html>
