@@ -1,133 +1,3008 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Cách Chuyên Toán Tỏ Tình ❤️</title>
-  <meta name="description" content="Đồ thị hàm số trái tim lãng mạn của dân chuyên toán - Một phương trình, triệu yêu thương.">
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- KaTeX for Beautiful LaTeX Math Typography -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🎂 Happy 22nd Birthday · 03/11/2004 🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+/* ── ROOT & THEME ─────────────────────────────────────── */
+:root {
+  --pink:    #ff4d88;
+  --pink2:   #ff8dc7;
+  --purple:  #b983ff;
+  --violet:  #7c3aed;
+  --gold:    #fbbf24;
+  --gold2:   #fde68a;
+  --teal:    #22d3ee;
+  --green:   #4ade80;
+  --bg:      #050010;
+  --card:    rgba(255, 255, 255, 0.055);
+  --card-border: rgba(255, 255, 255, 0.12);
+}
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/math_heart.css">
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: 'Nunito', sans-serif;
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── CANVASES ─────────────────────────────────────────── */
+#bgCanvas, #fwCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#bgCanvas { z-index: 0; }
+#fwCanvas { z-index: 15; display: none; }
+
+/* ── TOAST NOTIFICATION ───────────────────────────────── */
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  z-index: 400;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  border-radius: 50px;
+  padding: 10px 24px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(255, 77, 136, 0.6);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ── PASSWORD SCREEN ──────────────────────────────────── */
+#passwordScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(90, 20, 120, 0.7), rgba(5, 0, 16, 0.98) 75%);
+  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
+}
+#passwordScreen.fade-out {
+  opacity: 0;
+  transform: scale(1.04);
+  visibility: hidden;
+  pointer-events: none;
+}
+.pw-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 28px;
+  padding: 40px 32px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(255, 77, 136, 0.15);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.pw-lock {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 12px;
+  animation: lockFloat 3s ease-in-out infinite;
+}
+@keyframes lockFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.pw-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.pw-hint {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 24px;
+}
+.pw-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.pw-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50px;
+  padding: 13px 48px 13px 22px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  outline: none;
+  text-align: center;
+  letter-spacing: 2px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  font-family: 'Nunito', sans-serif;
+}
+.pw-input:focus {
+  border-color: var(--pink2);
+  box-shadow: 0 0 20px rgba(255, 141, 199, 0.4);
+}
+.toggle-pw {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.15rem;
+  cursor: pointer;
+  padding: 4px;
+}
+.pw-error-msg {
+  font-size: 0.82rem;
+  color: #ff6b81;
+  min-height: 20px;
+  margin-bottom: 14px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.pw-error-msg.visible { opacity: 1; }
+.pw-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  border: none;
+  border-radius: 50px;
+  padding: 13px 24px;
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(255, 77, 136, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'Nunito', sans-serif;
+}
+.pw-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(255, 77, 136, 0.7);
+}
+.pw-card.shake {
+  animation: pwShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes pwShake {
+  10%, 90% { transform: translate3d(-3px, 0, 0); }
+  20%, 80% { transform: translate3d(5px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* ── MULTI-PAGE SHELL & CONTAINER ────────────────────── */
+#bdayScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+#bdayScreen.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* TOP NAV BAR - TABS / PILLS */
+.top-nav {
+  flex-shrink: 0;
+  width: 100%;
+  background: rgba(10, 0, 24, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  z-index: 30;
+}
+.top-nav::-webkit-scrollbar { display: none; }
+.nav-tab-btn {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.nav-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 141, 199, 0.4);
+}
+.nav-tab-btn.active {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(255, 77, 136, 0.45);
+}
+
+/* MAIN SCROLLABLE CONTENT FOR THE ACTIVE PAGE */
+.pages-viewport {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 18px 14px 100px;
+}
+
+/* PAGE VIEW CARD */
+.page-view {
+  max-width: 620px;
+  margin: 0 auto;
+  display: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.page-view.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  animation: pageFadeIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* PAGE HEADER BADGE */
+.page-header-badge {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.page-num-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 141, 199, 0.3);
+  border-radius: 50px;
+  padding: 5px 14px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--pink2);
+}
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  background: linear-gradient(135deg, #fff 30%, var(--pink2) 75%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 6px;
+}
+.page-subtitle {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 4px;
+}
+
+/* ── BOTTOM CONTROL BAR ───────────────────────────────── */
+.bottom-controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(8, 0, 18, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bottom-controls-inner {
+  max-width: 620px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-nav-arrow {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50px;
+  padding: 9px 18px;
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+  font-family: 'Nunito', sans-serif;
+}
+.page-nav-arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--pink2);
+  transform: translateY(-2px);
+}
+.page-nav-arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.page-nav-arrow.next-special {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  border: none;
+  box-shadow: 0 4px 18px rgba(255, 77, 136, 0.45);
+}
+.page-nav-arrow.next-special:hover {
+  box-shadow: 0 6px 24px rgba(255, 77, 136, 0.65);
+}
+.page-dots-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.page-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.page-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.page-dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  box-shadow: 0 0 10px rgba(255, 77, 136, 0.6);
+}
+.page-label-indicator {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── FLOATING MUSIC BAR ───────────────────────────────── */
+.music-bar-wrap {
+  position: fixed;
+  top: 56px;
+  right: 14px;
+  z-index: 45;
+}
+.music-toggle-btn {
+  background: rgba(18, 0, 36, 0.85);
+  border: 1px solid rgba(255, 141, 199, 0.3);
+  border-radius: 50px;
+  padding: 6px 14px;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
+}
+.music-toggle-btn:hover {
+  border-color: var(--pink);
+  transform: scale(1.05);
+}
+.music-bars-anim {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+.music-bars-anim span {
+  width: 2.5px;
+  height: 100%;
+  background: var(--pink2);
+  border-radius: 2px;
+  animation: barAnim 1s ease-in-out infinite alternate;
+}
+.music-bars-anim span:nth-child(2) { animation-delay: 0.2s; height: 60%; }
+.music-bars-anim span:nth-child(3) { animation-delay: 0.4s; height: 80%; }
+.music-bars-anim.paused span { animation-play-state: paused; height: 30%; }
+@keyframes barAnim {
+  from { transform: scaleY(0.2); }
+  to { transform: scaleY(1); }
+}
+
+/* ── STYLES FOR PAGE 1: HERO & CAKE ───────────────────── */
+.balloons-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.balloon {
+  font-size: 2.2rem;
+  display: inline-block;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 12px rgba(255, 77, 136, 0.4));
+  animation: balloonFloat var(--d, 3s) ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+.balloon:hover {
+  transform: scale(1.3) rotate(8deg);
+}
+.balloon:active { transform: scale(0.85); }
+@keyframes balloonFloat {
+  0%   { transform: translateY(0px) rotate(var(--r1, -4deg)); }
+  100% { transform: translateY(-12px) rotate(var(--r2, 4deg)); }
+}
+.cake-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 28px;
+  padding: 24px 16px;
+  text-align: center;
+  margin-bottom: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.cake-wrap {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+.cake-wrap:hover { transform: scale(1.04); }
+.cake-svg {
+  width: 170px;
+  height: 170px;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 8px 30px rgba(255, 77, 136, 0.4));
+}
+.candle-flame {
+  animation: flicker 0.55s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+@keyframes flicker {
+  0%   { transform: scaleX(1) scaleY(1) rotate(-1.5deg); }
+  100% { transform: scaleX(0.88) scaleY(1.12) rotate(1.5deg); }
+}
+.cake-hint {
+  font-size: 0.86rem;
+  color: var(--gold2);
+  margin-top: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+.stat-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 14px 8px;
+  text-align: center;
+}
+.stat-val {
+  font-size: 1.45rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold2), var(--pink2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-lbl {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* ── STYLES FOR PAGE 2: TIMELINE ──────────────────────── */
+.timeline-list {
+  position: relative;
+  padding-left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 26px;
+  padding: 26px 20px 26px 36px;
+  backdrop-filter: blur(16px);
+}
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  bottom: 32px;
+  left: 17px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--pink), var(--purple), var(--gold), var(--teal));
+}
+.timeline-node {
+  position: relative;
+  text-align: left;
+}
+.timeline-dot {
+  position: absolute;
+  left: -28px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--dot-color, var(--pink));
+  box-shadow: 0 0 12px var(--dot-color, var(--pink));
+}
+.timeline-time {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--dot-color, var(--pink2));
+}
+.timeline-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 3px 0;
+}
+.timeline-text {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+}
+
+/* ── STYLES FOR PAGE 3: GIFTS & VOUCHERS ───────────────── */
+.gift-teaser-card {
+  background: linear-gradient(145deg, rgba(255, 77, 136, 0.14), rgba(185, 131, 255, 0.12));
+  border: 1px solid rgba(255, 141, 199, 0.35);
+  border-radius: 26px;
+  padding: 24px 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.gift-box-icon {
+  font-size: 3.5rem;
+  display: inline-block;
+  cursor: pointer;
+  animation: giftWiggle 2.6s ease-in-out infinite;
+}
+@keyframes giftWiggle {
+  0%, 80%, 100% { transform: rotate(0deg) scale(1); }
+  85% { transform: rotate(-10deg) scale(1.1); }
+  90% { transform: rotate(10deg) scale(1.15); }
+  95% { transform: rotate(-6deg) scale(1.1); }
+}
+.open-gift-btn {
+  background: linear-gradient(135deg, var(--gold), var(--pink));
+  border: none;
+  border-radius: 50px;
+  padding: 11px 28px;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+  transition: all 0.25s ease;
+  margin-top: 10px;
+  font-family: 'Nunito', sans-serif;
+}
+.open-gift-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 28px rgba(251, 191, 36, 0.6);
+}
+
+.vouchers-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.voucher-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 14px 16px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+}
+.voucher-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--v-color, var(--pink));
+}
+.voucher-emoji { font-size: 1.8rem; flex-shrink: 0; }
+.voucher-info { flex: 1; text-align: left; }
+.voucher-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.voucher-desc {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.4;
+}
+.voucher-claim-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 7px 14px;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+  font-family: 'Nunito', sans-serif;
+}
+.voucher-claim-btn:hover {
+  background: var(--v-color, var(--pink));
+  border-color: transparent;
+}
+.voucher-claim-btn.claimed {
+  background: #10b981;
+  border-color: transparent;
+  color: #fff;
+  cursor: default;
+}
+
+/* ── STYLES FOR PAGE 4: WISHES & REASONS ───────────────── */
+.wishes-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 26px;
+  padding: 20px 16px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(16px);
+}
+.wish-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+.wish-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
+}
+.wish-row.checked {
+  background: linear-gradient(135deg, rgba(255, 77, 136, 0.16), rgba(185, 131, 255, 0.16));
+  border-color: rgba(255, 141, 199, 0.45);
+}
+.wish-box {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.wish-row.checked .wish-box {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: #fff;
+}
+.wish-txt {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.45;
+}
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.reason-box {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 14px 12px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+.reason-icon { font-size: 1.6rem; display: block; margin-bottom: 6px; }
+.reason-title { font-size: 0.82rem; font-weight: 700; color: rgba(255, 255, 255, 0.88); }
+
+/* ── STYLES FOR PAGE 5: GÓC CHUYÊN TOÁN (CÁCH CHUYÊN TOÁN TỎ TÌNH) */
+.math-section-card {
+  background: rgba(14, 0, 32, 0.78);
+  border: 1.5px solid rgba(255, 77, 136, 0.35);
+  border-radius: 28px;
+  padding: 20px 14px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 77, 136, 0.15);
+  backdrop-filter: blur(20px);
+}
+.math-tabs-header {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.math-tab-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: 'Nunito', sans-serif;
+}
+.math-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+.math-tab-btn.active {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 18px rgba(255, 77, 136, 0.45);
+}
+
+/* 4 HEARTS SUB-VIEW */
+.four-hearts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+.heart-quadrant {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.heart-quadrant:hover {
+  transform: translateY(-2px);
+  border-color: var(--pink2);
+}
+.heart-canvas-single {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+.heart-formula-badge {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+.heart-name-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--pink2);
+  margin-top: 2px;
+}
+
+/* FUNCTION F(X) SUB-VIEW */
+.fx-view-wrap, .pulse-view-wrap {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+#fxCanvas, #pulseCanvas {
+  width: 280px;
+  height: 250px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 12px;
+}
+.math-quote-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--pink);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-top: 16px;
+  text-align: left;
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.5;
+}
+
+/* ── STYLES FOR PAGE 6: GUESTBOOK & COUNTDOWN ──────────── */
+.note-input-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 26px;
+  padding: 22px 18px;
+  text-align: center;
+  margin-bottom: 18px;
+  backdrop-filter: blur(16px);
+}
+.note-textarea {
+  width: 100%;
+  height: 85px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  padding: 12px 14px;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  resize: none;
+  margin: 12px 0;
+  transition: border-color 0.25s;
+}
+.note-textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.35);
+}
+.note-send-btn {
+  background: linear-gradient(135deg, var(--teal), var(--purple));
+  border: none;
+  border-radius: 50px;
+  padding: 10px 26px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(34, 211, 238, 0.35);
+  transition: all 0.25s;
+  font-family: 'Nunito', sans-serif;
+}
+.note-send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(34, 211, 238, 0.55);
+}
+.notes-container {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.note-item {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
+  border-left: 3px solid var(--teal);
+}
+
+.star-interactive-card {
+  background: linear-gradient(145deg, rgba(251, 191, 36, 0.12), rgba(255, 77, 136, 0.1));
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 26px;
+  padding: 22px 16px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+.star-send-btn {
+  background: linear-gradient(135deg, #fbbf24, #ff8dc7);
+  border: none;
+  border-radius: 50px;
+  padding: 11px 30px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.45);
+  transition: all 0.25s ease;
+  margin: 10px 0;
+}
+.star-send-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(251, 191, 36, 0.6);
+}
+
+.countdown-box {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 26px;
+  padding: 20px 14px;
+  text-align: center;
+  backdrop-filter: blur(14px);
+}
+.countdown-digits {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+.cd-digit-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 10px 12px;
+  min-width: 58px;
+  text-align: center;
+}
+.cd-digit-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, #fde68a, #ff8dc7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cd-digit-lbl {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.cd-colon { font-size: 1.4rem; font-weight: 800; color: rgba(255, 255, 255, 0.4); }
+
+/* ── MODAL: CERTIFICATE OF LOVELINESS ──────────────────── */
+.gift-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 350;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(10px);
+}
+.gift-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.gift-modal-card {
+  background: radial-gradient(ellipse at 50% 0%, #200030 0%, #0d001a 100%);
+  border: 2px solid rgba(251, 191, 36, 0.55);
+  border-radius: 28px;
+  padding: 34px 24px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(251, 191, 36, 0.35);
+  position: relative;
+  transform: scale(0.92);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.gift-modal-overlay.open .gift-modal-card {
+  transform: scale(1);
+}
+.gift-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+/* ── CONFETTI & HEARTS ────────────────────────────────── */
+.confetti-piece {
+  position: fixed;
+  pointer-events: none;
+  z-index: 220;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(-30px) rotate(0); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(900deg); opacity: 0; }
+}
+.float-heart {
+  position: fixed;
+  bottom: -60px;
+  pointer-events: none;
+  z-index: 180;
+  animation: floatHeart linear forwards;
+}
+@keyframes floatHeart {
+  0%   { transform: translateY(0) rotate(0deg) scale(0.7); opacity: 1; }
+  100% { transform: translateY(-110vh) rotate(360deg) scale(1.3); opacity: 0; }
+}
+
+/* ── KAWAII PANDA WITH BIRTHDAY CAKE ANIMATIONS ───────── */
+.panda-cake-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 6px auto 14px;
+  animation: pandaBounce 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 8px 24px rgba(255, 77, 136, 0.45));
+}
+@keyframes pandaBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7px) scale(1.02); }
+}
+.panda-cake-svg {
+  display: block;
+  overflow: visible;
+}
+.panda-cake-svg .panda-ears-group {
+  animation: pandaEarWiggle 4.5s ease-in-out infinite;
+  transform-origin: 100px 70px;
+}
+@keyframes pandaEarWiggle {
+  0%, 88%, 100% { transform: rotate(0deg); }
+  91% { transform: rotate(-4deg); }
+  94% { transform: rotate(4deg); }
+  97% { transform: rotate(-2deg); }
+}
+.panda-cake-svg .candle-flame {
+  animation: pandaFlameFlicker 0.6s ease-in-out infinite alternate;
+  transform-origin: 0px -30px;
+}
+@keyframes pandaFlameFlicker {
+  0%   { transform: scale(0.92) rotate(-2deg); }
+  100% { transform: scale(1.14, 0.94) rotate(2deg); }
+}
+.floating-mini-hearts {
+  animation: heartPulseMini 1.8s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+@keyframes heartPulseMini {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+
+
+/* ── CODER IDE / TERMINAL OPENING SCREEN (EXPANDED & HD) ── */
+#codeRunnerScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: radial-gradient(ellipse 95% 75% at 50% 40%, rgba(32, 0, 56, 0.92), rgba(3, 0, 10, 0.98) 85%);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s;
+}
+#codeRunnerScreen.fade-out {
+  opacity: 0;
+  transform: scale(1.08) translateY(-20px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ide-window {
+  width: min(880px, 96vw);
+  max-height: min(740px, 92vh);
+  background: #0d0618;
+  border: 1.8px solid rgba(34, 211, 238, 0.45);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(34, 211, 238, 0.25), 0 0 60px rgba(255, 77, 136, 0.2);
+  font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* MacOS Window Title Bar */
+.ide-titlebar {
+  background: #150926;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 11px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.ide-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ide-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.ide-dot.red    { background: #ff5f56; box-shadow: 0 0 8px rgba(255, 95, 86, 0.6); }
+.ide-dot.yellow { background: #ffbd2e; box-shadow: 0 0 8px rgba(255, 189, 46, 0.6); }
+.ide-dot.green  { background: #27c93f; box-shadow: 0 0 8px rgba(39, 201, 63, 0.6); }
+
+.ide-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 5px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: #38bdf8;
+  font-weight: 600;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+.ide-status {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Editor Body - Expanded */
+.ide-body {
+  padding: 18px 16px;
+  display: flex;
+  gap: 16px;
+  background: rgba(9, 3, 16, 0.9);
+  font-size: 0.88rem;
+  line-height: 1.68;
+  height: min(440px, 56vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 77, 136, 0.4) transparent;
+}
+.ide-body::-webkit-scrollbar {
+  width: 6px;
+}
+.ide-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 77, 136, 0.4);
+  border-radius: 4px;
+}
+.ide-line-numbers {
+  color: rgba(255, 255, 255, 0.28);
+  user-select: none;
+  text-align: right;
+  font-size: 0.84rem;
+  line-height: 1.68;
+  min-width: 32px;
+  flex-shrink: 0;
+}
+.ide-code-content {
+  flex: 1;
+  color: #f8f8f2;
+  white-space: pre-wrap;
+  word-break: break-word;
+  text-align: left;
+}
+
+/* Syntax Highlighting */
+.syn-cm  { color: #64748b; font-style: italic; }   /* Comment */
+.syn-kw  { color: #ff79c6; font-weight: 700; }     /* Keyword */
+.syn-str { color: #f1fa8c; }                         /* String */
+.syn-fn  { color: #8be9fd; font-weight: 600; }     /* Function */
+.syn-var { color: #bd93f9; }                         /* Variable */
+.syn-num { color: #ffb86c; }                         /* Number */
+.syn-cls { color: #50fa7b; font-weight: 700; }     /* Class */
+.syn-cur {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: #38bdf8;
+  vertical-align: text-bottom;
+  animation: curBlink 0.75s infinite;
+  box-shadow: 0 0 8px #38bdf8;
+}
+@keyframes curBlink { 50% { opacity: 0; } }
+
+/* Action / Execute Bar */
+.ide-action-bar {
+  background: #140826;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.ide-prompt-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 220px;
+}
+.prompt-arrow {
+  color: #4ade80;
+  font-weight: 900;
+  font-size: 1.25rem;
+}
+.prompt-lbl {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+}
+.ide-key-input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(34, 211, 238, 0.45);
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: #fde68a;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 800;
+  outline: none;
+  width: 140px;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: all 0.25s ease;
+}
+.ide-key-input:focus {
+  border-color: #ff4d88;
+  box-shadow: 0 0 16px rgba(255, 77, 136, 0.6);
+}
+
+.ide-execute-btn {
+  background: linear-gradient(135deg, #00f2fe, #4facfe, #ff4d88, #7c3aed);
+  background-size: 250% 250%;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.65);
+  animation: btnPulseGlow 2.5s ease-in-out infinite, gradMove 4s ease infinite;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ide-execute-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 42px rgba(255, 77, 136, 0.9);
+}
+.ide-execute-btn:active {
+  transform: scale(0.97);
+}
+
+/* Terminal Output Log Area */
+.ide-terminal-log {
+  background: #08020f;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 11px 18px;
+  font-size: 0.78rem;
+  color: #4ade80;
+  text-align: left;
+  line-height: 1.55;
+  min-height: 42px;
+  flex-shrink: 0;
+}
+.ide-terminal-log.error { color: #f87171; }
+
+
+
+.passcode-hint-chip {
+  font-size: 0.76rem;
+  color: #ff8dc7;
+  background: rgba(255, 77, 136, 0.14);
+  border: 1px dashed rgba(255, 141, 199, 0.45);
+  border-radius: 50px;
+  padding: 5px 12px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  animation: hintPulse 2.2s ease-in-out infinite alternate;
+}
+@keyframes hintPulse {
+  0% { opacity: 0.85; border-color: rgba(255, 141, 199, 0.35); color: #ff8dc7; }
+  100% { opacity: 1; border-color: rgba(251, 191, 36, 0.65); color: #fde68a; box-shadow: 0 0 12px rgba(251, 191, 36, 0.25); }
+}
+
+</style>
 </head>
 <body>
 
-  <!-- Floating Star & Dust Particles Canvas -->
-  <canvas id="bgCanvas"></canvas>
+<!-- Canvases -->
+<canvas id="bgCanvas"></canvas>
+<canvas id="fwCanvas"></canvas>
 
-  <!-- Audio Media Source from Video -->
-  <video id="bgAudio" playsinline preload="auto" style="display:none;">
-    <source src="sound/math_heart.mp4" type="video/mp4">
-  </video>
+<!-- Toast popup -->
+<div class="toast" id="toast">🎉 Ước nguyện đã được gửi lên trời xanh!</div>
 
-  <!-- Main Application Container -->
-  <main class="app-container">
+<!-- ══════════════════════════════════════════════════════
+     PASSWORD SCREEN (03/11/2004)
+══════════════════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════════════════
+     CODER IDE SCREEN: AUTO-RUN CODE & EXECUTE BUTTON
+══════════════════════════════════════════════════════ -->
+<div id="codeRunnerScreen">
+  <div class="ide-window">
+    <div class="ide-titlebar">
+      <div class="ide-dots">
+        <span class="ide-dot red"></span>
+        <span class="ide-dot yellow"></span>
+        <span class="ide-dot green"></span>
+      </div>
+      <div class="ide-tab">
+        <span>🐍</span>
+        <span>birthday_for_crush.py</span>
+      </div>
+      <div class="ide-status">Python 3.12 · UTF-8</div>
+    </div>
+
+    <div class="ide-body">
+      <div class="ide-line-numbers">
+        1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+      </div>
+      <div class="ide-code-content" id="ideCodeContent"><span class="syn-cur"></span></div>
+    </div>
+
+    <div class="ide-action-bar">
+      <div class="ide-prompt-row">
+        <span class="prompt-arrow">❯</span>
+        <span class="prompt-lbl">passcode =</span>
+        <input id="codePwInput" class="ide-key-input" type="text" value="" placeholder="dd / mm / yyyy" maxlength="10" autocomplete="off">
+        <span class="passcode-hint-chip">💡 Gợi ý: Ngày sinh em iu (03/11/2004)</span>
+      </div>
+      <button class="ide-execute-btn" id="codeExecuteBtn">
+        <span>⚡</span>
+        <span>EXECUTE CODE</span>
+      </button>
+    </div>
+
+    <div class="ide-terminal-log" id="ideLog">
+      > Sẵn sàng! Nhập passcode ngày sinh em iu vào ô trên rồi nhấn [⚡ EXECUTE CODE] để mở quà!
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     MYSTERY CERTIFICATE MODAL
+══════════════════════════════════════════════════════ -->
+<div class="gift-modal-overlay" id="giftModal">
+  <div class="gift-modal-card">
+    <button class="gift-modal-close" id="giftModalClose">&times;</button>
     
-    <!-- Header -->
-    <header class="header-box">
-      <h1 class="main-title">
-        Cách chuyên toán tỏ tình: <span class="sparkle">✨</span>
-      </h1>
-      <nav class="mode-bar">
-        <button class="mode-btn active" id="modeStandard" title="Chế độ biến thiên tham số m">📈 Hàm số f(x)</button>
-        <button class="mode-btn" id="modePulse" title="Chế độ trái tim đập 16π">💓 16π Rung động</button>
-        <button class="mode-btn" id="modeGrid" title="Chế độ 4 trái tim như video">💖 4 Trái tim</button>
-      </nav>
-    </header>
+    <!-- ADORABLE PANDA HOLDING BIRTHDAY CAKE -->
+    <div class="panda-cake-container">
+      <svg class="panda-cake-svg" viewBox="0 0 200 220" width="150" height="165" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="p_hatGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ff4d88" />
+            <stop offset="50%" stop-color="#fbbf24" />
+            <stop offset="100%" stop-color="#b983ff" />
+          </linearGradient>
+          <linearGradient id="p_cakeIcing" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ff8dc7" />
+            <stop offset="100%" stop-color="#ff4d88" />
+          </linearGradient>
+          <linearGradient id="p_cakeBase" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fef08a" />
+            <stop offset="100%" stop-color="#f59e0b" />
+          </linearGradient>
+          <linearGradient id="p_flameGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#ef4444" />
+            <stop offset="50%" stop-color="#f59e0b" />
+            <stop offset="100%" stop-color="#fef08a" />
+          </linearGradient>
+          <radialGradient id="p_cheekGrad">
+            <stop offset="0%" stop-color="#ff4d88" stop-opacity="0.75" />
+            <stop offset="100%" stop-color="#ff8dc7" stop-opacity="0" />
+          </radialGradient>
+        </defs>
 
-    <!-- Graph Canvas Area -->
-    <section class="graph-wrapper">
-      <canvas id="graphCanvas"></canvas>
+        <!-- Shadow -->
+        <ellipse cx="100" cy="210" rx="52" ry="9" fill="rgba(0,0,0,0.35)" />
 
-      <!-- 4 Hearts Grid View (shown at 00:15 in the video) -->
-      <div class="grid-hearts-container" id="gridHeartsContainer">
-        <div class="grid-heart-cell"><canvas id="gridCanvas1"></canvas></div>
-        <div class="grid-heart-cell"><canvas id="gridCanvas2"></canvas></div>
-        <div class="grid-heart-cell"><canvas id="gridCanvas3"></canvas></div>
-        <div class="grid-heart-cell"><canvas id="gridCanvas4"></canvas></div>
+        <!-- Ears -->
+        <g class="panda-ears-group">
+          <circle cx="56" cy="62" r="22" fill="#1e1828" />
+          <circle cx="56" cy="62" r="13" fill="#ffb3d9" opacity="0.65" />
+          <circle cx="144" cy="62" r="22" fill="#1e1828" />
+          <circle cx="144" cy="62" r="13" fill="#ffb3d9" opacity="0.65" />
+        </g>
+
+        <!-- Body -->
+        <ellipse cx="100" cy="156" rx="52" ry="42" fill="#f8fafc" stroke="#1e1828" stroke-width="4" />
+        <ellipse cx="100" cy="162" rx="38" ry="30" fill="#ffffff" />
+
+        <!-- Head -->
+        <ellipse cx="100" cy="100" rx="56" ry="48" fill="#ffffff" stroke="#1e1828" stroke-width="4.5" />
+
+        <!-- Rosy Cheeks -->
+        <ellipse cx="60" cy="118" rx="12" ry="7" fill="url(#p_cheekGrad)" />
+        <ellipse cx="140" cy="118" rx="12" ry="7" fill="url(#p_cheekGrad)" />
+
+        <!-- Eye Patches (Black) -->
+        <path d="M 68 85 C 59 85, 52 94, 55 107 C 58 117, 73 117, 77 107 C 80 97, 77 85, 68 85 Z" fill="#1e1828" transform="rotate(-11 68 101)" />
+        <path d="M 132 85 C 141 85, 148 94, 145 107 C 142 117, 127 117, 123 107 C 120 97, 123 85, 132 85 Z" fill="#1e1828" transform="rotate(11 132 101)" />
+
+        <!-- Big Sparkling Anime Eyes -->
+        <circle cx="67" cy="102" r="6" fill="#0f172a" />
+        <circle cx="65.5" cy="100" r="2.4" fill="#ffffff" />
+        <circle cx="69.5" cy="104" r="1.2" fill="#ffffff" />
+
+        <circle cx="133" cy="102" r="6" fill="#0f172a" />
+        <circle cx="131.5" cy="100" r="2.4" fill="#ffffff" />
+        <circle cx="135.5" cy="104" r="1.2" fill="#ffffff" />
+
+        <!-- Nose & Cute Smile -->
+        <ellipse cx="100" cy="109" rx="6.5" ry="4.5" fill="#1e1828" />
+        <path d="M 94 114 Q 97 119 100 115 Q 103 119 106 114" fill="none" stroke="#1e1828" stroke-width="2.5" stroke-linecap="round" />
+
+        <!-- Party Hat with Golden Crown Emblem -->
+        <g class="party-hat" transform="translate(100, 55)">
+          <polygon points="0,-48 -22,0 22,0" fill="url(#p_hatGrad)" stroke="#1e1828" stroke-width="3" stroke-linejoin="round" />
+          <path d="M -7 -32 L 7 -32" stroke="#ffffff" stroke-width="2.5" opacity="0.85" />
+          <path d="M -13 -16 L 13 -16" stroke="#ffffff" stroke-width="2.5" opacity="0.85" />
+          <circle cx="0" cy="-50" r="7" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
+          <circle cx="0" cy="-50" r="3" fill="#ffffff" />
+          <!-- Crown Icon on Hat -->
+          <text x="0" y="-8" font-size="11" text-anchor="middle" fill="#fbbf24">👑</text>
+        </g>
+
+        <!-- Mini Birthday Cake In Paws -->
+        <g class="mini-cake-group" transform="translate(100, 168)">
+          <!-- Plate -->
+          <ellipse cx="0" cy="22" rx="36" ry="6" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2" />
+          <!-- Cake Base -->
+          <rect x="-26" y="2" width="52" height="18" rx="5" fill="url(#p_cakeBase)" stroke="#1e1828" stroke-width="2.5" />
+          <!-- Strawberry Icing -->
+          <rect x="-28" y="-8" width="56" height="14" rx="6" fill="url(#p_cakeIcing)" stroke="#1e1828" stroke-width="2.5" />
+          <!-- Icing Drips -->
+          <path d="M -26 -1 Q -21 6 -16 -1 Q -10 7 -4 -1 Q 3 7 9 -1 Q 16 6 22 -1 Q 25 4 28 -1" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" />
+          
+          <!-- Sprinkles -->
+          <circle cx="-16" cy="-3" r="1.5" fill="#fbbf24" />
+          <circle cx="-6" cy="-2" r="1.5" fill="#38bdf8" />
+          <circle cx="4" cy="-4" r="1.5" fill="#4ade80" />
+          <circle cx="14" cy="-2" r="1.5" fill="#f43f5e" />
+          <circle cx="20" cy="-4" r="1.2" fill="#fbbf24" />
+
+          <!-- Candle -->
+          <rect x="-3" y="-22" width="6" height="15" rx="2" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5" />
+          <line x1="0" y1="-22" x2="0" y2="-25" stroke="#475569" stroke-width="1.5" stroke-linecap="round" />
+
+          <!-- Candle Flame -->
+          <g class="candle-flame">
+            <ellipse cx="0" cy="-32" rx="5" ry="8" fill="url(#p_flameGrad)" />
+            <ellipse cx="0" cy="-30" rx="2.5" ry="4" fill="#ffffff" opacity="0.9" />
+          </g>
+        </g>
+
+        <!-- Panda Paws Holding the Cake -->
+        <ellipse cx="68" cy="172" rx="12" ry="10" fill="#1e1828" transform="rotate(15 68 172)" />
+        <circle cx="68" cy="172" r="5" fill="#ffb3d9" opacity="0.6" />
+        <ellipse cx="132" cy="172" rx="12" ry="10" fill="#1e1828" transform="rotate(-15 132 172)" />
+        <circle cx="132" cy="172" r="5" fill="#ffb3d9" opacity="0.6" />
+
+        <!-- Floating Hearts -->
+        <g class="floating-mini-hearts">
+          <text x="24" y="80" font-size="14" fill="#ff4d88">💖</text>
+          <text x="160" y="82" font-size="14" fill="#fbbf24">✨</text>
+        </g>
+      </svg>
+    </div>
+
+    <div style="font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--gold2);font-weight:700;">Chứng Nhận Danh Dự</div>
+    <div style="font-size:0.75rem;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:14px;">Certificate of Loveliness</div>
+    <div style="font-size:0.88rem;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:18px;">
+      Trân trọng trao tặng danh hiệu:<br>
+      <strong style="color:var(--gold2);font-size:1.1rem;display:inline-block;margin:6px 0;">"Cô Gái Đáng Yêu Nhất Vũ Trụ"</strong><br>
+      Nhân dịp sinh nhật tròn <strong>22 tuổi</strong>!<br>
+      Chúc em  tuổi mới luôn rực rỡ như hoa, ngập tràn niềm vui và vạn sự bình an! 💕
+    </div>
+    <button class="open-gift-btn" id="giftModalOk">Nhận quà với ngàn yêu thương 💖</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     BIRTHDAY APP - MULTI-PAGE SHELL
+══════════════════════════════════════════════════════ -->
+<div id="bdayScreen">
+
+  <!-- TOP NAVIGATION TABS -->
+  <div class="top-nav" id="topNav">
+    <button class="nav-tab-btn active" data-page="0">🎂 1. Bánh Kem</button>
+    <button class="nav-tab-btn" data-page="1">✨ 2. Hành Trình</button>
+    <button class="nav-tab-btn" data-page="2">🎁 3. Quà Tặng</button>
+    <button class="nav-tab-btn" data-page="3">🌙 4. Điều Ước</button>
+    <button class="nav-tab-btn" data-page="4">📐 5. Chuyên Toán</button>
+    <button class="nav-tab-btn" data-page="5">💌 6. Lưu Bút</button>
+  </div>
+
+  <!-- FLOATING MUSIC TOGGLE -->
+  <div class="music-bar-wrap">
+    <button class="music-toggle-btn" id="musicToggleBtn" title="Bật/Tắt Nhạc Happy Birthday">
+      <div class="music-bars-anim" id="musicBars">
+        <span></span><span></span><span></span>
       </div>
-    </section>
+      <span id="musicStatusText">Nhạc Sinh Nhật</span>
+    </button>
+  </div>
 
-    <!-- Lyrics Subtitles Display -->
-    <section class="lyrics-box" aria-live="polite">
-      <div class="lyric-primary" id="lyricPrimary"></div>
-      <div class="lyric-secondary" id="lyricSecondary"></div>
-    </section>
+  <!-- SCROLLABLE PAGES VIEWPORT -->
+  <div class="pages-viewport" id="pagesViewport">
 
-    <!-- Interactive Controls & Formula Section -->
-    <footer class="controls-card">
-      
-      <!-- Mathematical Formula Display -->
-      <div class="formula-container" id="formulaDisplay">
-        <!-- Rendered via KaTeX -->
+    <!-- ══════════════════════════════════════════════════
+         PAGE 1: BÁNH KEM & LỜI CHÚC MỞ ĐẦU
+    ══════════════════════════════════════════════════ -->
+    <div class="page-view active" id="page-0">
+      <div class="page-header-badge">
+        <span class="page-num-chip">★ TRANG 1 / 6 ★</span>
+        <h2 class="page-title">Chúc Mừng Sinh Nhật!</h2>
+        <p class="page-subtitle">Ngày đặc biệt của em iu tuyệt vời nhất 💖</p>
       </div>
 
-      <!-- Slider for parameter m -->
-      <div class="slider-row">
-        <div class="m-label-box">
-          <span class="m-var">m</span> = <span class="m-val-number" id="mValueDisplay">0.1</span>
+      <div class="balloons-row">
+        <span class="balloon" style="--d:3.1s;--delay:0s;--r1:-6deg;--r2:5deg" title="Bấm để nổ bóng!">🎈</span>
+        <span class="balloon" style="--d:2.7s;--delay:.3s;--r1:4deg;--r2:-5deg" title="Bấm để nổ bóng!">🎀</span>
+        <span class="balloon" style="--d:3.4s;--delay:.1s;--r1:-3deg;--r2:6deg" title="Bấm để nổ bóng!">🎊</span>
+        <span class="balloon" style="--d:2.9s;--delay:.5s;--r1:6deg;--r2:-4deg" title="Bấm để nổ bóng!">🎁</span>
+        <span class="balloon" style="--d:3.2s;--delay:.2s;--r1:-5deg;--r2:4deg" title="Bấm để nổ bóng!">🎂</span>
+        <span class="balloon" style="--d:3.0s;--delay:.4s;--r1:5deg;--r2:-6deg" title="Bấm để nổ bóng!">🌸</span>
+      </div>
+
+      <!-- 3D SVG CAKE -->
+      <div class="cake-card">
+        <div class="cake-wrap" id="cakeWrap" title="Chạm vào bánh để thổi nến!">
+          <svg class="cake-svg" viewBox="0 0 200 200" fill="none">
+            <ellipse cx="100" cy="178" rx="72" ry="9" fill="rgba(0,0,0,0.45)"/>
+            <!-- bottom layer -->
+            <rect x="18" y="132" width="164" height="46" rx="18" fill="url(#gb)"/>
+            <path d="M18 143 Q32 130 46 143 Q60 156 74 143 Q88 130 102 143 Q116 156 130 143 Q144 130 158 143 Q172 130 182 143" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.38"/>
+            <circle cx="38" cy="158" r="3.5" fill="#fbbf24"/>
+            <circle cx="62" cy="162" r="2.5" fill="#a5f3fc"/>
+            <circle cx="88" cy="156" r="3"   fill="#86efac"/>
+            <circle cx="112" cy="162" r="2.5" fill="#fda4af"/>
+            <circle cx="140" cy="157" r="3.5" fill="#c084fc"/>
+            <circle cx="164" cy="161" r="2.5" fill="#fbbf24"/>
+            <!-- top layer -->
+            <rect x="28" y="92" width="144" height="46" rx="16" fill="url(#gt)"/>
+            <path d="M28 104 Q42 91 56 104 Q70 117 84 104 Q98 91 112 104 Q126 117 140 104 Q154 91 172 104" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.42"/>
+            <circle cx="50"  cy="118" r="3"   fill="#fde68a"/>
+            <circle cx="80"  cy="122" r="2.5" fill="#ff8dc7"/>
+            <circle cx="110" cy="116" r="3"   fill="#a5f3fc"/>
+            <circle cx="140" cy="120" r="2.5" fill="#b983ff"/>
+            <!-- candle 1 -->
+            <rect x="64" y="60" width="12" height="38" rx="6" fill="url(#c1)"/>
+            <ellipse cx="70" cy="60" rx="6" ry="4" fill="#fbb6ce"/>
+            <rect x="69" y="52" width="2" height="10" rx="1" fill="#78350f"/>
+            <g class="candle-flame" id="flame1">
+              <ellipse cx="70" cy="48" rx="5.5" ry="9" fill="#fde68a" opacity=".9"/>
+              <ellipse cx="70" cy="49" rx="3.2" ry="5.5" fill="#fb923c"/>
+            </g>
+            <!-- candle 2 -->
+            <rect x="94" y="50" width="12" height="48" rx="6" fill="url(#c2)"/>
+            <ellipse cx="100" cy="50" rx="6" ry="4" fill="#d8b4fe"/>
+            <rect x="99" y="42" width="2" height="10" rx="1" fill="#78350f"/>
+            <g class="candle-flame" id="flame2">
+              <ellipse cx="100" cy="38" rx="5.5" ry="9" fill="#fde68a" opacity=".9"/>
+              <ellipse cx="100" cy="39" rx="3.2" ry="5.5" fill="#fb923c"/>
+            </g>
+            <!-- candle 3 -->
+            <rect x="124" y="60" width="12" height="38" rx="6" fill="url(#c3)"/>
+            <ellipse cx="130" cy="60" rx="6" ry="4" fill="#99f6e4"/>
+            <rect x="129" y="52" width="2" height="10" rx="1" fill="#78350f"/>
+            <g class="candle-flame" id="flame3">
+              <ellipse cx="130" cy="48" rx="5.5" ry="9" fill="#fde68a" opacity=".9"/>
+              <ellipse cx="130" cy="49" rx="3.2" ry="5.5" fill="#fb923c"/>
+            </g>
+            <defs>
+              <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#db2777"/><stop offset="100%" stop-color="#9d174d"/></linearGradient>
+              <linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#be185d"/></linearGradient>
+              <linearGradient id="c1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ff8dc7"/><stop offset="100%" stop-color="#f9a8d4"/></linearGradient>
+              <linearGradient id="c2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#d8b4fe"/></linearGradient>
+              <linearGradient id="c3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#a7f3d0"/></linearGradient>
+            </defs>
+          </svg>
         </div>
-        <input 
-          type="range" 
-          id="mSlider" 
-          class="custom-range" 
-          min="0.1" 
-          max="100.0" 
-          step="0.1" 
-          value="0.1"
-          aria-label="Điều chỉnh tham số m"
-        >
-      </div>
+        <p class="cake-hint" id="cakeHint"><span>👆</span> Chạm vào bánh để thổi nến & ước nguyện!</p>
 
-      <!-- Control Buttons -->
-      <div class="action-row">
-        <button class="primary-btn" id="playBtn" title="Bật nhạc và tự động biểu diễn theo video">
-          <span id="playBtnIcon">▶</span>
-          <span id="playBtnText">Phát Nhạc & Xem Tự Động</span>
-          <div class="music-playing-indicator" id="audioIndicator" style="display: none;">
-            <span></span><span></span><span></span><span></span>
+        <div class="stats-grid">
+          <div class="stat-pill">
+            <div class="stat-val">22</div>
+            <div class="stat-lbl">Tuổi tròn</div>
           </div>
-        </button>
+          <div class="stat-pill">
+            <div class="stat-val">8,035</div>
+            <div class="stat-lbl">Ngày sống đẹp</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-val">∞</div>
+            <div class="stat-lbl">Yêu thương</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <button class="icon-btn" id="letterBtn" title="Xem thư tỏ tình gửi Crush">
-          💌
-        </button>
+    <!-- ══════════════════════════════════════════════════
+         PAGE 2: HÀNH TRÌNH 22 NĂM RỰC RỠ (2004 - 2026)
+    ══════════════════════════════════════════════════ -->
+    <div class="page-view" id="page-1">
+      <div class="page-header-badge">
+        <span class="page-num-chip">★ TRANG 2 / 6 ★</span>
+        <h2 class="page-title">Hành Trình 22 Năm</h2>
+        <p class="page-subtitle">Từng cột mốc thanh xuân rực rỡ và đáng trân trọng</p>
       </div>
 
-    </footer>
+      <div class="timeline-list">
+        <div class="timeline-node">
+          <div class="timeline-dot" style="--dot-color:#ff4d88"></div>
+          <div class="timeline-time" style="--dot-color:#ff4d88">03 / 11 / 2004</div>
+          <div class="timeline-name">Thiên Thần Nhỏ Chào Đời 👼</div>
+          <div class="timeline-text">Thế giới có thêm một sinh linh bé nhỏ đáng yêu, mang đến nụ cười và niềm hạnh phúc vô tận cho những người xung quanh.</div>
+        </div>
 
-  </main>
+        <div class="timeline-node">
+          <div class="timeline-dot" style="--dot-color:#b983ff"></div>
+          <div class="timeline-time" style="--dot-color:#b983ff">Thời Niên Thiếu</div>
+          <div class="timeline-name">Những Năm Tháng Hồn Nhiên 🎒</div>
+          <div class="timeline-text">Lớn lên với những ước mơ trong veo, nụ cười tỏa nắng và sự thiện lương luôn đong đầy trong ánh mắt.</div>
+        </div>
 
-  <!-- Confession Love Letter Modal -->
-  <div class="modal-overlay" id="letterModal">
-    <div class="modal-card">
-      <button class="modal-close-btn" id="letterModalClose" title="Đóng">&times;</button>
-      
-      <div class="modal-header">
-        <div class="modal-title">
-          <span>💌</span> Gửi Người Con Gái Anh Thương
+        <div class="timeline-node">
+          <div class="timeline-dot" style="--dot-color:#fbbf24"></div>
+          <div class="timeline-time" style="--dot-color:#fbbf24">Cột Mốc 18 Tuổi</div>
+          <div class="timeline-name">Bước Vào Tuổi Trưởng Thành 🎓</div>
+          <div class="timeline-text">Bắt đầu sải cánh bay vào biển lớn cuộc đời, mạnh mẽ, độc lập và đầy tự tin trên con đường mình chọn.</div>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-dot" style="--dot-color:#22d3ee"></div>
+          <div class="timeline-time" style="--dot-color:#22d3ee">Hôm Nay · Tuổi 22</div>
+          <div class="timeline-name">Rạng Ngời & Xinh Đẹp Nhất 👑</div>
+          <div class="timeline-text">Một cô gái tuyệt vời với trái tim ấm áp, thông minh và đầy cuốn hút. Chúc tuổi 22 của em iu thật bùng nổ và rực rỡ!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         PAGE 3: HỘP QUÀ BÍ MẬT & THẺ ĐẶC QUYỀN
+    ══════════════════════════════════════════════════ -->
+    <div class="page-view" id="page-2">
+      <div class="page-header-badge">
+        <span class="page-num-chip">★ TRANG 3 / 6 ★</span>
+        <h2 class="page-title">Quà Tặng & Đặc Quyền</h2>
+        <p class="page-subtitle">Những món quà nhỏ và voucher dành riêng cho em iu</p>
+      </div>
+
+      <div class="gift-teaser-card">
+        <span class="gift-box-icon" id="giftBoxBtn" title="Chạm vào để mở quà!">🎁</span>
+        <div style="font-weight:800;font-size:1.1rem;margin-top:4px;">Hộp Quà Sinh Nhật Bí Mật</div>
+        <p style="font-size:0.83rem;color:rgba(255,255,255,0.7);margin:6px 0 10px;">
+          Một chứng nhận vinh dự bất ngờ đang chờ em iu mở ra ✨
+        </p>
+        <button class="open-gift-btn" id="openGiftBtn">Mở Hộp Quà Ngay 🎀</button>
+      </div>
+
+      <div style="font-weight:800;font-size:1.05rem;margin-bottom:12px;text-align:left;">
+        🎟️ 4 Thẻ Đặc Quyền Dành Cho Em Iu (Có giá trị vô hạn)
+      </div>
+
+      <div class="vouchers-grid">
+        <div class="voucher-card" style="--v-color:#ff4d88">
+          <span class="voucher-emoji">🧋</span>
+          <div class="voucher-info">
+            <div class="voucher-title">Voucher Trà Sữa / Ăn Uống</div>
+            <div class="voucher-desc">1 chầu trà sữa hoặc ăn uống tùy ý em iu chọn do anh bao trọn gói 100%!</div>
+          </div>
+          <button class="voucher-claim-btn" onclick="claimVoucher(this, 'Voucher Trà Sữa')">Dùng ngay</button>
+        </div>
+
+        <div class="voucher-card" style="--v-color:#b983ff">
+          <span class="voucher-emoji">🛵</span>
+          <div class="voucher-info">
+            <div class="voucher-title">Voucher Du Ngoạn Vi Vu</div>
+            <div class="voucher-desc">1 chuyến hóng gió dạo phố bất kể lúc nào em iu muốn, đêm hay ngày!</div>
+          </div>
+          <button class="voucher-claim-btn" onclick="claimVoucher(this, 'Voucher Du Ngoạn')">Dùng ngay</button>
+        </div>
+
+        <div class="voucher-card" style="--v-color:#fbbf24">
+          <span class="voucher-emoji">🥺</span>
+          <div class="voucher-info">
+            <div class="voucher-title">Voucher Tha Thứ Vô Điều Kiện</div>
+            <div class="voucher-desc">1 lần giận hờn được anh dỗ ngọt ngay tức thì không cần giải thích!</div>
+          </div>
+          <button class="voucher-claim-btn" onclick="claimVoucher(this, 'Voucher Tha Thứ')">Dùng ngay</button>
+        </div>
+
+        <div class="voucher-card" style="--v-color:#22d3ee">
+          <span class="voucher-emoji">🎧</span>
+          <div class="voucher-info">
+            <div class="voucher-title">Voucher Lắng Nghe 24/7</div>
+            <div class="voucher-desc">Anh luôn sẵn sàng lắng nghe mọi tâm sự của em iu mọi lúc mọi nơi!</div>
+          </div>
+          <button class="voucher-claim-btn" onclick="claimVoucher(this, 'Voucher Lắng Nghe')">Dùng ngay</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         PAGE 4: ĐIỀU ƯỚC & LÝ DO EM IU ĐẶC BIỆT
+    ══════════════════════════════════════════════════ -->
+    <div class="page-view" id="page-3">
+      <div class="page-header-badge">
+        <span class="page-num-chip">★ TRANG 4 / 6 ★</span>
+        <h2 class="page-title">Điều Ước & Lý Do</h2>
+        <p class="page-subtitle">Những tâm tình và điều tuyệt vời nhất dành cho em iu</p>
+      </div>
+
+      <div class="wishes-card">
+        <div style="font-weight:800;font-size:1.02rem;margin-bottom:12px;text-align:left;">
+          🌙 5 Điều Anh  Cầu Nguyện Cho Em:
+        </div>
+        <div class="wish-row" onclick="checkWish(this)"><div class="wish-box">☆</div><div class="wish-txt">Luôn khỏe mạnh, rạng rỡ và tràn đầy năng lượng mỗi ngày 💪</div></div>
+        <div class="wish-row" onclick="checkWish(this)"><div class="wish-box">☆</div><div class="wish-txt">Mọi ước mơ ấp ủ đều trở thành hiện thực theo cách đẹp nhất 🌟</div></div>
+        <div class="wish-row" onclick="checkWish(this)"><div class="wish-box">☆</div><div class="wish-txt">Luôn có người yêu thương, che chở và đồng hành bên cạnh 💕</div></div>
+        <div class="wish-row" onclick="checkWish(this)"><div class="wish-box">☆</div><div class="wish-txt">Nụ cười tươi tắn không bao giờ tắt trên môi em iu 😊</div></div>
+        <div class="wish-row" onclick="checkWish(this)"><div class="wish-box">☆</div><div class="wish-txt">Vạn sự bình an, hạnh phúc bền lâu và gặp nhiều may mắn 🌷</div></div>
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:8px;font-style:italic;">
+          (Chạm vào từng điều để gửi lên trời sao ✨)
+        </p>
+      </div>
+
+      <div style="font-weight:800;font-size:1.02rem;margin-bottom:12px;text-align:left;">
+        💛 Vì Sao Em Iu Luôn Thật Đặc Biệt:
+      </div>
+      <div class="reasons-grid">
+        <div class="reason-box"><span class="reason-icon">😊</span><div class="reason-title">Nụ cười em làm sáng bừng cả thế giới</div></div>
+        <div class="reason-box"><span class="reason-icon">💪</span><div class="reason-title">Em mạnh mẽ hơn em nghĩ rất nhiều</div></div>
+        <div class="reason-box"><span class="reason-icon">🌟</span><div class="reason-title">Sự tử tế chạm đến trái tim mọi người</div></div>
+        <div class="reason-box"><span class="reason-icon">✨</span><div class="reason-title">Em tỏa sáng theo cách độc nhất vô nhị</div></div>
+        <div class="reason-box"><span class="reason-icon">🌷</span><div class="reason-title">Sự hiện diện của em iu luôn làm ấm lòng</div></div>
+        <div class="reason-box"><span class="reason-icon">💎</span><div class="reason-title">Viên ngọc quý giá của cuộc đời này</div></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         PAGE 5: GÓC CHUYÊN TOÁN - CÁCH CHUYÊN TOÁN TỎ TÌNH 📐💖
+         (GIẢI QUYẾT TRỌN VẸN YÊU CẦU: 4 TRÁI TIM, F(X), 16π RUNG ĐỘNG)
+    ══════════════════════════════════════════════════ -->
+    <div class="page-view" id="page-4">
+      <div class="page-header-badge">
+        <span class="page-num-chip">★ TRANG 5 / 6 ★</span>
+        <h2 class="page-title">Cách Chuyên Toán Tỏ Tình ✨</h2>
+        <p class="page-subtitle">Món quà toán học độc quyền dành riêng cho em iu</p>
+      </div>
+
+      <div class="math-section-card">
+        <!-- SUB TABS -->
+        <div class="math-tabs-header">
+          <button class="math-tab-btn active" id="tabBtn4Hearts" onclick="switchMathTab('4hearts')">💖 4 Trái tim</button>
+          <button class="math-tab-btn" id="tabBtnFx" onclick="switchMathTab('fx')">📈 Hàm số f(x)</button>
+          <button class="math-tab-btn" id="tabBtnPulse" onclick="switchMathTab('pulse')">💓 16π Rung động</button>
+        </div>
+
+        <!-- 1. VIEW 4 TRÁI TIM (LƯỚI 4 Ô HIỂN THỊ ĐỦ 4 TRÁI TIM NEON ĐẬP MƯỢT MÀ) -->
+        <div id="mathView4Hearts">
+          <div class="four-hearts-grid">
+            <div class="heart-quadrant" style="box-shadow: 0 0 20px rgba(255, 77, 136, 0.25);">
+              <canvas id="heartCanvas1" class="heart-canvas-single"></canvas>
+              <div class="heart-formula-badge">x = 16sin³(t)</div>
+              <div class="heart-name-badge">💖 Nhịp Đập Neon</div>
+            </div>
+
+            <div class="heart-quadrant" style="box-shadow: 0 0 20px rgba(185, 131, 255, 0.25);">
+              <canvas id="heartCanvas2" class="heart-canvas-single"></canvas>
+              <div class="heart-formula-badge">r = 1 - sin(θ)</div>
+              <div class="heart-name-badge">💜 Tim Hologram</div>
+            </div>
+
+            <div class="heart-quadrant" style="box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);">
+              <canvas id="heartCanvas3" class="heart-canvas-single"></canvas>
+              <div class="heart-formula-badge">(x²+y²-1)³ = x²y³</div>
+              <div class="heart-name-badge">💛 Ánh Kim Vàng</div>
+            </div>
+
+            <div class="heart-quadrant" style="box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);">
+              <canvas id="heartCanvas4" class="heart-canvas-single"></canvas>
+              <div class="heart-formula-badge">y = √(1-x²) ± √|x|</div>
+              <div class="heart-name-badge">💙 Pha Lê Xanh</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. VIEW HÀM SỐ F(X) -->
+        <div id="mathViewFx" class="fx-view-wrap">
+          <canvas id="fxCanvas"></canvas>
+          <div style="font-family:'Playfair Display',serif;font-size:0.92rem;color:var(--gold2);margin-bottom:4px;">
+            f(x) = x² + (y - √|x|)² = 1
+          </div>
+          <div style="font-size:0.78rem;color:rgba(255,255,255,0.7);">
+            Đồ thị phương trình đường cong trái tim chuẩn tọa độ Descartes
+          </div>
+        </div>
+
+        <!-- 3. VIEW 16π RUNG ĐỘNG -->
+        <div id="mathViewPulse" class="pulse-view-wrap">
+          <canvas id="pulseCanvas"></canvas>
+          <div style="font-family:'Playfair Display',serif;font-size:0.92rem;color:var(--pink2);margin-bottom:4px;">
+            Tần số rung động 16π rad/s
+          </div>
+          <div style="font-size:0.78rem;color:rgba(255,255,255,0.7);">
+            Hàng ngàn hạt ánh sáng nhảy múa theo nhịp đập con tim
+          </div>
+        </div>
+
+        <div class="math-quote-box">
+          📐 <strong>Lời giải toán học:</strong><br>
+          "Phương trình có thể có vô số nghiệm, không gian có thể có n chiều, nhưng trong hệ quy chiếu của anh, tọa độ hạnh phúc duy nhất luôn là nụ cười của em iu!" ✨
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         PAGE 6: LƯU BÚT, GỬI SAO & ĐẾM NGƯỢC
+    ══════════════════════════════════════════════════ -->
+    <div class="page-view" id="page-5">
+      <div class="page-header-badge">
+        <span class="page-num-chip">★ TRANG 6 / 6 ★</span>
+        <h2 class="page-title">Sổ Lưu Bút & Nguyện Ước</h2>
+        <p class="page-subtitle">Gửi gắm lời nhắn và những lời chúc tốt lành nhất</p>
+      </div>
+
+      <div class="note-input-card">
+        <div style="font-weight:800;font-size:1.05rem;margin-bottom:6px;">✍️ Lời Nhắn Gửi Lại Cho Anh</div>
+        <p style="font-size:0.83rem;color:rgba(255,255,255,0.7);">
+          Em iu có điều gì muốn nhắn nhủ hay chia sẻ không? Hãy viết vào đây nhé, lời nhắn sẽ được lưu giữ lại mãi mãi 💕
+        </p>
+        <textarea id="replyText" class="note-textarea" placeholder="Nhập lời nhắn gửi gắm của em iu tại đây..."></textarea>
+        <button class="note-send-btn" id="sendReplyBtn">Gửi Gắm Yêu Thương 💕</button>
+        <div class="notes-container" id="savedNotesBox"></div>
+      </div>
+
+      <div class="star-interactive-card">
+        <div style="font-family:'Dancing Script',cursive;font-size:1.5rem;color:var(--gold2);font-weight:700;">
+          🌠 Gửi Ngôi Sao Lên Bầu Trời
+        </div>
+        <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);">
+          Mỗi lần bấm là một ngôi sao mang theo may mắn gửi đến em iu
+        </p>
+        <button class="star-send-btn" id="starSendBtn">🌟 Thả Sao May Mắn</button>
+        <div style="font-size:0.82rem;font-weight:800;color:var(--gold2);" id="starCount">Đã gửi: 0 ngôi sao ✨</div>
+      </div>
+
+      <div class="countdown-box">
+        <div style="font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);font-weight:700;">
+          ⏳ Đếm ngược đến sinh nhật tiếp theo (03/11/2027)
+        </div>
+        <div class="countdown-digits">
+          <div class="cd-digit-card"><div class="cd-digit-num" id="cdDays">365</div><div class="cd-digit-lbl">Ngày</div></div>
+          <div class="cd-colon">:</div>
+          <div class="cd-digit-card"><div class="cd-digit-num" id="cdHours">00</div><div class="cd-digit-lbl">Giờ</div></div>
+          <div class="cd-colon">:</div>
+          <div class="cd-digit-card"><div class="cd-digit-num" id="cdMins">00</div><div class="cd-digit-lbl">Phút</div></div>
+          <div class="cd-colon">:</div>
+          <div class="cd-digit-card"><div class="cd-digit-num" id="cdSecs">00</div><div class="cd-digit-lbl">Giây</div></div>
         </div>
       </div>
 
-      <div class="modal-body">
-        <span id="letterContent"></span><span class="typing-cursor"></span>
+      <div style="margin-top:22px;text-align:center;">
+        <p style="font-family:'Playfair Display',serif;font-style:italic;color:var(--pink2);font-size:1.05rem;">
+          "Chúc em iu một tuổi 22 ngập tràn hạnh phúc và luôn luôn mỉm cười!"
+        </p>
+        <div style="margin-top:12px;">
+          <button class="open-gift-btn" onclick="goToPage(0)" style="background:rgba(255,255,255,0.1);box-shadow:none;">
+            ↺ Xem Lại Từ Đầu
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end #pagesViewport -->
+
+  <!-- FIXED BOTTOM CONTROLS BAR -->
+  <div class="bottom-controls">
+    <div class="bottom-controls-inner">
+      <button class="page-nav-arrow" id="prevPageBtn" onclick="prevPage()">
+        <span>‹</span> Trang trước
+      </button>
+
+      <div class="page-dots-wrap">
+        <div class="page-dots" id="pageDots">
+          <span class="page-dot active" onclick="goToPage(0)"></span>
+          <span class="page-dot" onclick="goToPage(1)"></span>
+          <span class="page-dot" onclick="goToPage(2)"></span>
+          <span class="page-dot" onclick="goToPage(3)"></span>
+          <span class="page-dot" onclick="goToPage(4)"></span>
+          <span class="page-dot" onclick="goToPage(5)"></span>
+        </div>
+        <span class="page-label-indicator" id="pageIndicatorText">Trang 1 / 6</span>
       </div>
 
-      <div class="modal-footer">
-        <button class="modal-heart-btn" id="sendHeartModalBtn">Gửi Ngàn Tim 💕</button>
-      </div>
+      <button class="page-nav-arrow next-special" id="nextPageBtn" onclick="nextPage()">
+        Trang sau <span>›</span>
+      </button>
     </div>
   </div>
 
-  <!-- App Script -->
-  <script src="js/math_heart.js"></script>
+</div><!-- end #bdayScreen -->
+
+<script>
+'use strict';
+
+/* ── SOUND & AUDIO SYNTHESIS VIA WEB AUDIO API ────────── */
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function playPopSound() {
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(450 + Math.random() * 200, now);
+    osc.frequency.exponentialRampToValueAtTime(800 + Math.random() * 300, now + 0.08);
+    gain.gain.setValueAtTime(0.3, now);
+    gain.gain.linearRampToValueAtTime(0.001, now + 0.08);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.08);
+  } catch(e) {}
+}
+
+function playChimeSound() {
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const t = now + idx * 0.06;
+      gain.gain.setValueAtTime(0.2, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.5);
+    });
+  } catch(e) {}
+}
+
+function playFanfareSound() {
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const t = now + i * 0.09;
+      gain.gain.setValueAtTime(0.25, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.8);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.8);
+    });
+  } catch(e) {}
+}
+
+/* HAPPY BIRTHDAY SYNTHESIZER MELODY */
+let isPlayingMusic = false;
+let musicTimer = null;
+const HB_MELODY = [
+  { note: 261.63, dur: 0.35, pause: 0.05 },
+  { note: 261.63, dur: 0.25, pause: 0.05 },
+  { note: 293.66, dur: 0.55, pause: 0.08 },
+  { note: 261.63, dur: 0.55, pause: 0.08 },
+  { note: 349.23, dur: 0.55, pause: 0.08 },
+  { note: 329.63, dur: 1.0,  pause: 0.25 },
+  { note: 261.63, dur: 0.35, pause: 0.05 },
+  { note: 261.63, dur: 0.25, pause: 0.05 },
+  { note: 293.66, dur: 0.55, pause: 0.08 },
+  { note: 261.63, dur: 0.55, pause: 0.08 },
+  { note: 392.00, dur: 0.55, pause: 0.08 },
+  { note: 349.23, dur: 1.0,  pause: 0.25 },
+  { note: 261.63, dur: 0.35, pause: 0.05 },
+  { note: 261.63, dur: 0.25, pause: 0.05 },
+  { note: 523.25, dur: 0.55, pause: 0.08 },
+  { note: 440.00, dur: 0.55, pause: 0.08 },
+  { note: 349.23, dur: 0.55, pause: 0.08 },
+  { note: 329.63, dur: 0.55, pause: 0.08 },
+  { note: 293.66, dur: 0.9,  pause: 0.25 },
+  { note: 466.16, dur: 0.35, pause: 0.05 },
+  { note: 466.16, dur: 0.25, pause: 0.05 },
+  { note: 440.00, dur: 0.55, pause: 0.08 },
+  { note: 349.23, dur: 0.55, pause: 0.08 },
+  { note: 392.00, dur: 0.55, pause: 0.08 },
+  { note: 349.23, dur: 1.3,  pause: 0.8 }
+];
+
+function playNote(freq, dur) {
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    const osc1 = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc1.type = 'triangle';
+    osc2.type = 'sine';
+    osc1.frequency.value = freq;
+    osc2.frequency.value = freq * 2;
+    gain.gain.setValueAtTime(0.18, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+    osc1.connect(gain);
+    osc2.connect(gain);
+    gain.connect(ctx.destination);
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + dur);
+    osc2.stop(now + dur);
+  } catch(e) {}
+}
+
+function startMusicLoop() {
+  if (isPlayingMusic) return;
+  isPlayingMusic = true;
+  document.getElementById('musicBars').classList.remove('paused');
+  document.getElementById('musicStatusText').textContent = 'Đang Phát Nhạc 🎵';
+
+  let idx = 0;
+  function scheduleNext() {
+    if (!isPlayingMusic) return;
+    const item = HB_MELODY[idx];
+    playNote(item.note, item.dur);
+    const delay = (item.dur + item.pause) * 1000;
+    idx = (idx + 1) % HB_MELODY.length;
+    musicTimer = setTimeout(scheduleNext, delay);
+  }
+  scheduleNext();
+}
+
+function stopMusic() {
+  isPlayingMusic = false;
+  if (musicTimer) clearTimeout(musicTimer);
+  document.getElementById('musicBars').classList.add('paused');
+  document.getElementById('musicStatusText').textContent = 'Tạm Dừng ⏸';
+}
+
+document.getElementById('musicToggleBtn').addEventListener('click', () => {
+  if (isPlayingMusic) stopMusic();
+  else startMusicLoop();
+});
+
+/* ── BACKGROUND CANVAS (STARS & SHOOTING STARS) ───────── */
+const bgCanvas = document.getElementById('bgCanvas');
+const bgCtx = bgCanvas.getContext('2d');
+let stars = [], shootingStars = [];
+
+function resizeBg() {
+  bgCanvas.width = window.innerWidth;
+  bgCanvas.height = window.innerHeight;
+  stars = [];
+  const count = Math.floor((bgCanvas.width * bgCanvas.height) / 2800);
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * bgCanvas.width,
+      y: Math.random() * bgCanvas.height,
+      r: Math.random() * 1.5 + 0.4,
+      alpha: Math.random() * 0.8 + 0.2,
+      twinkleSpeed: 0.015 + Math.random() * 0.03,
+      color: ['#ffffff', '#ff8dc7', '#b983ff', '#fde68a', '#a5f3fc'][Math.floor(Math.random() * 5)]
+    });
+  }
+}
+window.addEventListener('resize', resizeBg);
+resizeBg();
+
+function animateBg() {
+  bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+  // Nebulas
+  const g1 = bgCtx.createRadialGradient(bgCanvas.width * 0.25, bgCanvas.height * 0.3, 10, bgCanvas.width * 0.25, bgCanvas.height * 0.3, bgCanvas.width * 0.45);
+  g1.addColorStop(0, 'rgba(185, 131, 255, 0.08)');
+  g1.addColorStop(1, 'rgba(0,0,0,0)');
+  bgCtx.fillStyle = g1;
+  bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+  const g2 = bgCtx.createRadialGradient(bgCanvas.width * 0.8, bgCanvas.height * 0.7, 10, bgCanvas.width * 0.8, bgCanvas.height * 0.7, bgCanvas.width * 0.5);
+  g2.addColorStop(0, 'rgba(255, 77, 136, 0.08)');
+  g2.addColorStop(1, 'rgba(0,0,0,0)');
+  bgCtx.fillStyle = g2;
+  bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+  // Stars
+  for (const s of stars) {
+    s.alpha += s.twinkleSpeed;
+    if (s.alpha > 1 || s.alpha < 0.2) s.twinkleSpeed = -s.twinkleSpeed;
+    bgCtx.beginPath();
+    bgCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    bgCtx.fillStyle = s.color;
+    bgCtx.globalAlpha = Math.max(0.1, Math.min(1, s.alpha));
+    bgCtx.fill();
+  }
+  bgCtx.globalAlpha = 1;
+
+  // Shooting stars
+  if (Math.random() < 0.015 && shootingStars.length < 3) {
+    shootingStars.push({
+      x: Math.random() * bgCanvas.width * 0.8,
+      y: Math.random() * bgCanvas.height * 0.4,
+      len: 70 + Math.random() * 80,
+      speed: 12 + Math.random() * 8,
+      angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
+      life: 1
+    });
+  }
+  for (let i = shootingStars.length - 1; i >= 0; i--) {
+    const st = shootingStars[i];
+    const ex = st.x - Math.cos(st.angle) * st.len;
+    const ey = st.y - Math.sin(st.angle) * st.len;
+    const grad = bgCtx.createLinearGradient(st.x, st.y, ex, ey);
+    grad.addColorStop(0, `rgba(255, 255, 255, ${st.life})`);
+    grad.addColorStop(1, 'rgba(255, 141, 199, 0)');
+    bgCtx.strokeStyle = grad;
+    bgCtx.lineWidth = 2;
+    bgCtx.beginPath();
+    bgCtx.moveTo(st.x, st.y);
+    bgCtx.lineTo(ex, ey);
+    bgCtx.stroke();
+    st.x += Math.cos(st.angle) * st.speed;
+    st.y += Math.sin(st.angle) * st.speed;
+    st.life -= 0.02;
+    if (st.life <= 0) shootingStars.splice(i, 1);
+  }
+
+  requestAnimationFrame(animateBg);
+}
+animateBg();
+
+/* ── FIREWORKS CANVAS ─────────────────────────────────── */
+const fwCanvas = document.getElementById('fwCanvas');
+const fwCtx = fwCanvas.getContext('2d');
+let fireworks = [];
+let fwActive = false;
+
+function resizeFw() {
+  fwCanvas.width = window.innerWidth;
+  fwCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeFw);
+resizeFw();
+
+function launchFw(xPos) {
+  fwCanvas.style.display = 'block';
+  const x = xPos != null ? xPos : fwCanvas.width * 0.2 + Math.random() * fwCanvas.width * 0.6;
+  const y = fwCanvas.height * 0.15 + Math.random() * fwCanvas.height * 0.4;
+  const count = 55 + Math.floor(Math.random() * 30);
+  const hue = Math.random() * 360;
+  const pts = [];
+  for (let i = 0; i < count; i++) {
+    const a = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+    const v = 2 + Math.random() * 5;
+    pts.push({
+      x, y,
+      vx: Math.cos(a) * v,
+      vy: Math.sin(a) * v,
+      life: 1,
+      decay: 0.008 + Math.random() * 0.012,
+      r: 1.6 + Math.random() * 2,
+      color: `hsl(${hue + (Math.random() * 40 - 20)}, 90%, 65%)`
+    });
+  }
+  fireworks.push(pts);
+}
+
+function updateFireworks() {
+  if (!fireworks.length) {
+    if (!fwActive) fwCanvas.style.display = 'none';
+    return;
+  }
+  fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+  for (let f = fireworks.length - 1; f >= 0; f--) {
+    const fw = fireworks[f];
+    for (let i = fw.length - 1; i >= 0; i--) {
+      const p = fw[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.05;
+      p.vx *= 0.985;
+      p.life -= p.decay;
+      if (p.life <= 0) {
+        fw.splice(i, 1);
+        continue;
+      }
+      fwCtx.beginPath();
+      fwCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      fwCtx.fillStyle = p.color;
+      fwCtx.globalAlpha = p.life;
+      fwCtx.shadowBlur = 6;
+      fwCtx.shadowColor = p.color;
+      fwCtx.fill();
+    }
+    if (!fw.length) fireworks.splice(f, 1);
+  }
+  fwCtx.globalAlpha = 1;
+  fwCtx.shadowBlur = 0;
+}
+setInterval(updateFireworks, 1000 / 60);
+
+/* CONFETTI BURST */
+const CONFETTI_COLORS = ['#ff4d88', '#b983ff', '#fbbf24', '#6ee7b7', '#22d3ee', '#fde68a', '#ff8dc7'];
+function burstConfetti(count = 80) {
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    const sz = 6 + Math.random() * 8;
+    el.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      top: -20px;
+      width: ${sz}px;
+      height: ${sz}px;
+      background: ${CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '3px'};
+      animation-duration: ${2.5 + Math.random() * 2.5}s;
+      animation-delay: ${Math.random() * 1.2}s;
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5500);
+  }
+}
+
+/* ── MULTI-PAGE NAVIGATION LOGIC ──────────────────────── */
+const TOTAL_PAGES = 6;
+let currentPage = 0;
+
+function updatePageUI() {
+  // Hide all pages, show active
+  for (let i = 0; i < TOTAL_PAGES; i++) {
+    const p = document.getElementById(`page-${i}`);
+    if (p) {
+      if (i === currentPage) {
+        p.classList.add('active');
+      } else {
+        p.classList.remove('active');
+      }
+    }
+  }
+
+  // Update top tabs
+  document.querySelectorAll('.nav-tab-btn').forEach((btn, idx) => {
+    if (idx === currentPage) btn.classList.add('active');
+    else btn.classList.remove('active');
+  });
+
+  // Scroll active tab into view
+  const activeTab = document.querySelector(`.nav-tab-btn[data-page="${currentPage}"]`);
+  if (activeTab) {
+    activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+
+  // Update bottom dots
+  document.querySelectorAll('.page-dot').forEach((dot, idx) => {
+    if (idx === currentPage) dot.classList.add('active');
+    else dot.classList.remove('active');
+  });
+
+  // Update bottom indicator label
+  document.getElementById('pageIndicatorText').textContent = `Trang ${currentPage + 1} / ${TOTAL_PAGES}`;
+
+  // Update arrow buttons
+  const prevBtn = document.getElementById('prevPageBtn');
+  const nextBtn = document.getElementById('nextPageBtn');
+  prevBtn.disabled = (currentPage === 0);
+  
+  if (currentPage === TOTAL_PAGES - 1) {
+    nextBtn.innerHTML = 'Xem lại ↺';
+  } else {
+    nextBtn.innerHTML = 'Trang sau <span>›</span>';
+  }
+
+  // Scroll page viewport to top
+  const vp = document.getElementById('pagesViewport');
+  if (vp) vp.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // If entering Page 5 (Math), make sure canvases resize and render
+  if (currentPage === 4) {
+    setTimeout(initMathCanvases, 100);
+  }
+}
+
+function goToPage(idx) {
+  if (idx < 0) idx = 0;
+  if (idx >= TOTAL_PAGES) idx = 0;
+  currentPage = idx;
+  updatePageUI();
+  playPopSound();
+}
+
+function nextPage() {
+  if (currentPage < TOTAL_PAGES - 1) {
+    goToPage(currentPage + 1);
+  } else {
+    goToPage(0);
+  }
+}
+
+function prevPage() {
+  if (currentPage > 0) {
+    goToPage(currentPage - 1);
+  }
+}
+
+// Click on top tabs
+document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const p = parseInt(btn.getAttribute('data-page'), 10);
+    goToPage(p);
+  });
+});
+
+// Keyboard navigation (Left / Right Arrow)
+window.addEventListener('keydown', (e) => {
+  if (document.getElementById('passwordScreen').classList.contains('fade-out')) {
+    if (e.key === 'ArrowRight') nextPage();
+    else if (e.key === 'ArrowLeft') prevPage();
+  }
+});
+
+// Touch swipe support on viewport
+let touchStartX = 0;
+let touchStartY = 0;
+const vp = document.getElementById('pagesViewport');
+vp.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+vp.addEventListener('touchend', (e) => {
+  const diffX = e.changedTouches[0].screenX - touchStartX;
+  const diffY = e.changedTouches[0].screenY - touchStartY;
+  // If horizontal swipe is prominent
+  if (Math.abs(diffX) > 60 && Math.abs(diffY) < 50) {
+    if (diffX < 0) nextPage();
+    else prevPage();
+  }
+}, { passive: true });
+
+
+/* ── CODER TERMINAL TYPING & EXECUTION LOGIC (178 LINES) ── */
+const RAW_CODE_TEXT = '# ============================================================================== #\n#                     PROJECT: ULTIMATE BIRTHDAY CELEBRATION                     #\n#                             FOR EM IU (03/11/2004)                             #\n#                    DEDICATED TO THE MOST BEAUTIFUL GIRL 💖                     #\n# ============================================================================== #\n\nimport math\nimport time\nimport random\nfrom dataclasses import dataclass, field\nfrom enum import Enum, auto\nfrom typing import List, Dict, Tuple, Optional\n\n\n# ── 1. CONFIGURATION & CONSTANTS ─────────────────────────────────────────────\nAUTHOR: str = "A Coder Who Loves You More Than Code"\nTARGET_NAME: str = "Cô Gái Đáng Yêu Nhất Vũ Trụ 👑"\nTARGET_DATE: str = "03/11/2004"\nCURRENT_AGE: int = 22\nDAYS_OF_SUNSHINE: int = 8035\nMAX_LOVE_CAPACITY: float = float("inf")\nUNIVERSE_GRAVITY_BIAS: float = 9.80665  # Everything pulls towards your smile\n\n\n# ── 2. ENUMS & DATA STRUCTURES ───────────────────────────────────────────────\nclass EmotionalState(Enum):\n    SUPER_HAPPY = auto()\n    RADIANT = auto()\n    CUTE_OVERLOAD = auto()\n    LOVED_UNCONDITIONALLY = auto()\n\n\nclass BirthdayPrivilege(Enum):\n    MILK_TEA_UNLIMITED = "1 chầu trà sữa / ăn uống buffet bao trọn 100%"\n    NIGHT_CITY_RIDE = "1 chuyến dạo phố ngắm sao hóng gió bất kỳ lúc nào"\n    INFINITE_FORGIVENESS = "1 lần giận hờn được dỗ ngọt ngay lập tức"\n    HEART_TO_HEART_24_7 = "Sẵn sàng lắng nghe mọi tâm sự mọi lúc mọi nơi"\n\n\n@dataclass\nclass Milestone:\n    year: int\n    title: str\n    description: str\n    heart_points: int = 100\n\n\n@dataclass\nclass EmIuProfile:\n    name: str = TARGET_NAME\n    birthday: str = TARGET_DATE\n    age: int = CURRENT_AGE\n    status: str = "Viên ngọc quý giá nhất trần đời 💎"\n    state: EmotionalState = EmotionalState.SUPER_HAPPY\n    charm_rating: float = MAX_LOVE_CAPACITY\n    privileges: List[BirthdayPrivilege] = field(default_factory=list)\n\n    def smile(self) -> str:\n        return "Nụ cười của em iu làm bừng sáng cả thế giới ✨"\n\n    def is_special(self) -> bool:\n        # Không cần điều kiện gì, em luôn là người duy nhất\n        return True\n\n\n# ── 3. MATHEMATICAL HEART CURVES (GÓC CHUYÊN TOÁN) ──────────────────────────\nclass MathHeartEngine:\n    """Vẽ trái tim nhịp đập bằng công thức giải tích tọa độ cực"""\n\n    @staticmethod\n    def parametric_cardioid(t: float) -> Tuple[float, float]:\n        """Đường cong trái tim chuẩn tham số Descartes"""\n        x = 16 * (math.sin(t) ** 3)\n        y = (13 * math.cos(t) -\n             5 * math.cos(2 * t) -\n             2 * math.cos(3 * t) -\n             math.cos(4 * t))\n        return x, y\n\n    @staticmethod\n    def heart_beat_pulse(amplitude: float = 1.0, frequency: float = 16 * math.pi) -> float:\n        """Tần số dao động nhịp tim rung động theo thời gian"""\n        now = time.time()\n        return amplitude * math.sin(frequency * now)\n\n    @staticmethod\n    def descartes_implicit(x: float) -> Tuple[float, float]:\n        """x^2 + (y - cbrt(x^2))^2 = 1"""\n        x_clamped = max(-1.0, min(1.0, x))\n        top = math.sqrt(1 - x_clamped ** 2) + (abs(x_clamped) ** (2 / 3))\n        bottom = -math.sqrt(1 - x_clamped ** 2) + (abs(x_clamped) ** (2 / 3))\n        return top, bottom\n\n\n# ── 4. 22-YEAR TIMELINE GENERATOR ───────────────────────────────────────────\ndef build_timeline_journey() -> List[Milestone]:\n    """Hành trình 22 năm thanh xuân rực rỡ của em iu"""\n    return [\n        Milestone(2004, "Thiên Thần Nhỏ Chào Đời 👼", "Ngày 03/11/2004 thế giới đón một sinh linh bé nhỏ cực đáng yêu"),\n        Milestone(2014, "Tuổi Thơ Hồn Nhiên 🎒", "Lớn lên với những ước mơ trong trẻo và nụ cười rạng rỡ"),\n        Milestone(2022, "Cột Mốc 18 Tuổi 🎓", "Bước vào ngưỡng cửa trưởng thành, tự tin sải cánh vào cuộc đời"),\n        Milestone(2026, "Hôm Nay · Tuổi 22 👑", "Rạng ngời, xinh đẹp, thông minh và tràn đầy nhựa sống")\n    ]\n\n\n# ── 5. WISHES DISPATCHER ────────────────────────────────────────────────────\ndef generate_heartfelt_wishes() -> List[str]:\n    return [\n        "Chúc em iu luôn luôn khỏe mạnh, ngập tràn năng lượng mỗi sớm mai 💪",\n        "Mọi ước mơ ấp ủ đều nở hoa theo cách rực rỡ và trọn vẹn nhất 🌟",\n        "Luôn có người yêu thương, che chở, bảo vệ và đồng hành bên em 💕",\n        "Nụ cười tươi tắn không bao giờ tắt trên khóe môi em iu 😊",\n        "Vạn sự bình an, ngập tràn hạnh phúc và may mắn trên từng nẻo đường 🌷"\n    ]\n\n\n# ── 6. MASCOT & ASSET LOADER ────────────────────────────────────────────────\nclass CutePandaMascot:\n    """Chú gấu trúc Chibi ôm bánh kem chúc mừng sinh nhật em iu"""\n    def __init__(self):\n        self.hat: str = "Party Cone Hat with Gold Star 🎩"\n        self.cheeks: str = "Má hồng phúng phính cute 🌸"\n        self.cake: str = "Bánh kem dâu tây 2 tầng với nến phát sáng 🎂"\n        self.mood: str = "Nhún nhảy vui vẻ chúc mừng em iu tròn 22 tuổi"\n\n    def cheer(self) -> str:\n        return "🐼 Gấu Trúc: Happy 22nd Birthday to the sweetest girl! 🎉"\n\n\n# ── 7. UNIVERSE INITIALIZATION & LAUNCH ─────────────────────────────────────\nclass BirthdayCelebrationPipeline:\n    def __init__(self, target_date: str = "03/11/2004"):\n        self.target_date = target_date\n        self.crush = EmIuProfile()\n        self.panda = CutePandaMascot()\n        self.timeline = build_timeline_journey()\n        self.wishes = generate_heartfelt_wishes()\n\n    def verify_security_token(self, token: str) -> bool:\n        cleaned = token.replace("/", "").replace(" ", "").strip()\n        return cleaned == "03112004" or token == self.target_date\n\n    def prepare_assets(self) -> None:\n        print("[PIPELINE] Initializing Galaxy Nebula Canvas... [OK]")\n        print("[PIPELINE] Spawning 1,200 Twinkling Stars... [OK]")\n        print("[PIPELINE] Baking 3D Interactive Birthday Cake... [OK]")\n        print("[PIPELINE] Synthesizing Web Audio Happy Birthday Melody... [OK]")\n        print("[PIPELINE] Arming High-Altitude Fireworks Battery... [READY]")\n\n    def execute_event(self) -> str:\n        self.prepare_assets()\n        print(f"\\n👑 [HONOR] Trao tặng danh hiệu: {self.crush.name}")\n        print(f"🎂 [STATUS] Kỷ niệm cột mốc: {self.crush.age} Tuổi Tròn ({self.crush.birthday})")\n        print(f"🐼 [MASCOT] {self.panda.cheer()}")\n\n        for i, wish in enumerate(self.wishes, 1):\n            print(f"   ✨ Điều ước #{i}: {wish}")\n\n        return "\\n🎉 [SUCCESS] MỞ CỬA VŨ TRỤ SINH NHẬT DÀNH RIÊNG CHO EM IU! 💕"\n\n\n# ── 8. MAIN ENTRY POINT ─────────────────────────────────────────────────────\ndef main():\n    print("==================================================================")\n    print("        KHỞI CHẠY HỆ THỐNG CHÚC MỪNG SINH NHẬT EM IU 2004         ")\n    print("==================================================================")\n    pipeline = BirthdayCelebrationPipeline(target_date=TARGET_DATE)\n\n    # Kiểm tra mã truy cập ngày sinh 03/11/2004\n    if pipeline.verify_security_token(TARGET_DATE):\n        result = pipeline.execute_event()\n        print(result)\n    else:\n        print("❌ [ACCESS DENIED] Mật mã không đúng!")\n\n\nif __name__ == "__main__":\n    main()';
+
+function colorizePythonCode(raw) {
+  return raw
+    .replace(/(#.*?)$/gm, '<span class="syn-cm">$1</span>')
+    .replace(/\b(class)\b\s+([A-Za-z0-9_]+)/g, '<span class="syn-kw">$1</span> <span class="syn-cls">$2</span>')
+    .replace(/\b(import|from|def|return|while|for|in|yield|if|else|elif|__name__|__main__|__init__)\b/g, '<span class="syn-kw">$1</span>')
+    .replace(/\b(True|False|None)\b/g, '<span class="syn-kw">$1</span>')
+    .replace(/\b(self|em_iu|wishes|crush|pipeline|milestone|milestones)\b/g, '<span class="syn-var">$1</span>')
+    .replace(/\b(print|len|range|float|int|str|tuple|enumerate|abs|max|min|time)\b/g, '<span class="syn-fn">$1</span>')
+    .replace(/\b(execute_celebration|calculate_love_curve|generate_birthday_wishes|is_special|render_stars|ignite_all|play|parametric_cardioid|heart_beat_pulse|descartes_implicit|build_timeline_journey|generate_heartfelt_wishes|verify_security_token|prepare_assets|execute_event|main)\b/g, '<span class="syn-fn">$1</span>')
+    .replace(/(".*?")/g, '<span class="syn-str">$1</span>')
+    .replace(/\b([0-9]+)\b/g, '<span class="syn-num">$1</span>');
+}
+
+const lineNumbersEl = document.querySelector('.ide-line-numbers');
+const codeEl = document.getElementById('ideCodeContent');
+const ideBody = document.querySelector('.ide-body');
+
+// Always start with Line 1 at the top
+if (lineNumbersEl) lineNumbersEl.innerHTML = '1<br>';
+if (ideBody) ideBody.scrollTop = 0;
+
+let isTypingFinished = false;
+let userHasScrolled = false;
+
+// Listen if user scrolls manually
+if (ideBody) {
+  ideBody.addEventListener('wheel', () => { userHasScrolled = true; }, { passive: true });
+  ideBody.addEventListener('touchmove', () => { userHasScrolled = true; }, { passive: true });
+}
+
+function updateLineNumbers(count) {
+  if (!lineNumbersEl) return;
+  let nums = '';
+  for (let i = 1; i <= count; i++) {
+    nums += i + '<br>';
+  }
+  lineNumbersEl.innerHTML = nums;
+}
+
+function finishTypingInstantly() {
+  if (isTypingFinished) return;
+  isTypingFinished = true;
+  const totalLines = RAW_CODE_TEXT.split('\n').length;
+  updateLineNumbers(totalLines);
+  codeEl.innerHTML = colorizePythonCode(RAW_CODE_TEXT) + '<span class="syn-cur"></span>';
+  // Keep Line 1 visible at the top!
+  if (ideBody) ideBody.scrollTop = 0;
+}
+
+// Click anywhere on code window to finish typing and view from Line 1
+if (ideBody) {
+  ideBody.addEventListener('click', finishTypingInstantly);
+}
+
+function startTypingFromLine1() {
+  if (ideBody) ideBody.scrollTop = 0;
+  let charIdx = 0;
+  const stepSize = 14;
+
+  function step() {
+    if (isTypingFinished) return;
+    if (charIdx < RAW_CODE_TEXT.length) {
+      charIdx += stepSize;
+      const curText = RAW_CODE_TEXT.substring(0, charIdx);
+      const curLineCount = Math.max(1, curText.split('\n').length);
+      updateLineNumbers(curLineCount);
+      codeEl.innerHTML = colorizePythonCode(curText) + '<span class="syn-cur"></span>';
+      
+      // Only auto-scroll down if user hasn't manually scrolled
+      if (!userHasScrolled && ideBody) {
+        ideBody.scrollTop = ideBody.scrollHeight;
+      }
+      setTimeout(step, 8);
+    } else {
+      isTypingFinished = true;
+      const totalLines = RAW_CODE_TEXT.split('\n').length;
+      updateLineNumbers(totalLines);
+      codeEl.innerHTML = colorizePythonCode(RAW_CODE_TEXT) + '<span class="syn-cur"></span>';
+      // Smoothly scroll back to Line 1 so user can read from the beginning!
+      if (ideBody) {
+        ideBody.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }
+  step();
+}
+
+setTimeout(startTypingFromLine1, 150);
+
+// Execute Code Button
+const codeExecuteBtn = document.getElementById('codeExecuteBtn');
+const codePwInput = document.getElementById('codePwInput');
+const ideLog = document.getElementById('ideLog');
+let isExecuting = false;
+
+function runCodeExecution() {
+  if (isExecuting) return;
+  finishTypingInstantly();
+
+  const pwVal = (codePwInput.value || '').trim().replace(/\s+/g, '');
+  const digits = pwVal.replace(/\D/g, '');
+
+  if (pwVal === '03/11/2004' || digits === '03112004') {
+    isExecuting = true;
+    playFanfareSound();
+
+    ideLog.className = 'ide-terminal-log';
+    ideLog.innerHTML = '> [EXEC] Compiling birthday_celebration.py (178 lines) with Python 3.12...';
+
+    setTimeout(() => {
+      ideLog.innerHTML = '> [OK] Pipeline verified: MathHeartEngine, 22-Year Timeline, Mascot Panda & 3D Cake [100%]';
+      playPopSound();
+    }, 450);
+
+    setTimeout(() => {
+      ideLog.innerHTML = '> [SUCCESS] Target verified: Em Iu (03/11/2004) · Tuổi 22 rạng ngời & xinh đẹp nhất! 💖';
+      playChimeSound();
+    }, 900);
+
+    setTimeout(() => {
+      ideLog.innerHTML = '> [LAUNCH] Bùng nổ Pháo Hoa & Khởi chạy Vũ Trụ Sinh Nhật Em Iu... ✨';
+      document.getElementById('codeRunnerScreen').classList.add('fade-out');
+      document.getElementById('bdayScreen').classList.add('active');
+
+      burstConfetti(120);
+      for (let i = 0; i < 7; i++) setTimeout(() => launchFw(), i * 280);
+      startMusicLoop();
+      showToast('🎂 Chúc mừng sinh nhật tuổi 22 em iu! ✨');
+      updatePageUI();
+    }, 1450);
+
+  } else {
+    playPopSound();
+    ideLog.className = 'ide-terminal-log error';
+    ideLog.innerHTML = `> [ERROR] Passcode không hợp lệ: "${pwVal}". Gợi ý ngày sinh em iu: 03/11/2004`;
+  }
+}
+
+
+// User manual passcode input formatting (dd / mm / yyyy)
+if (codePwInput) {
+  codePwInput.value = ''; // Ensure blank on start so user enters it themselves
+  codePwInput.addEventListener('input', (e) => {
+    let v = e.target.value.replace(/\D/g, '');
+    if (v.length > 2 && v.length <= 4) {
+      v = v.slice(0, 2) + '/' + v.slice(2);
+    } else if (v.length > 4) {
+      v = v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4, 8);
+    }
+    e.target.value = v;
+
+    // Reset error styling when user is typing
+    codePwInput.style.borderColor = 'rgba(34, 211, 238, 0.45)';
+    codePwInput.style.boxShadow = '';
+    if (ideLog && ideLog.classList.contains('error')) {
+      ideLog.className = 'ide-terminal-log';
+      ideLog.innerHTML = '> Đang nhập passcode... Nhấn [⚡ EXECUTE CODE] khi hoàn tất!';
+    }
+  });
+}
+
+
+codeExecuteBtn.addEventListener('click', runCodeExecution);
+codePwInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') runCodeExecution();
+});
+
+
+
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ── PAGE 1: BALLOONS & CAKE INTERACTION ──────────────── */
+const WISH_QUOTES = [
+  'Chúc em iu luôn cười tươi như hoa! 🌸',
+  'Tuổi 22 vạn sự như ý, tỷ sự như mơ! ✨',
+  'Luôn được yêu thương và nâng niu! 💕',
+  'Mọi ước mơ đều sẽ thành hiện thực! 🌟',
+  'Mỗi ngày đều là một ngày hạnh phúc! 🍀',
+  'Xinh đẹp nhất trần đời trong mắt anh! 👑'
+];
+
+document.querySelectorAll('.balloon').forEach((b, idx) => {
+  b.addEventListener('click', () => {
+    playPopSound();
+    b.style.transform = 'scale(1.5)';
+    b.style.opacity = '0';
+    setTimeout(() => {
+      b.style.transform = '';
+      b.style.opacity = '1';
+    }, 1800);
+    showToast(WISH_QUOTES[idx % WISH_QUOTES.length]);
+    burstConfetti(25);
+  });
+});
+
+let candlesBlown = false;
+document.getElementById('cakeWrap').addEventListener('click', () => {
+  if (candlesBlown) return;
+  candlesBlown = true;
+  ['flame1', 'flame2', 'flame3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  document.getElementById('cakeHint').innerHTML = '✨ Nến đã tắt · Mọi điều ước sẽ thành hiện thực!';
+  playFanfareSound();
+  burstConfetti(90);
+  for (let i = 0; i < 6; i++) setTimeout(() => launchFw(), i * 260);
+  showToast('🎉 Ước muốn của em iu đã được gửi lên bầu trời xanh!');
+});
+
+/* ── PAGE 3: CERTIFICATE MODAL & VOUCHERS ──────────────── */
+const giftModal = document.getElementById('giftModal');
+const openGiftBtn = document.getElementById('openGiftBtn');
+const giftBoxBtn = document.getElementById('giftBoxBtn');
+const giftModalClose = document.getElementById('giftModalClose');
+const giftModalOk = document.getElementById('giftModalOk');
+
+function openModal() {
+  playChimeSound();
+  giftModal.classList.add('open');
+  burstConfetti(50);
+}
+function closeModal() {
+  giftModal.classList.remove('open');
+}
+
+openGiftBtn.addEventListener('click', openModal);
+giftBoxBtn.addEventListener('click', openModal);
+giftModalClose.addEventListener('click', closeModal);
+giftModalOk.addEventListener('click', () => {
+  closeModal();
+  showToast('💖 Đã lưu giữ chứng nhận vào tim em iu!');
+  playFanfareSound();
+});
+
+function claimVoucher(btn, name) {
+  if (btn.classList.contains('claimed')) return;
+  btn.classList.add('claimed');
+  btn.textContent = 'Đã Kích Hoạt ✨';
+  playChimeSound();
+  burstConfetti(40);
+  showToast(`🎁 Đã kích hoạt ${name} thành công!`);
+}
+
+/* ── PAGE 4: WISH LIST CHECKBOXES ─────────────────────── */
+let checkedCount = 0;
+function checkWish(row) {
+  if (row.classList.contains('checked')) return;
+  row.classList.add('checked');
+  const box = row.querySelector('.wish-box');
+  box.textContent = '✓';
+  playPopSound();
+  burstConfetti(25);
+  checkedCount++;
+  if (checkedCount >= 5) {
+    setTimeout(() => {
+      playFanfareSound();
+      for (let i = 0; i < 6; i++) setTimeout(() => launchFw(), i * 250);
+      showToast('🌟 Tuyệt vời! Cả 5 điều ước đã được gửi lên vũ trụ! 💖');
+    }, 400);
+  }
+}
+
+/* ── PAGE 5: GÓC CHUYÊN TOÁN - 4 TRÁI TIM & HÀM SỐ F(X) ── */
+let mathTab = '4hearts';
+function switchMathTab(tab) {
+  mathTab = tab;
+  ['tabBtn4Hearts', 'tabBtnFx', 'tabBtnPulse'].forEach(id => {
+    document.getElementById(id).classList.remove('active');
+  });
+  document.getElementById('mathView4Hearts').style.display = 'none';
+  document.getElementById('mathViewFx').style.display = 'none';
+  document.getElementById('mathViewPulse').style.display = 'none';
+
+  if (tab === '4hearts') {
+    document.getElementById('tabBtn4Hearts').classList.add('active');
+    document.getElementById('mathView4Hearts').style.display = 'block';
+  } else if (tab === 'fx') {
+    document.getElementById('tabBtnFx').classList.add('active');
+    document.getElementById('mathViewFx').style.display = 'flex';
+  } else if (tab === 'pulse') {
+    document.getElementById('tabBtnPulse').classList.add('active');
+    document.getElementById('mathViewPulse').style.display = 'flex';
+  }
+  playPopSound();
+}
+
+// 4 HEARTS CANVASES RENDERING
+let mathAnimId = null;
+let mathTime = 0;
+
+function initMathCanvases() {
+  const c1 = document.getElementById('heartCanvas1');
+  const c2 = document.getElementById('heartCanvas2');
+  const c3 = document.getElementById('heartCanvas3');
+  const c4 = document.getElementById('heartCanvas4');
+  [c1, c2, c3, c4].forEach(c => {
+    if (c) { c.width = 130; c.height = 130; }
+  });
+
+  const cFx = document.getElementById('fxCanvas');
+  if (cFx) { cFx.width = 280; cFx.height = 240; }
+
+  const cPulse = document.getElementById('pulseCanvas');
+  if (cPulse) { cPulse.width = 280; cPulse.height = 240; }
+
+  if (!mathAnimId) animateMathHearts();
+}
+
+function drawParametricHeart(ctx, w, h, color, scaleFactor, pulseSpeed, phaseOffset) {
+  ctx.clearRect(0, 0, w, h);
+  const cx = w / 2;
+  const cy = h / 2 - 4;
+  const beat = 1 + 0.12 * Math.sin(mathTime * pulseSpeed + phaseOffset);
+
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(scaleFactor * beat, -scaleFactor * beat);
+
+  ctx.beginPath();
+  for (let t = 0; t <= Math.PI * 2; t += 0.05) {
+    const x = 16 * Math.pow(Math.sin(t), 3);
+    const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+    if (t === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 14;
+  ctx.fill();
+
+  ctx.lineWidth = 1.8;
+  ctx.strokeStyle = '#ffffff';
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawCardioidHeart(ctx, w, h, color) {
+  ctx.clearRect(0, 0, w, h);
+  const cx = w / 2;
+  const cy = h / 2 + 10;
+  const beat = 1 + 0.14 * Math.sin(mathTime * 4.5 + 1.2);
+
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(beat, beat);
+
+  ctx.beginPath();
+  for (let a = 0; a <= Math.PI * 2; a += 0.04) {
+    const r = 32 * (1 - Math.sin(a));
+    const x = r * Math.cos(a);
+    const y = -r * Math.sin(a);
+    if (a === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 16;
+  ctx.fill();
+
+  ctx.lineWidth = 1.8;
+  ctx.strokeStyle = '#ffffff';
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawFxGraph(ctx, w, h) {
+  ctx.clearRect(0, 0, w, h);
+  const cx = w / 2;
+  const cy = h / 2 + 10;
+  
+  // Axes
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(10, cy); ctx.lineTo(w - 10, cy);
+  ctx.moveTo(cx, 10); ctx.lineTo(cx, h - 10);
+  ctx.stroke();
+
+  // Graph curve: x^2 + (y - cbrt(x^2))^2 = 1
+  ctx.save();
+  ctx.translate(cx, cy);
+  const scale = 58;
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#fbbf24';
+  ctx.lineWidth = 3;
+  ctx.shadowColor = '#fbbf24';
+  ctx.shadowBlur = 12;
+
+  // Upper & lower branches
+  for (let x = -1; x <= 1; x += 0.015) {
+    const y = Math.sqrt(1 - x * x) + Math.pow(Math.abs(x), 2 / 3);
+    const px = x * scale;
+    const py = -y * scale;
+    if (x === -1) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  for (let x = 1; x >= -1; x -= 0.015) {
+    const y = -Math.sqrt(1 - x * x) + Math.pow(Math.abs(x), 2 / 3);
+    const px = x * scale;
+    const py = -y * scale;
+    ctx.lineTo(px, py);
+  }
+  ctx.closePath();
+  ctx.stroke();
+
+  ctx.fillStyle = 'rgba(251, 191, 36, 0.25)';
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawPulseRhythm(ctx, w, h) {
+  ctx.clearRect(0, 0, w, h);
+  const cx = w / 2;
+  const cy = h / 2;
+
+  for (let ring = 1; ring <= 4; ring++) {
+    const r = (ring * 24 + mathTime * 30) % 90;
+    const alpha = Math.max(0, 1 - r / 90);
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(r / 35, -r / 35);
+    ctx.beginPath();
+    for (let t = 0; t <= Math.PI * 2; t += 0.1) {
+      const x = 16 * Math.pow(Math.sin(t), 3);
+      const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+      if (t === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = `rgba(255, 77, 136, ${alpha})`;
+    ctx.lineWidth = 2;
+    ctx.shadowColor = '#ff4d88';
+    ctx.shadowBlur = 8;
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+function animateMathHearts() {
+  mathTime += 0.035;
+
+  const c1 = document.getElementById('heartCanvas1');
+  const c2 = document.getElementById('heartCanvas2');
+  const c3 = document.getElementById('heartCanvas3');
+  const c4 = document.getElementById('heartCanvas4');
+
+  if (c1) drawParametricHeart(c1.getContext('2d'), c1.width, c1.height, '#ff4d88', 2.3, 4.2, 0);
+  if (c2) drawCardioidHeart(c2.getContext('2d'), c2.width, c2.height, '#b983ff');
+  if (c3) drawParametricHeart(c3.getContext('2d'), c3.width, c3.height, '#fbbf24', 2.1, 4.0, 1.5);
+  if (c4) drawParametricHeart(c4.getContext('2d'), c4.width, c4.height, '#22d3ee', 2.2, 4.5, 0.8);
+
+  const cFx = document.getElementById('fxCanvas');
+  if (cFx && mathTab === 'fx') drawFxGraph(cFx.getContext('2d'), cFx.width, cFx.height);
+
+  const cPulse = document.getElementById('pulseCanvas');
+  if (cPulse && mathTab === 'pulse') drawPulseRhythm(cPulse.getContext('2d'), cPulse.width, cPulse.height);
+
+  mathAnimId = requestAnimationFrame(animateMathHearts);
+}
+
+/* ── PAGE 6: GUESTBOOK NOTES & STAR SENDER ────────────── */
+const replyText = document.getElementById('replyText');
+const sendReplyBtn = document.getElementById('sendReplyBtn');
+const savedNotesBox = document.getElementById('savedNotesBox');
+
+function loadSavedNotes() {
+  const notes = JSON.parse(localStorage.getItem('bday_crush_notes') || '[]');
+  savedNotesBox.innerHTML = '';
+  notes.forEach(txt => {
+    const div = document.createElement('div');
+    div.className = 'note-item';
+    div.textContent = `💌 "${txt}"`;
+    savedNotesBox.appendChild(div);
+  });
+}
+loadSavedNotes();
+
+sendReplyBtn.addEventListener('click', () => {
+  const txt = replyText.value.trim();
+  if (!txt) {
+    showToast('Hãy nhập vài dòng nhắn nhủ nha! 💕');
+    return;
+  }
+  const notes = JSON.parse(localStorage.getItem('bday_crush_notes') || '[]');
+  notes.unshift(txt);
+  localStorage.setItem('bday_crush_notes', JSON.stringify(notes));
+  replyText.value = '';
+  loadSavedNotes();
+  playChimeSound();
+  burstConfetti(45);
+  showToast('💌 Lời nhắn đã được lưu giữ thành công!');
+});
+
+let starCount = 0;
+document.getElementById('starSendBtn').addEventListener('click', () => {
+  starCount++;
+  document.getElementById('starCount').textContent = `Đã gửi: ${starCount} ngôi sao ✨`;
+  playPopSound();
+  launchFw();
+  showToast(`⭐ Ngôi sao thứ ${starCount} đã bay lên trời vì em iu!`);
+});
+
+/* ── COUNTDOWN TO NEXT BIRTHDAY (03/11/2027) ──────────── */
+function updateCountdown() {
+  const now = new Date();
+  let target = new Date(now.getFullYear(), 10, 3, 0, 0, 0); // Month is 0-indexed: 10 = Nov
+  if (now > target) {
+    target = new Date(now.getFullYear() + 1, 10, 3, 0, 0, 0);
+  }
+  const diff = target - now;
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById('cdDays').textContent = d.toString().padStart(2, '0');
+  document.getElementById('cdHours').textContent = h.toString().padStart(2, '0');
+  document.getElementById('cdMins').textContent = m.toString().padStart(2, '0');
+  document.getElementById('cdSecs').textContent = s.toString().padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Initialize math canvases on page load
+setTimeout(initMathCanvases, 400);
+
+</script>
 </body>
 </html>
