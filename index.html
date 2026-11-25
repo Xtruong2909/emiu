@@ -954,6 +954,663 @@ main {
   opacity: 1;
 }
 
+/* ─── TÔNG XANH TRẮNG: TIỆM SASHIMI & THÚ BÔNG GẤU TRÚC ─── */
+body.blue-white-theme {
+  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 40%, #bae6fd 100%) !important;
+  color: #0f172a !important;
+}
+
+body.blue-white-theme header {
+  background: rgba(240, 249, 255, 0.95) !important;
+  border-bottom: 3px solid #0284c7 !important;
+}
+
+body.blue-white-theme .brand-title {
+  color: #0284c7 !important;
+  text-shadow: 2px 2px 0px #bae6fd !important;
+}
+
+body.blue-white-theme .brand-sub {
+  color: #0369a1 !important;
+}
+
+.tab-btn.highlight-sashimi {
+  background: linear-gradient(135deg, #ffffff, #e0f2fe);
+  border: 2px solid #0284c7;
+  color: #0284c7;
+  font-weight: 900;
+  box-shadow: 3px 3px 0px #0284c7;
+  animation: pulseSashimi 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseSashimi {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); background: #bae6fd; }
+}
+
+.sashimi-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.sashimi-actions-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 2-Column Street View */
+.sashimi-dual-street {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .sashimi-dual-street {
+    grid-template-columns: 1fr;
+  }
+}
+
+.store-pane {
+  background: #ffffff;
+  border: 3px solid #1e293b;
+  border-radius: 24px;
+  box-shadow: 6px 6px 0px #1e293b;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Awnings */
+.store-awning {
+  padding: 16px 20px;
+  border-bottom: 3px solid #1e293b;
+  position: relative;
+  text-align: center;
+  color: #ffffff;
+}
+
+.awning-sashimi {
+  background: repeating-linear-gradient(
+    45deg,
+    #0284c7,
+    #0284c7 20px,
+    #ffffff 20px,
+    #ffffff 40px
+  );
+  color: #0f172a;
+}
+
+.awning-sashimi .awning-title {
+  background: rgba(255, 255, 255, 0.95);
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 2px solid #0284c7;
+  color: #0284c7;
+  font-family: 'Bungee', cursive;
+  font-size: 1.3rem;
+}
+
+.awning-sashimi .awning-sub {
+  background: rgba(255, 255, 255, 0.9);
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 8px;
+  margin-top: 4px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #0369a1;
+}
+
+.awning-plushie {
+  background: repeating-linear-gradient(
+    -45deg,
+    #0ea5e9,
+    #0ea5e9 20px,
+    #ffffff 20px,
+    #ffffff 40px
+  );
+}
+
+.awning-plushie .awning-title {
+  background: rgba(255, 255, 255, 0.95);
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 999px;
+  border: 2px solid #0284c7;
+  color: #0369a1;
+  font-family: 'Bungee', cursive;
+  font-size: 1.3rem;
+}
+
+.awning-plushie .awning-sub {
+  background: rgba(255, 255, 255, 0.9);
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 8px;
+  margin-top: 4px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #0284c7;
+}
+
+/* Dining Counter & Seats */
+.sashimi-counter {
+  padding: 16px;
+  background: #f0f9ff;
+  border-bottom: 2px dashed #bae6fd;
+}
+
+.counter-label {
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #0369a1;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.seats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.seat-box {
+  background: #ffffff;
+  border: 2px solid #1e293b;
+  border-radius: 16px;
+  padding: 10px;
+  text-align: center;
+  min-height: 145px;
+  position: relative;
+  box-shadow: 3px 3px 0px #1e293b;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seat-box.empty {
+  background: #f8fafc;
+  border-style: dashed;
+  justify-content: center;
+  color: #94a3b8;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.customer-avatar {
+  font-size: 2.4rem;
+  animation: customerBob 1.5s infinite ease-in-out;
+}
+
+@keyframes customerBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.order-bubble {
+  background: #ffffff;
+  border: 2px solid #0284c7;
+  border-radius: 12px;
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0369a1;
+  box-shadow: 2px 2px 0px #0284c7;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.patience-bar-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid #1e293b;
+}
+
+.patience-bar-fill {
+  height: 100%;
+  background: #10b981;
+  transition: width 0.4s linear, background-color 0.3s;
+}
+
+/* Kitchen Station */
+.kitchen-station {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex-grow: 1;
+}
+
+.kitchen-title {
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: #0f172a;
+}
+
+.ingredients-shelf {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ing-card {
+  background: #ffffff;
+  border: 2px solid #1e293b;
+  border-radius: 14px;
+  padding: 8px 6px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #1e293b;
+  transition: all 0.12s ease;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.ing-card:hover {
+  transform: translateY(-2px);
+  background: #e0f2fe;
+}
+
+.ing-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #1e293b;
+}
+
+.ing-card .ing-icon { font-size: 1.6rem; }
+.ing-card .ing-name { font-weight: 800; font-size: 0.8rem; color: #1e293b; }
+.ing-card .ing-badge { font-size: 0.68rem; font-weight: 700; color: #0284c7; }
+
+/* Cutting Board */
+.cutting-board-box {
+  background: #fefce8;
+  border: 3px solid #1e293b;
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 3px 3px 0px #1e293b;
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.btn-mini {
+  background: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cutting-items {
+  min-height: 48px;
+  background: #ffffff;
+  border: 2px dashed #ca8a04;
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cutting-item-tag {
+  background: #e0f2fe;
+  border: 1.5px solid #0284c7;
+  border-radius: 8px;
+  padding: 3px 8px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dish-preview-row {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.dish-name-preview {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #0369a1;
+}
+
+.btn-serve {
+  background: #0284c7;
+  color: #ffffff;
+  border: 2px solid #1e293b;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: 'Bungee', cursive;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #1e293b;
+  transition: all 0.15s ease;
+}
+
+.btn-serve:hover {
+  background: #0369a1;
+  transform: translateY(-2px);
+}
+
+.btn-serve:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #1e293b;
+}
+
+/* Plushie Showcase Shelf */
+.plushie-shelf-box {
+  padding: 14px;
+  background: #f0f9ff;
+  border-bottom: 2px dashed #bae6fd;
+}
+
+.shelf-header {
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #0369a1;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.shelf-item {
+  background: #ffffff;
+  border: 2px solid #1e293b;
+  border-radius: 14px;
+  padding: 8px;
+  text-align: center;
+  box-shadow: 3px 3px 0px #1e293b;
+  position: relative;
+}
+
+.shelf-item .plush-icon { font-size: 2.2rem; display: block; margin: 2px 0; }
+.shelf-item .plush-title { font-weight: 800; font-size: 0.75rem; color: #1e293b; line-height: 1.2; }
+.shelf-item .plush-price {
+  background: #e0f2fe;
+  color: #0284c7;
+  font-weight: 900;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  padding: 2px 6px;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+.shelf-hint {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 10px;
+  line-height: 1.3;
+}
+
+/* Claw Machine Screen */
+.claw-machine-box {
+  padding: 14px;
+  background: #ffffff;
+  border-bottom: 2px dashed #bae6fd;
+}
+
+.claw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #0284c7;
+  margin-bottom: 8px;
+}
+
+.claw-screen {
+  background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
+  border: 3px solid #1e293b;
+  border-radius: 16px;
+  height: 165px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.crane-rail {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  right: 20px;
+  height: 6px;
+  background: #64748b;
+  border-radius: 3px;
+}
+
+.crane-carriage {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.15s ease-out;
+}
+
+.crane-wire {
+  width: 3px;
+  height: 35px;
+  background: #1e293b;
+  transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.crane-claw {
+  font-size: 1.6rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.claw-pit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: rgba(2, 132, 199, 0.15);
+  border-top: 2px dashed #0284c7;
+}
+
+.pit-plushie {
+  position: absolute;
+  bottom: 6px;
+  font-size: 1.5rem;
+}
+
+.claw-chute {
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  background: #0284c7;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.65rem;
+  padding: 4px 6px;
+  border-radius: 6px 6px 0 0;
+  border: 2px solid #1e293b;
+  border-bottom: none;
+}
+
+.claw-ctrl-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.claw-btn-move {
+  background: #ffffff;
+  border: 2px solid #1e293b;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px #1e293b;
+}
+
+.claw-btn-drop {
+  flex-grow: 1;
+  background: #0ea5e9;
+  color: #ffffff;
+  border: 2px solid #1e293b;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #1e293b;
+  transition: all 0.12s ease;
+}
+
+.claw-btn-drop:hover {
+  background: #0284c7;
+}
+
+.claw-btn-drop:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #1e293b;
+}
+
+/* Plushie Collection Album */
+.collection-summary {
+  padding: 12px 14px;
+}
+
+.collection-icons {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.col-item {
+  width: 44px;
+  height: 44px;
+  border: 2px solid #1e293b;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  background: #ffffff;
+  box-shadow: 2px 2px 0px #1e293b;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.col-item.locked {
+  filter: grayscale(1);
+  opacity: 0.45;
+  background: #e2e8f0;
+}
+
+/* Upgrades Bar */
+.sashimi-upgrades-bar {
+  background: #ffffff;
+  border: 3px solid #1e293b;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 4px 4px 0px #1e293b;
+}
+
+.upgrade-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .upgrade-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.up-card {
+  border: 2px solid #1e293b;
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 2px 2px 0px #1e293b;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.up-card:hover {
+  background: #e0f2fe;
+  transform: translateY(-2px);
+}
+
+.up-card.bought {
+  background: #dcfce7;
+  border-color: #059669;
+}
+
+.up-card .up-icon { font-size: 2rem; }
+.up-card .up-info { flex-grow: 1; }
+.up-card .up-name { font-weight: 800; font-size: 0.85rem; color: #0f172a; }
+.up-card .up-desc { font-size: 0.72rem; color: #64748b; font-weight: 600; }
+.btn-up-buy {
+  background: #0284c7;
+  color: #fff;
+  border: 2px solid #1e293b;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.up-card.bought .btn-up-buy {
+  background: #10b981;
+  border-color: #047857;
+}
+
 /* ─── FOOTER ─────────────────────────────────────────── */
 footer {
   text-align: center;
@@ -998,6 +1655,7 @@ footer a {
 
 <!-- Navigation Tabs -->
 <div class="nav-scroll">
+  <button class="tab-btn highlight-sashimi" onclick="switchTab('sashimi')">🍣 Tiệm Sashimi & Gấu Bông 🧸</button>
   <button class="tab-btn active" onclick="switchTab('pet')">🐾 Nuôi Gấu Béo</button>
   <button class="tab-btn" onclick="switchTab('whack')">🔨 Đập Gấu Bựa</button>
   <button class="tab-btn" onclick="switchTab('catch')">🧺 Hứng Măng Rơi</button>
@@ -1191,7 +1849,205 @@ footer a {
     </div>
   </section>
 
-  <!-- TAB 2: ĐẬP GẤU BỰA (WHACK-A-PANDA) -->
+  <!-- TAB SASHIMI: TIỆM SASHIMI & THÚ BÔNG GẤU TRÚC -->
+  <section id="tab-sashimi" class="tab-panel">
+    <!-- Top Banner & Controls -->
+    <div class="comic-box sashimi-street-box">
+      <div class="sashimi-header-row">
+        <div>
+          <div class="box-title" style="color: #0284c7; border-bottom: none; margin-bottom: 4px;">
+            🍣 PHỐ ẨM THỰC: TIỆM SASHIMI & THÚ BÔNG GẤU TRÚC 🧸
+          </div>
+          <div class="box-desc" style="margin-bottom: 0;">
+            Tông Xanh - Trắng tuyết Nhật Bản. Thái cá tươi phục vụ khách gấu trúc, kiếm tiền Yên và gắp thú bông gấu trúc siêu hiếm cho tiệm cạnh bên!
+          </div>
+        </div>
+        <div class="sashimi-actions-bar">
+          <div class="stat-badge" style="border-color: #0284c7; color: #0369a1; font-size: 1.05rem;">
+            💴 <span id="sashimiMoney">80</span> Yên
+          </div>
+          <button class="btn-game-act" id="btnPauseSashimi" onclick="togglePauseSashimi()">⏸️ Tạm Dừng</button>
+          <button class="btn-game-act" onclick="restartSashimiGame()">🔄 Mở Ca Mới</button>
+          <button class="btn-game-act" id="btnThemeToggle" onclick="toggleBlueWhiteTheme()">❄️ Tông Xanh Trắng</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Two Stores: Left = Sashimi, Right = Plushies -->
+    <div class="sashimi-dual-street">
+      
+      <!-- STORE 1: TIỆM ĂN SASHIMI -->
+      <div class="store-pane store-sashimi">
+        <div class="store-awning awning-sashimi">
+          <div class="awning-title">🍣 TIỆM SASHIMI 刺身</div>
+          <div class="awning-sub">Cá Tươi Na Uy · Nước Tương Wasabi</div>
+        </div>
+
+        <!-- Dining Seats -->
+        <div class="sashimi-counter">
+          <div class="counter-label">
+            <span>🥢 BÀN ĂN PHỤC VỤ KHÁCH GẤU TRÚC (3 GHẾ):</span>
+            <span id="seatInfo">Đang đợi khách...</span>
+          </div>
+          <div class="seats-row" id="sashimiSeats">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Kitchen Workstation -->
+        <div class="kitchen-station">
+          <div class="kitchen-title">🔪 KHAY NGUYÊN LIỆU TƯƠI SỐNG (BẤM ĐỂ LÊN THỚT):</div>
+          <div class="ingredients-shelf">
+            <div class="ing-card" onclick="selectIngredient('salmon')">
+              <span class="ing-icon">🐟</span>
+              <span class="ing-name">Cá Hồi</span>
+              <span class="ing-badge">Salmon tươi</span>
+            </div>
+            <div class="ing-card" onclick="selectIngredient('tuna')">
+              <span class="ing-icon">🍣</span>
+              <span class="ing-name">Cá Ngừ</span>
+              <span class="ing-badge">Tuna đỏ</span>
+            </div>
+            <div class="ing-card" onclick="selectIngredient('shrimp')">
+              <span class="ing-icon">🍤</span>
+              <span class="ing-name">Tôm Ngọt</span>
+              <span class="ing-badge">Ebi tươi</span>
+            </div>
+            <div class="ing-card" onclick="selectIngredient('octopus')">
+              <span class="ing-icon">🐙</span>
+              <span class="ing-name">Bạch Tuộc</span>
+              <span class="ing-badge">Tako giòn</span>
+            </div>
+            <div class="ing-card" onclick="selectIngredient('wasabi')">
+              <span class="ing-icon">🌱</span>
+              <span class="ing-name">Wasabi</span>
+              <span class="ing-badge">Cay nồng</span>
+            </div>
+            <div class="ing-card" onclick="selectIngredient('leaf')">
+              <span class="ing-icon">🍃</span>
+              <span class="ing-name">Tía Tô</span>
+              <span class="ing-badge">Thanh mát</span>
+            </div>
+          </div>
+
+          <!-- Cutting Board -->
+          <div class="cutting-board-box">
+            <div class="board-header">
+              <span>🥢 ĐĨA SASHIMI ĐANG SOẠN:</span>
+              <button class="btn-mini" onclick="clearCuttingBoard()">Xóa Đĩa ↺</button>
+            </div>
+            <div class="cutting-items" id="currentPlateItems">
+              <span class="empty-hint" style="color: #64748b; font-size: 0.85rem; font-weight: 700;">
+                👉 Hãy nhấn chọn nguyên liệu ở trên để làm đĩa Sashimi!
+              </span>
+            </div>
+            <div class="dish-preview-row">
+              <div class="dish-name-preview" id="dishNamePreview">Món: Chưa có món</div>
+              <button class="btn-serve" id="btnServeDish" onclick="serveCurrentDish()">🥢 PHỤC VỤ KHÁCH</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STORE 2: CỬA HÀNG THÚ NHỒI BÔNG GẤU TRÚC -->
+      <div class="store-pane store-plushie">
+        <div class="store-awning awning-plushie">
+          <div class="awning-title">🧸 TIỆM GẤU BÔNG PANDA</div>
+          <div class="awning-sub">Thú Bông Gấu Trúc Nhồi Bông Độc Quyền</div>
+        </div>
+
+        <!-- Shelf Display -->
+        <div class="plushie-shelf-box">
+          <div class="shelf-header">
+            <span>🧸 KỆ GẤU BÔNG ĐANG BÁN CHO KHÁCH:</span>
+            <span id="shelfStockCount">Đang có 2/6 mẫu</span>
+          </div>
+          <div class="shelf-grid" id="plushieShelfGrid">
+            <!-- Populated via JS -->
+          </div>
+          <div class="shelf-hint">
+            💡 Khách gấu trúc ăn Sashimi xong sẽ ghé sang đây mua thú bông! Hãy gắp thêm thú bông để bán kiếm lời gấp bội!
+          </div>
+        </div>
+
+        <!-- Claw Machine (Máy Gắp Thú Bông) -->
+        <div class="claw-machine-box">
+          <div class="claw-header">
+            <span>🕹️ MÁY GẮP GẤU BÔNG XANH TRẮNG</span>
+            <span class="claw-price" style="font-weight: 900; color: #0284c7;">15 💴 / lần</span>
+          </div>
+          
+          <div class="claw-screen" id="clawScreen">
+            <div class="crane-rail">
+              <div class="crane-carriage" id="craneCarriage" style="left: 50%;">
+                <div class="crane-wire" id="craneWire" style="height: 35px;"></div>
+                <div class="crane-claw" id="craneClaw">🦾</div>
+              </div>
+            </div>
+            <div class="claw-pit" id="clawPit">
+              <span class="pit-plushie" style="left: 12%;">🧸</span>
+              <span class="pit-plushie" style="left: 28%;">🍣</span>
+              <span class="pit-plushie" style="left: 45%;">👨‍🍳</span>
+              <span class="pit-plushie" style="left: 62%;">🎒</span>
+              <span class="pit-plushie" style="left: 78%;">🕶️</span>
+              <span class="pit-plushie" style="left: 90%;">👑</span>
+            </div>
+            <div class="claw-chute">HỘC NHẬN</div>
+          </div>
+
+          <div class="claw-ctrl-row">
+            <button class="claw-btn-move" onclick="moveClaw(-22)">◀️ Trái</button>
+            <button class="claw-btn-drop" id="btnDropClaw" onclick="dropClaw()">🎯 THẢ CÀNG GẮP (15 💴)</button>
+            <button class="claw-btn-move" onclick="moveClaw(22)">Phải ▶️</button>
+          </div>
+        </div>
+
+        <!-- Plushie Collection Album -->
+        <div class="collection-summary">
+          <div style="font-weight: 800; font-size: 0.88rem; margin-bottom: 8px; color: #0369a1;">
+            📚 BỘ SƯU TẬP 6 MẪU GẤU TRÚC BÔNG:
+          </div>
+          <div class="collection-icons" id="collectionIcons">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Shop Upgrades Bar -->
+    <div class="sashimi-upgrades-bar">
+      <div class="box-title" style="font-size: 1.15rem; color: #0284c7; margin-bottom: 8px; border-bottom: none;">
+        🛒 NÂNG CẤP PHỐ XANH TRẮNG:
+      </div>
+      <div class="upgrade-cards-grid">
+        <div class="up-card" id="upCardKnife" onclick="buySashimiUpgrade('knife')">
+          <div class="up-icon">🔪</div>
+          <div class="up-info">
+            <div class="up-name">Dao Thép Xanh Sashimi</div>
+            <div class="up-desc">Thái cá siêu nhanh, khách tip thêm +10 Yên/đĩa</div>
+          </div>
+          <button class="btn-up-buy" id="upBtnKnife">60 💴</button>
+        </div>
+        <div class="up-card" id="upCardFish" onclick="buySashimiUpgrade('fish')">
+          <div class="up-icon">🐟</div>
+          <div class="up-info">
+            <div class="up-name">Cá Na Uy Hảo Hạng</div>
+            <div class="up-desc">Cá hồi béo ngậy, khách trả thêm +20 Yên/đĩa</div>
+          </div>
+          <button class="btn-up-buy" id="upBtnFish">100 💴</button>
+        </div>
+        <div class="up-card" id="upCardClaw" onclick="buySashimiUpgrade('claw')">
+          <div class="up-icon">🧲</div>
+          <div class="up-info">
+            <div class="up-name">Càng Gắp Nam Châm</div>
+            <div class="up-desc">Tăng tỉ lệ gắp trúng thú bông gấu trúc lên 85%</div>
+          </div>
+          <button class="btn-up-buy" id="upBtnClaw">120 💴</button>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="tab-whack" class="tab-panel">
     <div class="comic-box">
       <div class="box-title">🔨 ĐẬP GẤU TRÚC BỰA (WHACK-A-MEME)</div>
@@ -1611,6 +2467,9 @@ function switchTab(tabId) {
   // Trigger game resets or draws if needed
   if (tabId === 'meme') {
     drawMeme();
+  }
+  if (tabId === 'sashimi') {
+    startSashimiGameIfNeeded();
   }
 }
 
@@ -2105,12 +2964,15 @@ window.addEventListener('keydown', e => {
     const tabCatch = document.getElementById('tab-catch');
     const tabFlappy = document.getElementById('tab-flappy');
     const tabWhack = document.getElementById('tab-whack');
+    const tabSashimi = document.getElementById('tab-sashimi');
     if (tabCatch && tabCatch.classList.contains('active')) {
       togglePauseCatch();
     } else if (tabFlappy && tabFlappy.classList.contains('active')) {
       togglePauseFlappy();
     } else if (tabWhack && tabWhack.classList.contains('active')) {
       togglePauseWhack();
+    } else if (tabSashimi && tabSashimi.classList.contains('active')) {
+      togglePauseSashimi();
     }
   }
 });
@@ -3062,10 +3924,526 @@ function downloadMeme() {
   showToast('Đã tải ảnh meme gấu trúc về máy của bạn! 📸');
 }
 
+/* ═══════════════════════════════════════════════════════════════ */
+/* 🍣 GAME ENGINE: TIỆM SASHIMI & THÚ BÔNG GẤU TRÚC 🧸           */
+/* ═══════════════════════════════════════════════════════════════ */
+
+let sashimiMoney = parseInt(localStorage.getItem('panda_sashimi_money') || '80', 10);
+let sashimiPaused = false;
+let sashimiGameRunning = false;
+let customerLoopTimer = null;
+let currentPlate = [];
+let clawPosition = 50; // percentage
+let isDroppingClaw = false;
+
+// Shop Upgrades
+let sashimiUpgrades = {
+  knife: false,
+  fish: false,
+  claw: false
+};
+
+// Seated customers: array of 3
+let sashimiSeats = [null, null, null];
+
+const SASHIMI_RECIPES = [
+  {
+    id: 'salmon',
+    name: 'Sashimi Cá Hồi',
+    icon: '🍣',
+    ingredients: ['salmon', 'wasabi'],
+    price: 30
+  },
+  {
+    id: 'tuna',
+    name: 'Sashimi Cá Ngừ Đại Dương',
+    icon: '🍣',
+    ingredients: ['tuna', 'leaf'],
+    price: 35
+  },
+  {
+    id: 'shrimp',
+    name: 'Sashimi Tôm Ngọt Ebi',
+    icon: '🍤',
+    ingredients: ['shrimp', 'wasabi'],
+    price: 40
+  },
+  {
+    id: 'octopus',
+    name: 'Sashimi Bạch Tuộc Tako',
+    icon: '🐙',
+    ingredients: ['octopus', 'leaf'],
+    price: 45
+  },
+  {
+    id: 'combo',
+    name: 'Thuyền Sashimi Thượng Hạng',
+    icon: '🍱',
+    ingredients: ['salmon', 'tuna', 'shrimp'],
+    price: 85
+  }
+];
+
+const PANDA_CUSTOMERS = [
+  { avatar: "🐼", name: "Bé Tròn" },
+  { avatar: "🐼🎀", name: "Bé Nơ Xinh" },
+  { avatar: "🐼🕶️", name: "Gấu Ngầu" },
+  { avatar: "🐼🎩", name: "Bác Gấu" },
+  { avatar: "🐼🌸", name: "Gấu Điệu" },
+  { avatar: "🐼🥟", name: "Gấu Tham Ăn" }
+];
+
+const PANDA_PLUSHIES = [
+  { id: 0, icon: "🧸", name: "Gấu Trúc Mini Cổ Điển", price: 40, rate: 0.35, unlocked: true },
+  { id: 1, icon: "🍣", name: "Gấu Bông Ngậm Cá Hồi", price: 65, rate: 0.25, unlocked: true },
+  { id: 2, icon: "👨‍🍳", name: "Gấu Trúc Đầu Bếp Sushi", price: 85, rate: 0.18, unlocked: false },
+  { id: 3, icon: "🎒", name: "Gấu Trúc Ba Lô Măng", price: 110, rate: 0.12, unlocked: false },
+  { id: 4, icon: "🕶️", name: "Gấu Trúc Thug Life", price: 140, rate: 0.07, unlocked: false },
+  { id: 5, icon: "👑", name: "Gấu Trúc Đại Đế Khổng Lồ", price: 200, rate: 0.03, unlocked: false }
+];
+
+let shelfInventory = [
+  { id: 0, count: 2 },
+  { id: 1, count: 1 },
+  { id: 2, count: 0 },
+  { id: 3, count: 0 },
+  { id: 4, count: 0 },
+  { id: 5, count: 0 }
+];
+
+function updateSashimiMoney() {
+  const el = document.getElementById('sashimiMoney');
+  if (el) el.innerText = sashimiMoney;
+  localStorage.setItem('panda_sashimi_money', sashimiMoney);
+}
+
+function startSashimiGameIfNeeded() {
+  if (sashimiGameRunning) return;
+  sashimiGameRunning = true;
+  sashimiPaused = false;
+  renderSashimiSeats();
+  renderPlushieShelf();
+  renderPlushieCollection();
+  updateSashimiMoney();
+
+  if (customerLoopTimer) clearInterval(customerLoopTimer);
+  customerLoopTimer = setInterval(sashimiGameTick, 1000);
+  spawnSashimiCustomer();
+}
+
+function togglePauseSashimi() {
+  sashimiPaused = !sashimiPaused;
+  const btn = document.getElementById('btnPauseSashimi');
+  if (btn) {
+    if (sashimiPaused) {
+      btn.innerText = '▶️ Tiếp Tục';
+      btn.classList.add('pause-active');
+      showToast('Đã tạm dừng tiệm Sashimi ⏸️');
+    } else {
+      btn.innerText = '⏸️ Tạm Dừng';
+      btn.classList.remove('pause-active');
+      showToast('Tiếp tục mở tiệm Sashimi! 🍣');
+    }
+  }
+}
+
+function restartSashimiGame() {
+  sashimiPaused = false;
+  sashimiSeats = [null, null, null];
+  currentPlate = [];
+  renderSashimiSeats();
+  updatePlateUI();
+  spawnSashimiCustomer();
+  showToast('Đã mở ca làm việc mới tại tiệm Sashimi! 🍣');
+}
+
+function toggleBlueWhiteTheme() {
+  playSound('pop');
+  const isBlue = document.body.classList.toggle('blue-white-theme');
+  const btn = document.getElementById('btnThemeToggle');
+  if (btn) {
+    if (isBlue) {
+      btn.innerText = '🍃 Tông Xanh Lá';
+      showToast('Đã bật Tông Xanh Trắng mát lạnh phong cách Sashimi! ❄️🍣');
+    } else {
+      btn.innerText = '❄️ Tông Xanh Trắng';
+      showToast('Đã chuyển về tông giao diện mặc định! 🎋');
+    }
+  }
+}
+
+function sashimiGameTick() {
+  if (sashimiPaused) return;
+
+  let activeCount = 0;
+  for (let i = 0; i < sashimiSeats.length; i++) {
+    const cust = sashimiSeats[i];
+    if (cust) {
+      activeCount++;
+      cust.patience -= 3.5;
+      if (cust.patience <= 0) {
+        playSound('boom');
+        showToast(`${cust.name} đợi lâu quá nên đã rời quán rồi! 😭`);
+        sashimiSeats[i] = null;
+      }
+    }
+  }
+
+  // Randomly spawn new customer if free seats exist
+  if (activeCount < 3 && Math.random() < 0.45) {
+    spawnSashimiCustomer();
+  }
+
+  renderSashimiSeats();
+}
+
+function spawnSashimiCustomer() {
+  const emptyIndices = [];
+  sashimiSeats.forEach((c, idx) => { if (!c) emptyIndices.push(idx); });
+  if (emptyIndices.length === 0) return;
+
+  const targetIdx = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+  const custType = PANDA_CUSTOMERS[Math.floor(Math.random() * PANDA_CUSTOMERS.length)];
+  const recipe = SASHIMI_RECIPES[Math.floor(Math.random() * SASHIMI_RECIPES.length)];
+
+  sashimiSeats[targetIdx] = {
+    id: Date.now() + Math.random(),
+    avatar: custType.avatar,
+    name: custType.name,
+    order: recipe,
+    patience: 100,
+    maxPatience: 100
+  };
+
+  playSound('pop');
+}
+
+function renderSashimiSeats() {
+  const container = document.getElementById('sashimiSeats');
+  if (!container) return;
+  container.innerHTML = '';
+
+  let seatedCount = 0;
+  sashimiSeats.forEach((c, i) => {
+    const seatDiv = document.createElement('div');
+    if (!c) {
+      seatDiv.className = 'seat-box empty';
+      seatDiv.innerHTML = `<span>Ghế ${i + 1}<br>Đang trống 🥢</span>`;
+    } else {
+      seatedCount++;
+      seatDiv.className = 'seat-box';
+      const pct = Math.max(0, Math.min(100, c.patience));
+      const color = pct > 50 ? '#10b981' : (pct > 25 ? '#f59e0b' : '#ef4444');
+
+      seatDiv.innerHTML = `
+        <div class="order-bubble">${c.order.icon} ${c.order.name}</div>
+        <div class="customer-avatar">${c.avatar}</div>
+        <div style="font-weight: 800; font-size: 0.78rem; color: #1e293b;">${c.name}</div>
+        <div class="patience-bar-track">
+          <div class="patience-bar-fill" style="width: ${pct}%; background-color: ${color};"></div>
+        </div>
+      `;
+    }
+    container.appendChild(seatDiv);
+  });
+
+  const seatInfo = document.getElementById('seatInfo');
+  if (seatInfo) {
+    seatInfo.innerText = `${seatedCount}/3 khách đang ngồi`;
+  }
+}
+
+// Kitchen Interaction
+function selectIngredient(ing) {
+  if (sashimiPaused) return;
+  playSound('chomp');
+  if (currentPlate.includes(ing)) {
+    showToast('Nguyên liệu này đã có trên thớt!');
+    return;
+  }
+  if (currentPlate.length >= 4) {
+    showToast('Đĩa đã đầy nguyên liệu rồi!');
+    return;
+  }
+  currentPlate.push(ing);
+  updatePlateUI();
+}
+
+function clearCuttingBoard() {
+  playSound('pop');
+  currentPlate = [];
+  updatePlateUI();
+}
+
+const ING_NAMES = {
+  salmon: '🐟 Cá Hồi',
+  tuna: '🍣 Cá Ngừ',
+  shrimp: '🍤 Tôm Ngọt',
+  octopus: '🐙 Bạch Tuộc',
+  wasabi: '🌱 Wasabi',
+  leaf: '🍃 Tía Tô'
+};
+
+function checkPlateMatch() {
+  for (let r of SASHIMI_RECIPES) {
+    if (r.ingredients.length === currentPlate.length) {
+      const match = r.ingredients.every(item => currentPlate.includes(item));
+      if (match) return r;
+    }
+  }
+  return null;
+}
+
+function updatePlateUI() {
+  const container = document.getElementById('currentPlateItems');
+  const preview = document.getElementById('dishNamePreview');
+  if (!container || !preview) return;
+
+  if (currentPlate.length === 0) {
+    container.innerHTML = '<span class="empty-hint" style="color: #64748b; font-size: 0.85rem; font-weight: 700;">👉 Hãy nhấn chọn nguyên liệu ở trên để làm đĩa Sashimi!</span>';
+    preview.innerText = 'Món: Chưa có món';
+    return;
+  }
+
+  container.innerHTML = '';
+  currentPlate.forEach(ing => {
+    const tag = document.createElement('div');
+    tag.className = 'cutting-item-tag';
+    tag.innerText = ING_NAMES[ing] || ing;
+    container.appendChild(tag);
+  });
+
+  const matched = checkPlateMatch();
+  if (matched) {
+    preview.innerHTML = `Món: <b style="color: #0284c7;">${matched.icon} ${matched.name}</b> (${matched.price} 💴)`;
+  } else {
+    preview.innerText = 'Món: Chưa thành món chuẩn...';
+  }
+}
+
+function serveCurrentDish() {
+  if (sashimiPaused) return;
+  const matched = checkPlateMatch();
+  if (!matched) {
+    playSound('boom');
+    showToast('Chưa đúng công thức món Sashimi nào! Hãy xem khách gọi gì nhé!');
+    return;
+  }
+
+  // Find seated customer who wants this
+  let servedIdx = -1;
+  for (let i = 0; i < sashimiSeats.length; i++) {
+    if (sashimiSeats[i] && sashimiSeats[i].order.id === matched.id) {
+      servedIdx = i;
+      break;
+    }
+  }
+
+  if (servedIdx === -1) {
+    playSound('boom');
+    showToast(`Không có khách nào đang gọi món ${matched.name}!`);
+    return;
+  }
+
+  // Serve success!
+  playSound('coin');
+  const cust = sashimiSeats[servedIdx];
+  let earned = matched.price;
+  if (sashimiUpgrades.knife) earned += 10;
+  if (sashimiUpgrades.fish) earned += 20;
+
+  sashimiMoney += earned;
+  updateSashimiMoney();
+  showToast(`🎉 Phục vụ ${cust.name} thành công! Nhận +${earned} 💴 Yên!`);
+
+  sashimiSeats[servedIdx] = null;
+  currentPlate = [];
+  updatePlateUI();
+  renderSashimiSeats();
+
+  // 60% chance customer walks to Plushie Store and buys a plushie!
+  setTimeout(() => {
+    customerBuysPlushie(cust.name);
+  }, 1200);
+}
+
+function customerBuysPlushie(custName) {
+  const inStock = shelfInventory.filter(item => item.count > 0);
+  if (inStock.length === 0) return;
+
+  const itemToBuy = inStock[Math.floor(Math.random() * inStock.length)];
+  const plushInfo = PANDA_PLUSHIES.find(p => p.id === itemToBuy.id);
+  if (!plushInfo) return;
+
+  itemToBuy.count--;
+  const plushGain = plushInfo.price;
+  sashimiMoney += plushGain;
+  updateSashimiMoney();
+  renderPlushieShelf();
+  playSound('win');
+  showToast(`🛍️ ${custName} vừa ghé tiệm thú bông mua 1 [${plushInfo.name}] +${plushGain} 💴 Yên!`);
+}
+
+// Plushie Shelf & Collection
+function renderPlushieShelf() {
+  const grid = document.getElementById('plushieShelfGrid');
+  const stockCount = document.getElementById('shelfStockCount');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  let totalItems = 0;
+  shelfInventory.forEach(inv => {
+    totalItems += inv.count;
+    const p = PANDA_PLUSHIES.find(x => x.id === inv.id);
+    if (inv.count > 0 && p) {
+      const el = document.createElement('div');
+      el.className = 'shelf-item';
+      el.innerHTML = `
+        <span class="plush-icon">${p.icon}</span>
+        <div class="plush-title">${p.name}</div>
+        <div class="plush-price">Còn: ${inv.count} con · ${p.price} 💴</div>
+      `;
+      grid.appendChild(el);
+    }
+  });
+
+  if (grid.children.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1/-1; padding: 12px; text-align: center; color: #94a3b8; font-weight: 700;">Hết thú bông trên kệ rồi! Hãy dùng máy gắp thú bông bên dưới để gắp thêm nha! 🕹️</div>';
+  }
+
+  if (stockCount) {
+    stockCount.innerText = `Còn ${totalItems} thú bông trên kệ`;
+  }
+}
+
+function renderPlushieCollection() {
+  const container = document.getElementById('collectionIcons');
+  if (!container) return;
+  container.innerHTML = '';
+
+  PANDA_PLUSHIES.forEach(p => {
+    const el = document.createElement('div');
+    el.className = `col-item ${p.unlocked ? '' : 'locked'}`;
+    el.innerHTML = p.icon;
+    el.title = `${p.name} (${p.unlocked ? 'Đã mở khóa' : 'Chưa có'})`;
+    container.appendChild(el);
+  });
+}
+
+// Claw Machine Engine
+function moveClaw(delta) {
+  if (isDroppingClaw || sashimiPaused) return;
+  playSound('pop');
+  clawPosition = Math.max(15, Math.min(85, clawPosition + delta));
+  const carriage = document.getElementById('craneCarriage');
+  if (carriage) {
+    carriage.style.left = clawPosition + '%';
+  }
+}
+
+function dropClaw() {
+  if (isDroppingClaw || sashimiPaused) return;
+  if (sashimiMoney < 15) {
+    playSound('boom');
+    showToast('Bạn không đủ 15 Yên để chơi gắp gấu! Hãy bán thêm Sashimi nha!');
+    return;
+  }
+
+  sashimiMoney -= 15;
+  updateSashimiMoney();
+  isDroppingClaw = true;
+  playSound('jump');
+
+  const wire = document.getElementById('craneWire');
+  const claw = document.getElementById('craneClaw');
+  const btn = document.getElementById('btnDropClaw');
+  if (btn) btn.disabled = true;
+
+  // Drop wire down
+  if (wire) wire.style.height = '105px';
+
+  setTimeout(() => {
+    // Claw grabs
+    if (claw) claw.style.transform = 'scale(1.3) rotate(-15deg)';
+    playSound('pop');
+
+    // Decide win/loss
+    const winRate = sashimiUpgrades.claw ? 0.85 : 0.52;
+    const isWin = Math.random() < winRate;
+
+    setTimeout(() => {
+      // Pull wire back up
+      if (wire) wire.style.height = '35px';
+
+      setTimeout(() => {
+        if (claw) claw.style.transform = 'scale(1) rotate(0deg)';
+        isDroppingClaw = false;
+        if (btn) btn.disabled = false;
+
+        if (isWin) {
+          const rand = Math.random();
+          let wonPlushie = PANDA_PLUSHIES[0];
+          if (rand < 0.05) wonPlushie = PANDA_PLUSHIES[5]; // Giant King
+          else if (rand < 0.15) wonPlushie = PANDA_PLUSHIES[4]; // Thug life
+          else if (rand < 0.3) wonPlushie = PANDA_PLUSHIES[3]; // Backpack
+          else if (rand < 0.5) wonPlushie = PANDA_PLUSHIES[2]; // Chef
+          else if (rand < 0.75) wonPlushie = PANDA_PLUSHIES[1]; // Salmon bite
+          else wonPlushie = PANDA_PLUSHIES[0];
+
+          wonPlushie.unlocked = true;
+          const invItem = shelfInventory.find(x => x.id === wonPlushie.id);
+          if (invItem) invItem.count++;
+
+          renderPlushieShelf();
+          renderPlushieCollection();
+          playSound('win');
+          showToast(`🎉 GẮP TRÚNG RỒI! Bạn nhận được 1 [${wonPlushie.name}]! Đã lên kệ bán! 🧸`);
+        } else {
+          playSound('boom');
+          showToast('Càng gắp bị trượt tay mất rồi! Thử lại phát nữa xem sao! 🕹️');
+        }
+      }, 700);
+    }, 600);
+  }, 700);
+}
+
+// Upgrades
+function buySashimiUpgrade(type) {
+  if (sashimiUpgrades[type]) {
+    showToast('Nâng cấp này bạn đã sở hữu rồi!');
+    return;
+  }
+
+  const costs = { knife: 60, fish: 100, claw: 120 };
+  const cost = costs[type];
+
+  if (sashimiMoney < cost) {
+    playSound('boom');
+    showToast(`Bạn cần ${cost} Yên để mua nâng cấp này!`);
+    return;
+  }
+
+  playSound('coin');
+  sashimiMoney -= cost;
+  sashimiUpgrades[type] = true;
+  updateSashimiMoney();
+
+  const cardId = { knife: 'upCardKnife', fish: 'upCardFish', claw: 'upCardClaw' }[type];
+  const btnId = { knife: 'upBtnKnife', fish: 'upBtnFish', claw: 'upBtnClaw' }[type];
+
+  const card = document.getElementById(cardId);
+  const btn = document.getElementById(btnId);
+  if (card) card.classList.add('bought');
+  if (btn) btn.innerText = 'ĐÃ SỞ HỮU ✓';
+
+  showToast('Nâng cấp thành công! Cửa hàng đã được tăng sức mạnh! ✨');
+}
+
 // Initial draw of meme
 drawMeme();
 updateBambooDisplay();
 updatePetUI();
+startSashimiGameIfNeeded();
 </script>
 
 </body>
