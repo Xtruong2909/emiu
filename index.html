@@ -1,4450 +1,1540 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🐼 VƯƠNG QUỐC GẤU TRÚC VÔ TRI · PANDA MEME & GAMES 🎋</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Bungee&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
-<style>
-/* ─── RESET & CSS VARIABLES ────────────────────────── */
-:root {
-  --bg-main: #f0fdf4;
-  --bg-dark: #0f172a;
-  --primary: #10b981;
-  --primary-dark: #059669;
-  --primary-light: #a7f3d0;
-  --accent-gold: #f59e0b;
-  --accent-pink: #ec4899;
-  --accent-purple: #8b5cf6;
-  --accent-blue: #0ea5e9;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --panda-white: #ffffff;
-  --panda-black: #1e1e24;
-  --card-bg: rgba(255, 255, 255, 0.92);
-  --border-radius: 24px;
-  --box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-  --shadow-comic: 4px 4px 0px #0f172a;
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Nunito', sans-serif;
-  background: linear-gradient(135deg, #dcfce7 0%, #ecfdf5 40%, #fef3c7 100%);
-  color: var(--text-main);
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-  cursor: default;
-}
-
-/* ─── BAMBOO LEAVES BACKGROUND CANVAS ───────────────── */
-#canvasBg {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* ─── TOP HEADER BAR ─────────────────────────────────── */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.85);
-  border-bottom: 3px solid #1e293b;
-  padding: 12px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.brand-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.brand-icon {
-  font-size: 2.2rem;
-  animation: wiggle 2s infinite ease-in-out;
-  display: inline-block;
-}
-
-@keyframes wiggle {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(-10deg) scale(1.1); }
-  75% { transform: rotate(10deg) scale(1.1); }
-}
-
-.brand-title {
-  font-family: 'Bungee', cursive;
-  font-size: 1.4rem;
-  color: #065f46;
-  letter-spacing: 0.5px;
-  text-shadow: 2px 2px 0px #bbf7d0;
-  line-height: 1.1;
-}
-
-.brand-sub {
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: #047857;
-  letter-spacing: 1px;
-}
-
-.header-stats {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.stat-badge {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-weight: 800;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: var(--shadow-comic);
-}
-
-.btn-ctrl {
-  background: #fff;
-  border: 2px solid #1e293b;
-  border-radius: 999px;
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  box-shadow: var(--shadow-comic);
-}
-
-.btn-ctrl:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px #1e293b;
-}
-
-.btn-ctrl:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px #1e293b;
-}
-
-.btn-ctrl.active {
-  background: #fef08a;
-}
-
-/* ─── NAVIGATION TABS ────────────────────────────────── */
-.nav-scroll {
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-  padding: 12px 20px;
-  position: sticky;
-  top: 70px;
-  z-index: 90;
-  background: rgba(240, 253, 244, 0.95);
-  backdrop-filter: blur(8px);
-  border-bottom: 2px dashed #86efac;
-  scrollbar-width: none;
-}
-.nav-scroll::-webkit-scrollbar { display: none; }
-
-.tab-btn {
-  white-space: nowrap;
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 16px;
-  padding: 8px 18px;
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: #1e293b;
-  cursor: pointer;
-  box-shadow: 3px 3px 0px #1e293b;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.tab-btn:hover {
-  background: #f0fdf4;
-  transform: translateY(-2px);
-}
-
-.tab-btn.active {
-  background: #10b981;
-  color: #ffffff;
-  box-shadow: 3px 3px 0px #064e3b;
-}
-
-/* ─── MAIN WRAPPER ───────────────────────────────────── */
-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px 16px 80px 16px;
-  position: relative;
-  z-index: 10;
-}
-
-.tab-panel {
-  display: none;
-  animation: fadeIn 0.3s ease-out;
-}
-
-.tab-panel.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── COMIC CARD CONTAINER ──────────────────────────── */
-.comic-box {
-  background: var(--card-bg);
-  border: 3px solid #1e293b;
-  border-radius: var(--border-radius);
-  box-shadow: 6px 6px 0px #1e293b;
-  padding: 24px;
-  margin-bottom: 24px;
-  position: relative;
-}
-
-.box-title {
-  font-family: 'Bungee', cursive;
-  font-size: 1.5rem;
-  color: #065f46;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 10px;
-}
-
-.box-desc {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-
-/* ─── SECTION 1: NUÔI GẤU TRÚC VÔ TRI (PET) ─────────── */
-.pet-layout {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 24px;
-  align-items: center;
-}
-
-@media (max-width: 768px) {
-  .pet-layout { grid-template-columns: 1fr; }
-}
-
-.pet-display {
-  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #d1fae5 60%, #a7f3d0 100%);
-  border: 3px solid #1e293b;
-  border-radius: 24px;
-  padding: 20px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
-  min-height: 380px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.pet-display.disco-mode {
-  background: radial-gradient(circle, #f43f5e, #8b5cf6, #3b82f6, #10b981);
-  background-size: 300% 300%;
-  animation: discoBg 2s infinite alternate;
-}
-
-@keyframes discoBg {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-/* SVG Panda styling & animations */
-.panda-svg-container {
-  width: 250px;
-  height: 250px;
-  margin: 0 auto;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.panda-svg-container:hover {
-  transform: scale(1.05);
-}
-
-.panda-svg-container:active {
-  transform: scale(0.95);
-}
-
-/* Floating speech bubble */
-.panda-bubble {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 18px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-  font-weight: 800;
-  box-shadow: 3px 3px 0px #1e293b;
-  max-width: 180px;
-  animation: floatBubble 2.5s infinite ease-in-out;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.panda-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 20px;
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid #ffffff;
-}
-
-@keyframes floatBubble {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-/* Pet status bars */
-.pet-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.bar-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.bar-header {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 800;
-  font-size: 0.88rem;
-}
-
-.bar-track {
-  width: 100%;
-  height: 18px;
-  background: #e2e8f0;
-  border: 2px solid #1e293b;
-  border-radius: 999px;
-  overflow: hidden;
-  position: relative;
-}
-
-.bar-fill {
-  height: 100%;
-  transition: width 0.3s ease;
-  border-radius: 999px;
-}
-
-.bar-fill.hunger { background: linear-gradient(90deg, #f59e0b, #10b981); width: 75%; }
-.bar-fill.happy { background: linear-gradient(90deg, #ec4899, #f43f5e); width: 90%; }
-.bar-fill.sleep { background: linear-gradient(90deg, #3b82f6, #8b5cf6); width: 60%; }
-.bar-fill.silly { background: linear-gradient(90deg, #8b5cf6, #ec4899); width: 99%; }
-
-/* Pet action grid */
-.action-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.act-btn {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 16px;
-  padding: 10px 8px;
-  font-family: inherit;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #1e293b;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  box-shadow: 3px 3px 0px #1e293b;
-  transition: all 0.15s ease;
-}
-
-.act-btn span { font-size: 1.4rem; }
-
-.act-btn:hover {
-  transform: translateY(-2px);
-  background: #fef08a;
-}
-
-.act-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #1e293b;
-}
-
-/* Accessory buttons */
-.acc-toggles {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-  justify-content: center;
-}
-
-.acc-btn {
-  background: #fff;
-  border: 2px solid #1e293b;
-  border-radius: 12px;
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 2px 2px 0px #1e293b;
-}
-
-.acc-btn.active {
-  background: #10b981;
-  color: #fff;
-}
-
-/* ─── SECTION 2: ĐẬP GẤU BỰA (WHACK-A-PANDA) ────────── */
-.game-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.game-stat-item {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 14px;
-  padding: 8px 16px;
-  font-weight: 900;
-  box-shadow: 3px 3px 0px #1e293b;
-  font-size: 1.1rem;
-}
-
-.whack-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  max-width: 580px;
-  margin: 0 auto;
-  user-select: none;
-}
-
-.hole-box {
-  aspect-ratio: 1;
-  background: #dcfce7;
-  border: 3px solid #1e293b;
-  border-radius: 24px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 4px 4px 0px #1e293b;
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24'%3E%3Cpath fill='%23f59e0b' stroke='%23000' stroke-width='1.5' d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6-8.6 8.6a1 1 0 0 0 0 1.4l1 1a1 1 0 0 0 1.4 0l8.6-8.6 1.6 1.6a1 1 0 0 0 1.4 0l1.3-1.3a1 1 0 0 0 0-1.4l-5.6-5.6a1 1 0 0 0-1.4 0z'/%3E%3C/svg%3E"), auto;
-}
-
-.hole-dirt {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 38%;
-  background: #047857;
-  border-top: 3px solid #1e293b;
-  z-index: 2;
-  border-radius: 0 0 20px 20px;
-}
-
-.whack-target {
-  position: absolute;
-  width: 76%;
-  height: 76%;
-  bottom: -100%;
-  left: 12%;
-  z-index: 1;
-  transition: bottom 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.whack-target.up {
-  bottom: 22%;
-}
-
-.whack-target.hit {
-  animation: whackHit 0.3s forwards ease-in-out;
-}
-
-@keyframes whackHit {
-  0% { transform: scale(1.1) rotate(-10deg); }
-  50% { transform: scale(0.8) rotate(15deg); }
-  100% { transform: scale(0) rotate(0deg); }
-}
-
-.splat-text {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  font-family: 'Bungee', cursive;
-  font-size: 1.5rem;
-  color: #ef4444;
-  text-shadow: 2px 2px 0px #ffffff;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.splat-text.show {
-  animation: splatPop 0.6s ease-out forwards;
-}
-
-@keyframes splatPop {
-  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
-  50% { transform: translate(-50%, -100%) scale(1.3); opacity: 1; }
-  100% { transform: translate(-50%, -130%) scale(1); opacity: 0; }
-}
-
-/* ─── SECTION 3: HỨNG MĂNG TRE RƠI (BAMBOO CATCH) ────── */
-.canvas-game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  position: relative;
-}
-
-#catchCanvas, #flappyCanvas {
-  background: #e0f2fe;
-  border: 3px solid #1e293b;
-  border-radius: 20px;
-  box-shadow: 6px 6px 0px #1e293b;
-  max-width: 100%;
-  touch-action: none;
-}
-
-.game-controls-hint {
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  text-align: center;
-}
-
-.btn-big {
-  background: #10b981;
-  color: #ffffff;
-  font-family: 'Bungee', cursive;
-  font-size: 1.15rem;
-  border: 3px solid #1e293b;
-  border-radius: 999px;
-  padding: 12px 36px;
-  cursor: pointer;
-  box-shadow: 4px 4px 0px #1e293b;
-  transition: all 0.15s ease;
-}
-
-.btn-big:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px #1e293b;
-  background: #059669;
-}
-
-.btn-big:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px #1e293b;
-}
-
-.btn-game-act {
-  background: #ffffff;
-  border: 3px solid #1e293b;
-  border-radius: 999px;
-  padding: 10px 22px;
-  font-family: inherit;
-  font-weight: 800;
-  font-size: 1rem;
-  color: #1e293b;
-  cursor: pointer;
-  box-shadow: 4px 4px 0px #1e293b;
-  transition: all 0.15s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  user-select: none;
-}
-
-.btn-game-act:hover {
-  transform: translate(-2px, -2px);
-  background: #fef08a;
-  box-shadow: 6px 6px 0px #1e293b;
-}
-
-.btn-game-act:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px #1e293b;
-}
-
-.btn-game-act.pause-active {
-  background: #fed7aa;
-  border-color: #ea580c;
-  color: #9a3412;
-}
-
-/* ─── SECTION 5: ĐỐ VUI VÔ TRI (TROLL QUIZ) ──────────── */
-.quiz-card {
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-.quiz-prog {
-  height: 10px;
-  background: #e2e8f0;
-  border: 2px solid #1e293b;
-  border-radius: 999px;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-
-.quiz-prog-fill {
-  height: 100%;
-  background: #10b981;
-  width: 10%;
-  transition: width 0.3s ease;
-}
-
-.quiz-question {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 20px;
-  line-height: 1.4;
-}
-
-.quiz-options {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.opt-btn {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 16px;
-  padding: 14px 20px;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 1rem;
-  color: #1e293b;
-  cursor: pointer;
-  text-align: left;
-  box-shadow: 3px 3px 0px #1e293b;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.opt-btn:hover {
-  background: #f0fdf4;
-  transform: translateX(4px);
-}
-
-.opt-btn.correct {
-  background: #86efac !important;
-  border-color: #065f46;
-}
-
-.opt-btn.wrong {
-  background: #fca5a5 !important;
-  border-color: #991b1b;
-}
-
-.quiz-feedback {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 16px;
-  font-weight: 800;
-  display: none;
-  animation: fadeIn 0.3s ease;
-}
-
-.quiz-feedback.show { display: block; }
-.quiz-feedback.win { background: #dcfce7; border: 2px solid #10b981; color: #065f46; }
-.quiz-feedback.lose { background: #fee2e2; border: 2px solid #ef4444; color: #991b1b; }
-
-/* ─── SECTION 6: GACHA RÚT QUẺ NHÂN PHẨM ─────────────── */
-.gacha-stage {
-  text-align: center;
-  padding: 20px 0;
-}
-
-.chest-box {
-  width: 160px;
-  height: 160px;
-  margin: 0 auto 24px auto;
-  font-size: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  user-select: none;
-}
-
-.chest-box:hover {
-  transform: scale(1.1) rotate(5deg);
-}
-
-.chest-box.shake {
-  animation: chestRumble 0.5s infinite;
-}
-
-@keyframes chestRumble {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  25% { transform: translate(-2px, -2px) rotate(-4deg); }
-  50% { transform: translate(2px, 0px) rotate(4deg); }
-  75% { transform: translate(-1px, 2px) rotate(-2deg); }
-  100% { transform: translate(1px, -1px) rotate(0deg); }
-}
-
-.card-result {
-  max-width: 380px;
-  margin: 20px auto 0 auto;
-  background: #ffffff;
-  border: 4px solid #1e293b;
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 8px 8px 0px #1e293b;
-  display: none;
-  position: relative;
-  overflow: hidden;
-}
-
-.card-result.show {
-  display: block;
-  animation: popCard 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes popCard {
-  0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
-}
-
-.card-tier {
-  display: inline-block;
-  padding: 4px 14px;
-  font-family: 'Bungee', cursive;
-  font-size: 0.9rem;
-  border-radius: 999px;
-  color: #fff;
-  border: 2px solid #1e293b;
-  margin-bottom: 12px;
-}
-
-.tier-UR { background: linear-gradient(90deg, #ec4899, #8b5cf6); }
-.tier-SSR { background: linear-gradient(90deg, #f59e0b, #ef4444); }
-.tier-SR { background: linear-gradient(90deg, #3b82f6, #06b6d4); }
-.tier-R { background: linear-gradient(90deg, #10b981, #84cc16); }
-
-.card-art {
-  font-size: 4.5rem;
-  margin: 10px 0;
-}
-
-.card-title {
-  font-family: 'Bungee', cursive;
-  font-size: 1.3rem;
-  color: #1e293b;
-  margin-bottom: 8px;
-}
-
-.card-quote {
-  font-size: 0.95rem;
-  font-style: italic;
-  font-weight: 700;
-  color: #475569;
-  background: #f8fafc;
-  padding: 10px;
-  border-radius: 12px;
-  border: 1px dashed #cbd5e1;
-}
-
-/* ─── SECTION 7: PANDA MEME SOUNDBOARD ───────────────── */
-.soundboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 14px;
-}
-
-.sound-btn {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 18px;
-  padding: 16px 12px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  font-family: inherit;
-  font-weight: 800;
-  font-size: 0.9rem;
-  box-shadow: 4px 4px 0px #1e293b;
-  transition: all 0.12s ease;
-  user-select: none;
-}
-
-.sound-btn span { font-size: 2rem; }
-
-.sound-btn:hover {
-  transform: translateY(-3px);
-  background: #dcfce7;
-}
-
-.sound-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #1e293b;
-}
-
-/* ─── SECTION 8: CHẾ MEME GẤU TRÚC (MEME MAKER) ───────── */
-.meme-maker-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-@media (max-width: 768px) {
-  .meme-maker-grid { grid-template-columns: 1fr; }
-}
-
-.meme-preview-box {
-  background: #1e293b;
-  border: 3px solid #1e293b;
-  border-radius: 20px;
-  padding: 12px;
-  box-shadow: 6px 6px 0px #1e293b;
-  text-align: center;
-}
-
-#memeCanvas {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  background: #fff;
-  display: block;
-  margin: 0 auto;
-}
-
-.meme-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.meme-input {
-  width: 100%;
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 14px;
-  padding: 12px 16px;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 1rem;
-  outline: none;
-  box-shadow: 3px 3px 0px #1e293b;
-}
-
-.meme-input:focus {
-  border-color: #10b981;
-}
-
-.template-picker {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-}
-
-.tmpl-thumb {
-  width: 60px;
-  height: 60px;
-  border: 2px solid #1e293b;
-  border-radius: 12px;
-  cursor: pointer;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  flex-shrink: 0;
-  box-shadow: 2px 2px 0px #1e293b;
-}
-
-.tmpl-thumb.active {
-  border-color: #10b981;
-  background: #a7f3d0;
-  transform: scale(1.05);
-}
-
-/* ─── TOAST FLOATER ──────────────────────────────────── */
-.toast-notice {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: #1e293b;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  border-radius: 999px;
-  padding: 10px 24px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  z-index: 1000;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  opacity: 0;
-  white-space: nowrap;
-}
-
-.toast-notice.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-/* ─── TÔNG XANH TRẮNG: TIỆM SASHIMI & THÚ BÔNG GẤU TRÚC ─── */
-body.blue-white-theme {
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 40%, #bae6fd 100%) !important;
-  color: #0f172a !important;
-}
-
-body.blue-white-theme header {
-  background: rgba(240, 249, 255, 0.95) !important;
-  border-bottom: 3px solid #0284c7 !important;
-}
-
-body.blue-white-theme .brand-title {
-  color: #0284c7 !important;
-  text-shadow: 2px 2px 0px #bae6fd !important;
-}
-
-body.blue-white-theme .brand-sub {
-  color: #0369a1 !important;
-}
-
-.tab-btn.highlight-sashimi {
-  background: linear-gradient(135deg, #ffffff, #e0f2fe);
-  border: 2px solid #0284c7;
-  color: #0284c7;
-  font-weight: 900;
-  box-shadow: 3px 3px 0px #0284c7;
-  animation: pulseSashimi 2.2s infinite ease-in-out;
-}
-
-@keyframes pulseSashimi {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.04); background: #bae6fd; }
-}
-
-.sashimi-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.sashimi-actions-bar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-/* 2-Column Street View */
-.sashimi-dual-street {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 20px;
-  align-items: stretch;
-  margin-bottom: 24px;
-}
-
-@media (max-width: 900px) {
-  .sashimi-dual-street {
-    grid-template-columns: 1fr;
-  }
-}
-
-.store-pane {
-  background: #ffffff;
-  border: 3px solid #1e293b;
-  border-radius: 24px;
-  box-shadow: 6px 6px 0px #1e293b;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Awnings */
-.store-awning {
-  padding: 16px 20px;
-  border-bottom: 3px solid #1e293b;
-  position: relative;
-  text-align: center;
-  color: #ffffff;
-}
-
-.awning-sashimi {
-  background: repeating-linear-gradient(
-    45deg,
-    #0284c7,
-    #0284c7 20px,
-    #ffffff 20px,
-    #ffffff 40px
-  );
-  color: #0f172a;
-}
-
-.awning-sashimi .awning-title {
-  background: rgba(255, 255, 255, 0.95);
-  display: inline-block;
-  padding: 4px 16px;
-  border-radius: 999px;
-  border: 2px solid #0284c7;
-  color: #0284c7;
-  font-family: 'Bungee', cursive;
-  font-size: 1.3rem;
-}
-
-.awning-sashimi .awning-sub {
-  background: rgba(255, 255, 255, 0.9);
-  display: inline-block;
-  padding: 2px 10px;
-  border-radius: 8px;
-  margin-top: 4px;
-  font-weight: 800;
-  font-size: 0.8rem;
-  color: #0369a1;
-}
-
-.awning-plushie {
-  background: repeating-linear-gradient(
-    -45deg,
-    #0ea5e9,
-    #0ea5e9 20px,
-    #ffffff 20px,
-    #ffffff 40px
-  );
-}
-
-.awning-plushie .awning-title {
-  background: rgba(255, 255, 255, 0.95);
-  display: inline-block;
-  padding: 4px 16px;
-  border-radius: 999px;
-  border: 2px solid #0284c7;
-  color: #0369a1;
-  font-family: 'Bungee', cursive;
-  font-size: 1.3rem;
-}
-
-.awning-plushie .awning-sub {
-  background: rgba(255, 255, 255, 0.9);
-  display: inline-block;
-  padding: 2px 10px;
-  border-radius: 8px;
-  margin-top: 4px;
-  font-weight: 800;
-  font-size: 0.8rem;
-  color: #0284c7;
-}
-
-/* Dining Counter & Seats */
-.sashimi-counter {
-  padding: 16px;
-  background: #f0f9ff;
-  border-bottom: 2px dashed #bae6fd;
-}
-
-.counter-label {
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #0369a1;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.seats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.seat-box {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 16px;
-  padding: 10px;
-  text-align: center;
-  min-height: 145px;
-  position: relative;
-  box-shadow: 3px 3px 0px #1e293b;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.seat-box.empty {
-  background: #f8fafc;
-  border-style: dashed;
-  justify-content: center;
-  color: #94a3b8;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-.customer-avatar {
-  font-size: 2.4rem;
-  animation: customerBob 1.5s infinite ease-in-out;
-}
-
-@keyframes customerBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
-.order-bubble {
-  background: #ffffff;
-  border: 2px solid #0284c7;
-  border-radius: 12px;
-  padding: 4px 8px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: #0369a1;
-  box-shadow: 2px 2px 0px #0284c7;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.patience-bar-track {
-  width: 100%;
-  height: 8px;
-  background: #e2e8f0;
-  border-radius: 999px;
-  overflow: hidden;
-  border: 1px solid #1e293b;
-}
-
-.patience-bar-fill {
-  height: 100%;
-  background: #10b981;
-  transition: width 0.4s linear, background-color 0.3s;
-}
-
-/* Kitchen Station */
-.kitchen-station {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  flex-grow: 1;
-}
-
-.kitchen-title {
-  font-weight: 800;
-  font-size: 0.88rem;
-  color: #0f172a;
-}
-
-.ingredients-shelf {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.ing-card {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 14px;
-  padding: 8px 6px;
-  text-align: center;
-  cursor: pointer;
-  box-shadow: 3px 3px 0px #1e293b;
-  transition: all 0.12s ease;
-  user-select: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-
-.ing-card:hover {
-  transform: translateY(-2px);
-  background: #e0f2fe;
-}
-
-.ing-card:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #1e293b;
-}
-
-.ing-card .ing-icon { font-size: 1.6rem; }
-.ing-card .ing-name { font-weight: 800; font-size: 0.8rem; color: #1e293b; }
-.ing-card .ing-badge { font-size: 0.68rem; font-weight: 700; color: #0284c7; }
-
-/* Cutting Board */
-.cutting-board-box {
-  background: #fefce8;
-  border: 3px solid #1e293b;
-  border-radius: 18px;
-  padding: 12px;
-  box-shadow: 3px 3px 0px #1e293b;
-}
-
-.board-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 800;
-  font-size: 0.85rem;
-  margin-bottom: 8px;
-}
-
-.btn-mini {
-  background: #fee2e2;
-  border: 1px solid #ef4444;
-  color: #b91c1c;
-  border-radius: 8px;
-  padding: 2px 8px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.cutting-items {
-  min-height: 48px;
-  background: #ffffff;
-  border: 2px dashed #ca8a04;
-  border-radius: 12px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.cutting-item-tag {
-  background: #e0f2fe;
-  border: 1.5px solid #0284c7;
-  border-radius: 8px;
-  padding: 3px 8px;
-  font-weight: 800;
-  font-size: 0.82rem;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.dish-preview-row {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-
-.dish-name-preview {
-  font-weight: 800;
-  font-size: 0.9rem;
-  color: #0369a1;
-}
-
-.btn-serve {
-  background: #0284c7;
-  color: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 999px;
-  padding: 8px 18px;
-  font-family: 'Bungee', cursive;
-  font-size: 0.95rem;
-  cursor: pointer;
-  box-shadow: 3px 3px 0px #1e293b;
-  transition: all 0.15s ease;
-}
-
-.btn-serve:hover {
-  background: #0369a1;
-  transform: translateY(-2px);
-}
-
-.btn-serve:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #1e293b;
-}
-
-/* Plushie Showcase Shelf */
-.plushie-shelf-box {
-  padding: 14px;
-  background: #f0f9ff;
-  border-bottom: 2px dashed #bae6fd;
-}
-
-.shelf-header {
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #0369a1;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.shelf-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.shelf-item {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 14px;
-  padding: 8px;
-  text-align: center;
-  box-shadow: 3px 3px 0px #1e293b;
-  position: relative;
-}
-
-.shelf-item .plush-icon { font-size: 2.2rem; display: block; margin: 2px 0; }
-.shelf-item .plush-title { font-weight: 800; font-size: 0.75rem; color: #1e293b; line-height: 1.2; }
-.shelf-item .plush-price {
-  background: #e0f2fe;
-  color: #0284c7;
-  font-weight: 900;
-  font-size: 0.75rem;
-  border-radius: 999px;
-  padding: 2px 6px;
-  margin-top: 4px;
-  display: inline-block;
-}
-
-.shelf-hint {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #64748b;
-  margin-top: 10px;
-  line-height: 1.3;
-}
-
-/* Claw Machine Screen */
-.claw-machine-box {
-  padding: 14px;
-  background: #ffffff;
-  border-bottom: 2px dashed #bae6fd;
-}
-
-.claw-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #0284c7;
-  margin-bottom: 8px;
-}
-
-.claw-screen {
-  background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
-  border: 3px solid #1e293b;
-  border-radius: 16px;
-  height: 165px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.crane-rail {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  right: 20px;
-  height: 6px;
-  background: #64748b;
-  border-radius: 3px;
-}
-
-.crane-carriage {
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: left 0.15s ease-out;
-}
-
-.crane-wire {
-  width: 3px;
-  height: 35px;
-  background: #1e293b;
-  transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.crane-claw {
-  font-size: 1.6rem;
-  line-height: 1;
-  transition: transform 0.2s ease;
-}
-
-.claw-pit {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: rgba(2, 132, 199, 0.15);
-  border-top: 2px dashed #0284c7;
-}
-
-.pit-plushie {
-  position: absolute;
-  bottom: 6px;
-  font-size: 1.5rem;
-}
-
-.claw-chute {
-  position: absolute;
-  bottom: 0;
-  left: 8px;
-  background: #0284c7;
-  color: #ffffff;
-  font-weight: 900;
-  font-size: 0.65rem;
-  padding: 4px 6px;
-  border-radius: 6px 6px 0 0;
-  border: 2px solid #1e293b;
-  border-bottom: none;
-}
-
-.claw-ctrl-row {
-  margin-top: 10px;
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-}
-
-.claw-btn-move {
-  background: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 12px;
-  padding: 8px 12px;
-  font-weight: 800;
-  font-size: 0.85rem;
-  cursor: pointer;
-  box-shadow: 2px 2px 0px #1e293b;
-}
-
-.claw-btn-drop {
-  flex-grow: 1;
-  background: #0ea5e9;
-  color: #ffffff;
-  border: 2px solid #1e293b;
-  border-radius: 12px;
-  padding: 8px 12px;
-  font-family: inherit;
-  font-weight: 900;
-  font-size: 0.9rem;
-  cursor: pointer;
-  box-shadow: 3px 3px 0px #1e293b;
-  transition: all 0.12s ease;
-}
-
-.claw-btn-drop:hover {
-  background: #0284c7;
-}
-
-.claw-btn-drop:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #1e293b;
-}
-
-/* Plushie Collection Album */
-.collection-summary {
-  padding: 12px 14px;
-}
-
-.collection-icons {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
-
-.col-item {
-  width: 44px;
-  height: 44px;
-  border: 2px solid #1e293b;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  background: #ffffff;
-  box-shadow: 2px 2px 0px #1e293b;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.col-item.locked {
-  filter: grayscale(1);
-  opacity: 0.45;
-  background: #e2e8f0;
-}
-
-/* Upgrades Bar */
-.sashimi-upgrades-bar {
-  background: #ffffff;
-  border: 3px solid #1e293b;
-  border-radius: 20px;
-  padding: 16px;
-  box-shadow: 4px 4px 0px #1e293b;
-}
-
-.upgrade-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-@media (max-width: 768px) {
-  .upgrade-cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.up-card {
-  border: 2px solid #1e293b;
-  border-radius: 16px;
-  padding: 10px 12px;
-  background: #f8fafc;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 2px 2px 0px #1e293b;
-  cursor: pointer;
-  transition: all 0.12s ease;
-}
-
-.up-card:hover {
-  background: #e0f2fe;
-  transform: translateY(-2px);
-}
-
-.up-card.bought {
-  background: #dcfce7;
-  border-color: #059669;
-}
-
-.up-card .up-icon { font-size: 2rem; }
-.up-card .up-info { flex-grow: 1; }
-.up-card .up-name { font-weight: 800; font-size: 0.85rem; color: #0f172a; }
-.up-card .up-desc { font-size: 0.72rem; color: #64748b; font-weight: 600; }
-.btn-up-buy {
-  background: #0284c7;
-  color: #fff;
-  border: 2px solid #1e293b;
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-weight: 800;
-  font-size: 0.82rem;
-  cursor: pointer;
-}
-.up-card.bought .btn-up-buy {
-  background: #10b981;
-  border-color: #047857;
-}
-
-/* ─── FOOTER ─────────────────────────────────────────── */
-footer {
-  text-align: center;
-  padding: 30px 16px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  border-top: 2px dashed #a7f3d0;
-  margin-top: 40px;
-}
-
-footer a {
-  color: #059669;
-  text-decoration: none;
-  font-weight: 800;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Phố Xanh Trắng - Game Nấu Ăn Sashimi & Tiệm Gấu Trúc Nhồi Bông</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #0284c7;
+      --primary-dark: #0369a1;
+      --sky-blue: #38bdf8;
+      --soft-blue: #bae6fd;
+      --ice-blue: #e0f2fe;
+      --deep-navy: #0f172a;
+      --pure-white: #ffffff;
+      --off-white: #f8fafc;
+      --accent-pink: #f472b6;
+      --accent-gold: #f59e0b;
+      --accent-green: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 40%, #f0f9ff 100%);
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Header Bar */
+    header.game-header {
+      width: 100%;
+      max-width: 1060px;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--soft-blue);
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.08);
+      z-index: 100;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-icon {
+      font-size: 28px;
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+    }
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+      line-height: 1.1;
+    }
+    .brand-text span {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #e11d48;
+      background: #ffe4e6;
+      padding: 1px 7px;
+      border-radius: 6px;
+    }
+
+    .stats-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--off-white);
+      border: 1.5px solid var(--soft-blue);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+    .stat-badge.coins { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+    .stat-badge.hearts { color: #be185d; background: #fdf2f8; border-color: #fbcfe8; }
+    .stat-badge.level { color: #0369a1; background: #f0f9ff; border-color: #bae6fd; }
+
+    .header-btns {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--soft-blue);
+      background: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .icon-btn:hover {
+      background: var(--ice-blue);
+      transform: scale(1.08);
+    }
+
+    /* Announcement Banner */
+    .joke-strip {
+      width: 100%;
+      max-width: 1060px;
+      background: linear-gradient(90deg, #0284c7, #38bdf8);
+      color: white;
+      padding: 6px 16px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 0 0 12px 12px;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.15);
+    }
+
+    /* Game Canvas Container */
+    .game-wrapper {
+      position: relative;
+      max-width: 1060px;
+      width: 100%;
+      padding: 0 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #gameCanvas {
+      background: #ffffff;
+      border: 4px solid var(--primary-blue);
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(2, 132, 199, 0.2);
+      max-width: 100%;
+      height: auto;
+      display: block;
+      cursor: default;
+    }
+
+    /* On-Screen Interaction Prompts */
+    .interaction-overlay {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.85);
+      color: white;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 20;
+    }
+    .interaction-overlay.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(4px);
+    }
+
+    /* Mobile / On-screen Touch Controls */
+    .touch-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      margin-top: 10px;
+      padding: 0 16px;
+    }
+
+    .dpad-container {
+      display: grid;
+      grid-template-columns: repeat(3, 50px);
+      grid-template-rows: repeat(3, 50px);
+      gap: 5px;
+    }
+    .dpad-btn {
+      background: white;
+      border: 2px solid var(--primary-blue);
+      border-radius: 14px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+    .dpad-btn:active {
+      background: var(--ice-blue);
+      transform: scale(0.92);
+    }
+    .dpad-up { grid-column: 2; grid-row: 1; }
+    .dpad-left { grid-column: 1; grid-row: 2; }
+    .dpad-right { grid-column: 3; grid-row: 2; }
+    .dpad-down { grid-column: 2; grid-row: 3; }
+
+    .action-btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .action-touch-btn {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: white;
+      border: 2.5px solid #ffffff;
+      border-radius: 20px;
+      padding: 14px 28px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+    .action-touch-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* Modal Dialogs */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      background: white;
+      border-radius: 24px;
+      border: 4px solid var(--primary-blue);
+      max-width: 520px;
+      width: 100%;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(2, 132, 199, 0.35);
+      animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-btn {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 16px;
+      font-weight: 900;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-top: 14px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    /* Guide Box */
+    .controls-guide {
+      margin-top: 12px;
+      background: white;
+      border: 1.5px solid var(--soft-blue);
+      border-radius: 16px;
+      padding: 10px 18px;
+      max-width: 1060px;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #475569;
+    }
+    .guide-item kbd {
+      background: var(--ice-blue);
+      border: 1px solid var(--soft-blue);
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-weight: 900;
+      color: var(--primary-dark);
+    }
+  </style>
 </head>
 <body>
 
-<!-- Background Bamboo Leaves Animation -->
-<canvas id="canvasBg"></canvas>
+  <!-- Top Header -->
+  <header class="game-header">
+    <div class="brand-title">
+      <div class="brand-icon">🐱</div>
+      <div class="brand-text">
+        <h1>Quán Sashimi & Tiệm Gấu Trúc</h1>
+        <span>CAM KẾT 100% KHÔNG BÁN SASHIMI!</span>
+      </div>
+    </div>
 
-<!-- Top Header -->
-<header>
-  <div class="brand-container" onclick="pandaEasterEgg()">
-    <div class="brand-icon">🐼</div>
-    <div>
-      <div class="brand-title">PANDA LAND</div>
-      <div class="brand-sub">HỘI GẤU TRÚC VÔ TRI VIỆT NAM 🎋</div>
+    <!-- Live Stats -->
+    <div class="stats-bar">
+      <div class="stat-badge coins">
+        <span>🪙</span> <span id="uiCoins">100</span> xu
+      </div>
+      <div class="stat-badge hearts">
+        <span>💖</span> <span id="uiHearts">10</span> tim
+      </div>
+      <div class="stat-badge level">
+        <span>⭐</span> Cấp <span id="uiLevel">1</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="header-btns">
+      <button class="icon-btn" id="audioBtn" title="Bật / Tắt Âm Thanh">🎵</button>
+      <button class="icon-btn" id="helpBtn" title="Hướng dẫn chơi">❓</button>
+      <button class="icon-btn" id="resetBtn" title="Chơi lại từ đầu">🔄</button>
+    </div>
+  </header>
+
+  <!-- Notice Strip -->
+  <div class="joke-strip">
+    <div>📢 <strong>THÔNG BÁO:</strong> Quán tên Sashimi nhưng chỉ bán Mì Ramen, Trà Sữa, Gà Rán... Kế bên là Tiệm Gấu Trúc Nhồi Bông siêu mềm mịn!</div>
+    <div style="font-size: 0.75rem; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;">Dùng WASD / Phím Mũi Tên & Cách để chơi</div>
+  </div>
+
+  <!-- Game Canvas Section -->
+  <main class="game-wrapper">
+    <div class="interaction-overlay" id="interactPrompt">
+      <span id="promptIcon">🖐️</span>
+      <span id="promptText">Nhấn [PHÍM CÁCH] hoặc [E] để tương tác</span>
+    </div>
+
+    <canvas id="gameCanvas" width="960" height="580"></canvas>
+
+    <!-- Touch / Virtual D-pad for Mobile & Easy Play -->
+    <div class="touch-controls">
+      <div class="dpad-container">
+        <button class="dpad-btn dpad-up" id="btnUp">▲</button>
+        <button class="dpad-btn dpad-left" id="btnLeft">◀</button>
+        <button class="dpad-btn dpad-right" id="btnRight">▶</button>
+        <button class="dpad-btn dpad-down" id="btnDown">▼</button>
+      </div>
+
+      <div class="action-btn-container">
+        <button class="action-touch-btn" id="btnAction">
+          <span>🖐️</span> HÀNH ĐỘNG / NẤU
+        </button>
+      </div>
+    </div>
+
+    <!-- Controls Guide -->
+    <div class="controls-guide">
+      <div class="guide-item">🏃 <strong>Di chuyển:</strong> <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> hoặc <kbd>Mũi tên</kbd></div>
+      <div class="guide-item">🍳 <strong>Nấu & Lấy đồ & Giao hàng:</strong> <kbd>PHÍM CÁCH</kbd> hoặc <kbd>E</kbd></div>
+      <div class="guide-item">🗑️ <strong>Vứt món làm sai:</strong> Cầm món đi lại Thùng Rác bấm <kbd>E</kbd></div>
+      <div class="guide-item">🕹️ <strong>Gắp Gấu:</strong> Đi sang tiệm gấu lại gần Máy Gắp Arcade bấm <kbd>E</kbd></div>
+    </div>
+  </main>
+
+  <!-- Comic Joke Modal (Sashimi Meme & Claw Machine) -->
+  <div class="modal-backdrop" id="comicModal">
+    <div class="modal-box">
+      <div id="modalEmoji" style="font-size: 56px; margin-bottom: 8px;">👨‍🍳💢</div>
+      <h2 id="modalTitle" style="font-size: 1.3rem; font-weight: 900; color: var(--primary-dark); margin-bottom: 8px;">ỦA ALO?! KHÔNG CÓ BÁN SASHIMI!</h2>
+      <p id="modalDesc" style="font-size: 0.92rem; color: #334155; line-height: 1.5; margin-bottom: 16px;">
+        Chủ quán Mèo Sa hốt hoảng: "Đã bảo quán tui tên Sashimi vì tui thích tên này, chứ tui chỉ nấu Mì Ramen với Trà Sữa thui! Đừng đòi cá hồi sống nữa tui khóc thét á!"
+      </p>
+      <button class="modal-btn" id="modalCloseBtn">Dạ em hiểu rùi, để em đi nấu Ramen! 🍜</button>
     </div>
   </div>
-  
-  <div class="header-stats">
-    <div class="stat-badge" title="Măng tre đã kiếm">
-      <span>🎋</span> <span id="bambooCount">150</span>
+
+  <!-- Claw Machine Modal -->
+  <div class="modal-backdrop" id="clawModal">
+    <div class="modal-box" style="max-width: 580px;">
+      <h2 style="font-size: 1.35rem; font-weight: 900; color: var(--primary-dark); margin-bottom: 4px;">🕹️ MÁY GẮP GẤU TRÚC LUCKY CLAW</h2>
+      <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 14px;">Gắp những chú gấu bông hiếm nhất về trang trí tiệm! (Chi phí: 15 xu/lượt)</p>
+      
+      <div style="background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 100%); border: 3px solid #0284c7; border-radius: 16px; height: 180px; position: relative; overflow: hidden; margin-bottom: 14px;" id="clawStage">
+        <div id="clawArm" style="position: absolute; top: 0; left: 50%; width: 4px; height: 30px; background: #334155; transition: height 0.4s ease-in-out;"></div>
+        <div id="clawHead" style="position: absolute; top: 30px; left: calc(50% - 16px); font-size: 32px; transition: top 0.4s ease-in-out;">🦾</div>
+        
+        <!-- Plushies in pit -->
+        <div style="position: absolute; bottom: 10px; width: 100%; display: flex; justify-content: space-around; font-size: 36px;">
+          <span>🐼</span>
+          <span>🦖</span>
+          <span>🧸</span>
+          <span>🎒</span>
+          <span>✨</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 12px;">
+        <button class="modal-btn" id="clawBtnLeft" style="margin: 0; padding: 10px 18px; background: #e0f2fe; color: #0284c7; border: 2px solid #bae6fd;">◀ Trái</button>
+        <button class="modal-btn" id="clawBtnDrop" style="margin: 0; padding: 10px 24px;">👇 THẢ CẦN GẮP!</button>
+        <button class="modal-btn" id="clawBtnRight" style="margin: 0; padding: 10px 18px; background: #e0f2fe; color: #0284c7; border: 2px solid #bae6fd;">Phải ▶</button>
+      </div>
+
+      <button class="modal-btn" id="clawCloseBtn" style="background: #f1f5f9; color: #475569; border: 1.5px solid #cbd5e1; margin-top: 4px;">Rời Khỏi Máy Gắp</button>
     </div>
-    <button class="btn-ctrl" id="btnMusic" title="Bật/Tắt nhạc nền cute" onclick="toggleBgm()">🎵</button>
-    <button class="btn-ctrl" id="btnSfx" title="Bật/Tắt âm thanh SFX" onclick="toggleSfx()">🔊</button>
   </div>
-</header>
 
-<!-- Navigation Tabs -->
-<div class="nav-scroll">
-  <button class="tab-btn highlight-sashimi" onclick="switchTab('sashimi')">🍣 Tiệm Sashimi & Gấu Bông 🧸</button>
-  <button class="tab-btn active" onclick="switchTab('pet')">🐾 Nuôi Gấu Béo</button>
-  <button class="tab-btn" onclick="switchTab('whack')">🔨 Đập Gấu Bựa</button>
-  <button class="tab-btn" onclick="switchTab('catch')">🧺 Hứng Măng Rơi</button>
-  <button class="tab-btn" onclick="switchTab('flappy')">🕊️ Flappy Panda</button>
-  <button class="tab-btn" onclick="switchTab('quiz')">🧠 Đố Vui Vô Tri</button>
-  <button class="tab-btn" onclick="switchTab('gacha')">🥠 Gacha Quẻ Thẻ</button>
-  <button class="tab-btn" onclick="switchTab('soundboard')">🎹 Soundboard Bựa</button>
-  <button class="tab-btn" onclick="switchTab('meme')">🎨 Chế Meme Gấu</button>
-</div>
+  <script>
+    /* =========================================================================
+       1. GAME STATE & PROCEDURAL AUDIO ENGINE
+       ========================================================================= */
+    const STORAGE_KEY = 'SASHIMI_PANDA_COOKING_RPG_V1';
 
-<!-- Main Content Area -->
-<main>
+    let gameState = {
+      coins: 100,
+      hearts: 10,
+      level: 1,
+      totalServed: 0,
+      unlockedPlushies: ['Panda Múp Míp', 'Panda Khủng Long']
+    };
 
-  <!-- TAB 1: NUÔI GẤU TRÚC VÔ TRI -->
-  <section id="tab-pet" class="tab-panel active">
-    <div class="comic-box">
-      <div class="box-title">🐾 BÉ GẤU BẢO BẢO (TRÙM ĂN VỤNG)</div>
-      <div class="box-desc">Chăm sóc, chọc lét và quẩy bung nóc cùng chú gấu trúc tròn xoe siêu bựa! Click trực tiếp lên người bé gấu để tương tác nha!</div>
-      
-      <div class="pet-layout">
-        <!-- Display Stage -->
-        <div class="pet-display" id="petStage">
-          <div class="panda-bubble" id="petBubble">Đói bụng quá! Cho tui ăn cọng tre đê~ 🎋</div>
-          
-          <div class="panda-svg-container" id="petPanda" onclick="pokePanda(event)">
-            <!-- Interactive Panda SVG -->
-            <svg id="pandaSvg" viewBox="0 0 200 200" width="100%" height="100%">
-              <!-- Shadow -->
-              <ellipse cx="100" cy="180" rx="65" ry="14" fill="#000000" opacity="0.15"/>
-              
-              <!-- Panda Ears -->
-              <circle cx="50" cy="55" r="22" fill="#1e1e24" id="earL"/>
-              <circle cx="50" cy="55" r="10" fill="#3f3f46"/>
-              <circle cx="150" cy="55" r="22" fill="#1e1e24" id="earR"/>
-              <circle cx="150" cy="55" r="10" fill="#3f3f46"/>
-              
-              <!-- Panda Body -->
-              <ellipse cx="100" cy="140" rx="55" ry="45" fill="#ffffff" stroke="#1e1e24" stroke-width="4"/>
-              
-              <!-- Arms -->
-              <ellipse cx="45" cy="135" rx="18" ry="32" fill="#1e1e24" transform="rotate(20 45 135)" id="armL"/>
-              <ellipse cx="155" cy="135" rx="18" ry="32" fill="#1e1e24" transform="rotate(-20 155 135)" id="armR"/>
-              
-              <!-- Feet -->
-              <ellipse cx="65" cy="175" rx="18" ry="14" fill="#1e1e24"/>
-              <ellipse cx="135" cy="175" rx="18" ry="14" fill="#1e1e24"/>
-              <!-- Paw pads -->
-              <circle cx="65" cy="175" r="5" fill="#f472b6"/>
-              <circle cx="135" cy="175" r="5" fill="#f472b6"/>
-              
-              <!-- Head -->
-              <ellipse cx="100" cy="95" rx="62" ry="52" fill="#ffffff" stroke="#1e1e24" stroke-width="4" id="pandaHead"/>
-              
-              <!-- Eye Patches -->
-              <ellipse cx="72" cy="92" rx="18" ry="22" fill="#1e1e24" transform="rotate(-15 72 92)"/>
-              <ellipse cx="128" cy="92" rx="18" ry="22" fill="#1e1e24" transform="rotate(15 128 92)"/>
-              
-              <!-- Eyes (Normal) -->
-              <g id="pandaEyes">
-                <circle cx="74" cy="92" r="7" fill="#ffffff"/>
-                <circle cx="75" cy="92" r="4" fill="#000000"/>
-                <circle cx="73" cy="90" r="1.5" fill="#ffffff"/>
-                
-                <circle cx="126" cy="92" r="7" fill="#ffffff"/>
-                <circle cx="125" cy="92" r="4" fill="#000000"/>
-                <circle cx="124" cy="90" r="1.5" fill="#ffffff"/>
-              </g>
-
-              <!-- Happy Eyes (Hidden by default) -->
-              <g id="pandaHappyEyes" style="display: none;">
-                <path d="M 64 94 Q 74 84 84 94" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-                <path d="M 116 94 Q 126 84 136 94" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-              </g>
-              
-              <!-- Blushing Cheeks -->
-              <circle cx="52" cy="110" r="9" fill="#f472b6" opacity="0.6"/>
-              <circle cx="148" cy="110" r="9" fill="#f472b6" opacity="0.6"/>
-              
-              <!-- Cute Nose -->
-              <path d="M 94 105 Q 100 101 106 105 Q 100 114 94 105 Z" fill="#1e1e24"/>
-              
-              <!-- Mouth (Normal) -->
-              <path id="pandaMouth" d="M 92 114 Q 100 120 108 114" fill="none" stroke="#1e1e24" stroke-width="3" stroke-linecap="round"/>
-              
-              <!-- Accessory: Thug Life Sunglasses (Toggable) -->
-              <g id="accShades" style="display: none;">
-                <rect x="52" y="80" width="38" height="22" rx="4" fill="#000000" stroke="#ffffff" stroke-width="2"/>
-                <rect x="110" y="80" width="38" height="22" rx="4" fill="#000000" stroke="#ffffff" stroke-width="2"/>
-                <line x1="90" y1="90" x2="110" y2="90" stroke="#000000" stroke-width="4"/>
-                <line x1="56" y1="84" x2="62" y2="84" stroke="#ffffff" stroke-width="2"/>
-                <line x1="114" y1="84" x2="120" y2="84" stroke="#ffffff" stroke-width="2"/>
-              </g>
-
-              <!-- Accessory: Bamboo Snack in mouth -->
-              <g id="accBamboo" style="display: none;">
-                <rect x="105" y="110" width="45" height="8" rx="3" fill="#22c55e" stroke="#14532d" stroke-width="1.5" transform="rotate(-15 105 110)"/>
-                <circle cx="148" cy="98" r="4" fill="#86efac"/>
-              </g>
-
-              <!-- Accessory: Crown -->
-              <g id="accCrown" style="display: none;">
-                <polygon points="75,50 85,25 100,42 115,25 125,50" fill="#fbbf24" stroke="#78350f" stroke-width="2"/>
-                <circle cx="100" cy="46" r="3" fill="#ef4444"/>
-              </g>
-            </svg>
-          </div>
-          
-          <!-- Accessory toggles -->
-          <div class="acc-toggles">
-            <button class="acc-btn" id="btnAccShades" onclick="toggleAccessory('shades')">🕶️ Kính Đen</button>
-            <button class="acc-btn" id="btnAccCrown" onclick="toggleAccessory('crown')">👑 Vương Miện</button>
-            <button class="acc-btn" id="btnAccBamboo" onclick="toggleAccessory('bamboo')">🎋 Ngậm Tre</button>
-          </div>
-        </div>
-
-        <!-- Controls & Stats -->
-        <div class="pet-stats">
-          <div class="bar-group">
-            <div class="bar-header">
-              <span>🍔 Mức độ No Nê</span>
-              <span id="hungerVal">75%</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill hunger" id="hungerBar" style="width: 75%;"></div>
-            </div>
-          </div>
-          
-          <div class="bar-group">
-            <div class="bar-header">
-              <span>💖 Độ Vui Vẻ</span>
-              <span id="happyVal">90%</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill happy" id="happyBar" style="width: 90%;"></div>
-            </div>
-          </div>
-
-          <div class="bar-group">
-            <div class="bar-header">
-              <span>💤 Năng Lượng / Buồn Ngủ</span>
-              <span id="sleepVal">60%</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill sleep" id="sleepBar" style="width: 60%;"></div>
-            </div>
-          </div>
-
-          <div class="bar-group">
-            <div class="bar-header">
-              <span>🤪 Độ Vô Tri Học</span>
-              <span>100% (MAX)</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill silly" style="width: 100%;"></div>
-            </div>
-          </div>
-
-          <div style="font-weight: 800; font-size: 0.95rem; color: #047857;">
-            ⚖️ Cân nặng hiện tại: <span id="pandaWeight">128.5</span> kg (Béo tròn ú na ú nần)
-          </div>
-
-          <!-- Actions -->
-          <div class="action-grid">
-            <button class="act-btn" onclick="feedPanda('bamboo')">
-              <span>🎋</span>
-              <span>Ăn Trúc</span>
-            </button>
-            <button class="act-btn" onclick="feedPanda('dumpling')">
-              <span>🥟</span>
-              <span>Bánh Bao</span>
-            </button>
-            <button class="act-btn" onclick="feedPanda('boba')">
-              <span>🧋</span>
-              <span>Trà Sữa</span>
-            </button>
-            <button class="act-btn" onclick="ticklePanda()">
-              <span>👉</span>
-              <span>Chọc Lét</span>
-            </button>
-            <button class="act-btn" onclick="danceParty()">
-              <span>🕺</span>
-              <span>Quẩy Disco</span>
-            </button>
-            <button class="act-btn" onclick="napPanda()">
-              <span>💤</span>
-              <span>Đi Ngủ</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB SASHIMI: TIỆM SASHIMI & THÚ BÔNG GẤU TRÚC -->
-  <section id="tab-sashimi" class="tab-panel">
-    <!-- Top Banner & Controls -->
-    <div class="comic-box sashimi-street-box">
-      <div class="sashimi-header-row">
-        <div>
-          <div class="box-title" style="color: #0284c7; border-bottom: none; margin-bottom: 4px;">
-            🍣 PHỐ ẨM THỰC: TIỆM SASHIMI & THÚ BÔNG GẤU TRÚC 🧸
-          </div>
-          <div class="box-desc" style="margin-bottom: 0;">
-            Tông Xanh - Trắng tuyết Nhật Bản. Thái cá tươi phục vụ khách gấu trúc, kiếm tiền Yên và gắp thú bông gấu trúc siêu hiếm cho tiệm cạnh bên!
-          </div>
-        </div>
-        <div class="sashimi-actions-bar">
-          <div class="stat-badge" style="border-color: #0284c7; color: #0369a1; font-size: 1.05rem;">
-            💴 <span id="sashimiMoney">80</span> Yên
-          </div>
-          <button class="btn-game-act" id="btnPauseSashimi" onclick="togglePauseSashimi()">⏸️ Tạm Dừng</button>
-          <button class="btn-game-act" onclick="restartSashimiGame()">🔄 Mở Ca Mới</button>
-          <button class="btn-game-act" id="btnThemeToggle" onclick="toggleBlueWhiteTheme()">❄️ Tông Xanh Trắng</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- The Two Stores: Left = Sashimi, Right = Plushies -->
-    <div class="sashimi-dual-street">
-      
-      <!-- STORE 1: TIỆM ĂN SASHIMI -->
-      <div class="store-pane store-sashimi">
-        <div class="store-awning awning-sashimi">
-          <div class="awning-title">🍣 TIỆM SASHIMI 刺身</div>
-          <div class="awning-sub">Cá Tươi Na Uy · Nước Tương Wasabi</div>
-        </div>
-
-        <!-- Dining Seats -->
-        <div class="sashimi-counter">
-          <div class="counter-label">
-            <span>🥢 BÀN ĂN PHỤC VỤ KHÁCH GẤU TRÚC (3 GHẾ):</span>
-            <span id="seatInfo">Đang đợi khách...</span>
-          </div>
-          <div class="seats-row" id="sashimiSeats">
-            <!-- Populated via JS -->
-          </div>
-        </div>
-
-        <!-- Kitchen Workstation -->
-        <div class="kitchen-station">
-          <div class="kitchen-title">🔪 KHAY NGUYÊN LIỆU TƯƠI SỐNG (BẤM ĐỂ LÊN THỚT):</div>
-          <div class="ingredients-shelf">
-            <div class="ing-card" onclick="selectIngredient('salmon')">
-              <span class="ing-icon">🐟</span>
-              <span class="ing-name">Cá Hồi</span>
-              <span class="ing-badge">Salmon tươi</span>
-            </div>
-            <div class="ing-card" onclick="selectIngredient('tuna')">
-              <span class="ing-icon">🍣</span>
-              <span class="ing-name">Cá Ngừ</span>
-              <span class="ing-badge">Tuna đỏ</span>
-            </div>
-            <div class="ing-card" onclick="selectIngredient('shrimp')">
-              <span class="ing-icon">🍤</span>
-              <span class="ing-name">Tôm Ngọt</span>
-              <span class="ing-badge">Ebi tươi</span>
-            </div>
-            <div class="ing-card" onclick="selectIngredient('octopus')">
-              <span class="ing-icon">🐙</span>
-              <span class="ing-name">Bạch Tuộc</span>
-              <span class="ing-badge">Tako giòn</span>
-            </div>
-            <div class="ing-card" onclick="selectIngredient('wasabi')">
-              <span class="ing-icon">🌱</span>
-              <span class="ing-name">Wasabi</span>
-              <span class="ing-badge">Cay nồng</span>
-            </div>
-            <div class="ing-card" onclick="selectIngredient('leaf')">
-              <span class="ing-icon">🍃</span>
-              <span class="ing-name">Tía Tô</span>
-              <span class="ing-badge">Thanh mát</span>
-            </div>
-          </div>
-
-          <!-- Cutting Board -->
-          <div class="cutting-board-box">
-            <div class="board-header">
-              <span>🥢 ĐĨA SASHIMI ĐANG SOẠN:</span>
-              <button class="btn-mini" onclick="clearCuttingBoard()">Xóa Đĩa ↺</button>
-            </div>
-            <div class="cutting-items" id="currentPlateItems">
-              <span class="empty-hint" style="color: #64748b; font-size: 0.85rem; font-weight: 700;">
-                👉 Hãy nhấn chọn nguyên liệu ở trên để làm đĩa Sashimi!
-              </span>
-            </div>
-            <div class="dish-preview-row">
-              <div class="dish-name-preview" id="dishNamePreview">Món: Chưa có món</div>
-              <button class="btn-serve" id="btnServeDish" onclick="serveCurrentDish()">🥢 PHỤC VỤ KHÁCH</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- STORE 2: CỬA HÀNG THÚ NHỒI BÔNG GẤU TRÚC -->
-      <div class="store-pane store-plushie">
-        <div class="store-awning awning-plushie">
-          <div class="awning-title">🧸 TIỆM GẤU BÔNG PANDA</div>
-          <div class="awning-sub">Thú Bông Gấu Trúc Nhồi Bông Độc Quyền</div>
-        </div>
-
-        <!-- Shelf Display -->
-        <div class="plushie-shelf-box">
-          <div class="shelf-header">
-            <span>🧸 KỆ GẤU BÔNG ĐANG BÁN CHO KHÁCH:</span>
-            <span id="shelfStockCount">Đang có 2/6 mẫu</span>
-          </div>
-          <div class="shelf-grid" id="plushieShelfGrid">
-            <!-- Populated via JS -->
-          </div>
-          <div class="shelf-hint">
-            💡 Khách gấu trúc ăn Sashimi xong sẽ ghé sang đây mua thú bông! Hãy gắp thêm thú bông để bán kiếm lời gấp bội!
-          </div>
-        </div>
-
-        <!-- Claw Machine (Máy Gắp Thú Bông) -->
-        <div class="claw-machine-box">
-          <div class="claw-header">
-            <span>🕹️ MÁY GẮP GẤU BÔNG XANH TRẮNG</span>
-            <span class="claw-price" style="font-weight: 900; color: #0284c7;">15 💴 / lần</span>
-          </div>
-          
-          <div class="claw-screen" id="clawScreen">
-            <div class="crane-rail">
-              <div class="crane-carriage" id="craneCarriage" style="left: 50%;">
-                <div class="crane-wire" id="craneWire" style="height: 35px;"></div>
-                <div class="crane-claw" id="craneClaw">🦾</div>
-              </div>
-            </div>
-            <div class="claw-pit" id="clawPit">
-              <span class="pit-plushie" style="left: 12%;">🧸</span>
-              <span class="pit-plushie" style="left: 28%;">🍣</span>
-              <span class="pit-plushie" style="left: 45%;">👨‍🍳</span>
-              <span class="pit-plushie" style="left: 62%;">🎒</span>
-              <span class="pit-plushie" style="left: 78%;">🕶️</span>
-              <span class="pit-plushie" style="left: 90%;">👑</span>
-            </div>
-            <div class="claw-chute">HỘC NHẬN</div>
-          </div>
-
-          <div class="claw-ctrl-row">
-            <button class="claw-btn-move" onclick="moveClaw(-22)">◀️ Trái</button>
-            <button class="claw-btn-drop" id="btnDropClaw" onclick="dropClaw()">🎯 THẢ CÀNG GẮP (15 💴)</button>
-            <button class="claw-btn-move" onclick="moveClaw(22)">Phải ▶️</button>
-          </div>
-        </div>
-
-        <!-- Plushie Collection Album -->
-        <div class="collection-summary">
-          <div style="font-weight: 800; font-size: 0.88rem; margin-bottom: 8px; color: #0369a1;">
-            📚 BỘ SƯU TẬP 6 MẪU GẤU TRÚC BÔNG:
-          </div>
-          <div class="collection-icons" id="collectionIcons">
-            <!-- Populated via JS -->
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Shop Upgrades Bar -->
-    <div class="sashimi-upgrades-bar">
-      <div class="box-title" style="font-size: 1.15rem; color: #0284c7; margin-bottom: 8px; border-bottom: none;">
-        🛒 NÂNG CẤP PHỐ XANH TRẮNG:
-      </div>
-      <div class="upgrade-cards-grid">
-        <div class="up-card" id="upCardKnife" onclick="buySashimiUpgrade('knife')">
-          <div class="up-icon">🔪</div>
-          <div class="up-info">
-            <div class="up-name">Dao Thép Xanh Sashimi</div>
-            <div class="up-desc">Thái cá siêu nhanh, khách tip thêm +10 Yên/đĩa</div>
-          </div>
-          <button class="btn-up-buy" id="upBtnKnife">60 💴</button>
-        </div>
-        <div class="up-card" id="upCardFish" onclick="buySashimiUpgrade('fish')">
-          <div class="up-icon">🐟</div>
-          <div class="up-info">
-            <div class="up-name">Cá Na Uy Hảo Hạng</div>
-            <div class="up-desc">Cá hồi béo ngậy, khách trả thêm +20 Yên/đĩa</div>
-          </div>
-          <button class="btn-up-buy" id="upBtnFish">100 💴</button>
-        </div>
-        <div class="up-card" id="upCardClaw" onclick="buySashimiUpgrade('claw')">
-          <div class="up-icon">🧲</div>
-          <div class="up-info">
-            <div class="up-name">Càng Gắp Nam Châm</div>
-            <div class="up-desc">Tăng tỉ lệ gắp trúng thú bông gấu trúc lên 85%</div>
-          </div>
-          <button class="btn-up-buy" id="upBtnClaw">120 💴</button>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="tab-whack" class="tab-panel">
-    <div class="comic-box">
-      <div class="box-title">🔨 ĐẬP GẤU TRÚC BỰA (WHACK-A-MEME)</div>
-      <div class="box-desc">Đập thật nhanh các mặt gấu trúc meme bựa thò ra từ ống tre! Cẩn thận đừng đập trúng gấu baby dễ thương nha, bị trừ điểm đó!</div>
-
-      <div class="game-header">
-        <div class="game-stat-item">⭐ Điểm: <span id="whackScore">0</span></div>
-        <div class="game-stat-item">⏳ Thời gian: <span id="whackTime">30</span>s</div>
-        <div class="game-stat-item">🏆 Kỷ lục: <span id="whackHigh">0</span></div>
-        <button class="btn-big" id="btnStartWhack" onclick="startWhackGame()">BẮT ĐẦU CHƠI 🔥</button>
-        <button class="btn-game-act" id="btnPauseWhack" onclick="togglePauseWhack()" style="display: none;">⏸️ Tạm Dừng</button>
-        <button class="btn-game-act" id="btnRestartWhack" onclick="restartWhackGame()" style="display: none;">🔄 Chơi Lại</button>
-      </div>
-
-      <!-- Whack 3x3 Grid -->
-      <div class="whack-grid" id="whackGrid">
-        <!-- 9 holes generated via JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB 3: HỨNG MĂNG TRE RƠI (BAMBOO CATCH) -->
-  <section id="tab-catch" class="tab-panel">
-    <div class="comic-box">
-      <div class="box-title">🧺 HỨNG MĂNG TRÚC (BAMBOO CATCHER)</div>
-      <div class="box-desc">Điều khiển gấu trúc di chuyển để hứng măng tre, bánh bao và dưa hấu. Tuyệt đối né cục tạ và bom gai!</div>
-
-      <div class="canvas-game-container">
-        <div class="game-header" style="width: 100%; max-width: 520px; justify-content: center; gap: 10px;">
-          <div class="game-stat-item">🎋 Điểm: <span id="catchScore">0</span></div>
-          <div class="game-stat-item">❤️ Mạng: <span id="catchLives">❤️❤️❤️</span></div>
-          <button class="btn-big" id="btnStartCatch" onclick="startCatchGame()">CHƠI NGAY 🎮</button>
-          <button class="btn-game-act" id="btnPauseCatch" onclick="togglePauseCatch()" style="display: none;">⏸️ Tạm Dừng</button>
-          <button class="btn-game-act" id="btnRestartCatch" onclick="startCatchGame()" style="display: none;">🔄 Chơi Lại</button>
-        </div>
-        
-        <canvas id="catchCanvas" width="460" height="520"></canvas>
-        <div class="game-controls-hint">💡 Cách chơi: Dùng phím <b>Mũi tên Trái / Phải</b> hoặc <b>Kéo chuột / Vuốt màn hình</b> để hứng đồ. Nhấn phím <b>P</b> hoặc nút <b>⏸️ Tạm Dừng</b> bất cứ lúc nào!</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB 4: FLAPPY PANDA -->
-  <section id="tab-flappy" class="tab-panel">
-    <div class="comic-box">
-      <div class="box-title">🕊️ FLAPPY PANDA (GẤU BAY VƯỢT RỪNG TRE)</div>
-      <div class="box-desc">Nhấn phím Space hoặc Chạm màn hình để giúp chú gấu mập vỗ cánh bay qua các cọc tre trúc rậm rạp!</div>
-
-      <div class="canvas-game-container">
-        <div class="game-header" style="width: 100%; max-width: 500px; justify-content: center; gap: 10px;">
-          <div class="game-stat-item">🏆 Điểm: <span id="flappyScore">0</span></div>
-          <div class="game-stat-item">🥇 Điểm Cao: <span id="flappyHigh">0</span></div>
-          <button class="btn-big" id="btnStartFlappy" onclick="startFlappyGame()">BAY LÊN 🚀</button>
-          <button class="btn-game-act" id="btnPauseFlappy" onclick="togglePauseFlappy()" style="display: none;">⏸️ Tạm Dừng</button>
-          <button class="btn-game-act" id="btnRestartFlappy" onclick="startFlappyGame()" style="display: none;">🔄 Chơi Lại</button>
-        </div>
-        
-        <canvas id="flappyCanvas" width="460" height="520"></canvas>
-        <div class="game-controls-hint">💡 Nhấn <b>Space / Phím cách</b> hoặc <b>Click chuột / Chạm</b> để bay nhảy! Nhấn <b>P</b> để Tạm Dừng.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB 5: ĐỐ VUI VÔ TRI (QUIZ) -->
-  <section id="tab-quiz" class="tab-panel">
-    <div class="comic-box">
-      <div class="box-title">🧠 TRẮC NGHIỆM IQ GẤU TRÚC VÔ TRI</div>
-      <div class="box-desc">Bộ câu hỏi trắc nghiệm kiểm tra độ am hiểu thế giới gấu trúc và khả năng vô tri cực đại của bạn!</div>
-
-      <div class="quiz-card" id="quizCard">
-        <div class="quiz-prog">
-          <div class="quiz-prog-fill" id="quizProgFill"></div>
-        </div>
-
-        <div class="quiz-question" id="quizQuestion">Đang tải câu hỏi...</div>
-        
-        <div class="quiz-options" id="quizOptions">
-          <!-- Options rendered by JS -->
-        </div>
-
-        <div class="quiz-feedback" id="quizFeedback"></div>
-        
-        <div style="margin-top: 20px; text-align: right;">
-          <button class="btn-big" id="btnNextQuiz" style="display: none;" onclick="nextQuestion()">CÂU TIẾP THEO ➔</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB 6: GACHA QUẺ THẺ NHÂN PHẨM -->
-  <section id="tab-gacha" class="tab-panel">
-    <div class="comic-box">
-      <div class="box-title">🥠 RÚT THẺ NHÂN PHẨM GẤU TRÚC</div>
-      <div class="box-desc">Mỗi ngày rút một quẻ thẻ gấu trúc để xem vận mệnh, độ lười và danh hiệu vô tri bất hủ của bạn!</div>
-
-      <div class="gacha-stage">
-        <div class="chest-box" id="chestBox" onclick="pullGacha()">🎁</div>
-        <button class="btn-big" onclick="pullGacha()">RÚT QUẺ NGAY (TỐN 10 🎋)</button>
-        
-        <div class="card-result" id="gachaResult">
-          <div class="card-tier tier-SSR" id="cardTier">SSR</div>
-          <div class="card-art" id="cardArt">🐼👑</div>
-          <div class="card-title" id="cardTitle">GẤU TRÚC THẦN TÀI</div>
-          <div class="card-quote" id="cardQuote">"Tiền không tự sinh ra, nhưng mỡ gấu thì tăng theo cấp số nhân."</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB 7: SOUNDBOARD MEME BỰA -->
-  <section id="tab-soundboard" class="tab-panel">
-    <div class="comic-box">
-      <div class="box-title">🎹 PANDA MEME SOUNDBOARD</div>
-      <div class="box-desc">Bấm vào các nút bên dưới để phát các hiệu ứng âm thanh meme gấu trúc cực hài hước!</div>
-
-      <div class="soundboard-grid" id="soundboardGrid">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- TAB 8: CHẾ MEME GẤU TRÚC -->
-  <section id="tab-meme" class="tab-panel">
-    <div class="comic-box">
-      <div class="box-title">🎨 XƯỞNG CHẾ ẢNH MEME GẤU TRÚC</div>
-      <div class="box-desc">Tự tay tạo ra các bức ảnh meme gấu trúc bựa mang đậm phong cách của bạn và tải về máy ngay!</div>
-
-      <div class="meme-maker-grid">
-        <!-- Preview -->
-        <div class="meme-preview-box">
-          <canvas id="memeCanvas" width="400" height="400"></canvas>
-          <div style="margin-top: 14px;">
-            <button class="btn-big" onclick="downloadMeme()">TẢI ẢNH VỀ MÁY 📥</button>
-          </div>
-        </div>
-
-        <!-- Controls -->
-        <div class="meme-controls">
-          <div>
-            <label style="font-weight: 800; font-size: 0.9rem; margin-bottom: 6px; display: block;">1. CHỌN MẪU GẤU TRÚC:</label>
-            <div class="template-picker" id="templatePicker">
-              <!-- Templates rendered via JS -->
-            </div>
-          </div>
-
-          <div>
-            <label style="font-weight: 800; font-size: 0.9rem; margin-bottom: 6px; display: block;">2. DÒNG CHỮ TRÊN (TOP TEXT):</label>
-            <input type="text" id="memeTop" class="meme-input" value="KHI BẠN BẢO ĂN KIÊNG" placeholder="Nhập câu chữ trên..." oninput="drawMeme()">
-          </div>
-
-          <div>
-            <label style="font-weight: 800; font-size: 0.9rem; margin-bottom: 6px; display: block;">3. DÒNG CHỮ DƯỚI (BOTTOM TEXT):</label>
-            <input type="text" id="memeBottom" class="meme-input" value="NHƯNG TRE QUÁ NGON 🎋" placeholder="Nhập câu chữ dưới..." oninput="drawMeme()">
-          </div>
-
-          <div>
-            <label style="font-weight: 800; font-size: 0.9rem; margin-bottom: 6px; display: block;">4. CỠ CHỮ:</label>
-            <input type="range" id="memeFontSize" min="20" max="42" value="30" style="width: 100%;" oninput="drawMeme()">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- Toast Notification -->
-<div class="toast-notice" id="toastNotice">Xin chào Vương Quốc Gấu Trúc! 🎋</div>
-
-<footer>
-  <p>🐼 Made with ❤️ and lots of 🎋 bamboo for all Panda lovers in Vietnam!</p>
-  <p style="margin-top: 6px;">Chúc bạn một ngày tràn đầy năng lượng tích cực và vô tri vui nhộn!</p>
-</footer>
-
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- JAVASCRIPT LOGIC & AUDIO SYNTHESIZER ENGINE                      -->
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<script>
-/* ─── WEB AUDIO API SYNTHESIZER ──────────────────────── */
-let audioCtx = null;
-let isSfxOn = true;
-let isMusicOn = false;
-let musicInterval = null;
-
-function initAudio() {
-  if (!audioCtx) {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (AudioContext) {
-      audioCtx = new AudioContext();
+    function loadGame() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) gameState = { ...gameState, ...JSON.parse(raw) };
+      } catch (e) {}
     }
-  }
-  if (audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-}
 
-// Sound effects generator
-function playSound(type) {
-  if (!isSfxOn) return;
-  initAudio();
-  if (!audioCtx) return;
-
-  const now = audioCtx.currentTime;
-
-  switch(type) {
-    case 'pop': {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(450, now);
-      osc.frequency.exponentialRampToValueAtTime(900, now + 0.08);
-      gain.gain.setValueAtTime(0.3, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.08);
-      break;
+    function saveGame() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+      } catch (e) {}
+      document.getElementById('uiCoins').textContent = gameState.coins;
+      document.getElementById('uiHearts').textContent = gameState.hearts;
+      document.getElementById('uiLevel').textContent = gameState.level;
     }
-    case 'slap': {
-      const node = audioCtx.createBufferSource();
-      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.12, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < buffer.length; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.025));
+
+    class SoundSynth {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+        this.bgmTimer = null;
+        this.bgmStep = 0;
       }
-      node.buffer = buffer;
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(1200, now);
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.6, now);
-      node.connect(filter);
-      filter.connect(gain);
-      gain.connect(audioCtx.destination);
-      node.start(now);
-      break;
-    }
-    case 'coin': {
-      const notes = [659.25, 880]; // E5, A5
-      notes.forEach((freq, idx) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-        gain.gain.setValueAtTime(0.18, now + idx * 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.08 + 0.14);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now + idx * 0.08);
-        osc.stop(now + idx * 0.08 + 0.14);
-      });
-      break;
-    }
-    case 'chomp': {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(220, now);
-      osc.frequency.linearRampToValueAtTime(90, now + 0.1);
-      gain.gain.setValueAtTime(0.4, now);
-      gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.1);
-      break;
-    }
-    case 'jump': {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(180, now);
-      osc.frequency.exponentialRampToValueAtTime(520, now + 0.15);
-      gain.gain.setValueAtTime(0.2, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.15);
-      break;
-    }
-    case 'boom': {
-      const node = audioCtx.createBufferSource();
-      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.4, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < buffer.length; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.08));
-      }
-      node.buffer = buffer;
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.7, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-      node.connect(gain);
-      gain.connect(audioCtx.destination);
-      node.start(now);
-      break;
-    }
-    case 'giggle': {
-      const freqs = [350, 480, 360, 520, 400];
-      freqs.forEach((f, i) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, now + i * 0.06);
-        gain.gain.setValueAtTime(0.25, now + i * 0.06);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.06 + 0.05);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now + i * 0.06);
-        osc.stop(now + i * 0.06 + 0.05);
-      });
-      break;
-    }
-    case 'win': {
-      const chord = [523.25, 659.25, 783.99, 1046.50]; // C, E, G, C
-      chord.forEach((note, i) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(note, now + i * 0.1);
-        gain.gain.setValueAtTime(0.25, now + i * 0.1);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.35);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now + i * 0.1);
-        osc.stop(now + i * 0.1 + 0.35);
-      });
-      break;
-    }
-  }
-}
-
-// Background Chiptune Panda Melody Sequencer
-const bgmNotes = [
-  261.63, 293.66, 329.63, 392.00, 329.63, 392.00, 440.00, 392.00,
-  329.63, 293.66, 261.63, 293.66, 329.63, 261.63, 220.00, 261.63
-];
-let bgmStep = 0;
-
-function toggleBgm() {
-  initAudio();
-  isMusicOn = !isMusicOn;
-  const btn = document.getElementById('btnMusic');
-  if (isMusicOn) {
-    btn.classList.add('active');
-    btn.innerText = '🎶';
-    showToast('Đã bật nhạc nền Panda dễ thương 🎵');
-    playBgmLoop();
-  } else {
-    btn.classList.remove('active');
-    btn.innerText = '🎵';
-    if (musicInterval) clearInterval(musicInterval);
-    showToast('Đã tắt nhạc nền 🔕');
-  }
-}
-
-function playBgmLoop() {
-  if (musicInterval) clearInterval(musicInterval);
-  musicInterval = setInterval(() => {
-    if (!isMusicOn || !audioCtx) return;
-    const now = audioCtx.currentTime;
-    const freq = bgmNotes[bgmStep % bgmNotes.length];
-    bgmStep++;
-
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(freq, now);
-    gain.gain.setValueAtTime(0.08, now);
-    gain.gain.exponentialRampToValueAtTime(0.005, now + 0.22);
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start(now);
-    osc.stop(now + 0.22);
-  }, 240);
-}
-
-function toggleSfx() {
-  isSfxOn = !isSfxOn;
-  const btn = document.getElementById('btnSfx');
-  if (isSfxOn) {
-    btn.classList.remove('active');
-    btn.innerText = '🔊';
-    showToast('Đã bật hiệu ứng âm thanh 🔊');
-  } else {
-    btn.classList.add('active');
-    btn.innerText = '🔇';
-    showToast('Đã tắt hiệu ứng âm thanh 🔇');
-  }
-}
-
-/* ─── TOAST NOTIFICATION UTILITY ─────────────────────── */
-let toastTimer = null;
-function showToast(msg) {
-  const t = document.getElementById('toastNotice');
-  t.innerText = msg;
-  t.classList.add('show');
-  if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    t.classList.remove('show');
-  }, 2500);
-}
-
-/* ─── TAB NAVIGATION ─────────────────────────────────── */
-function switchTab(tabId) {
-  playSound('pop');
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-
-  const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
-  if (activeBtn) activeBtn.classList.add('active');
-
-  const panel = document.getElementById(`tab-${tabId}`);
-  if (panel) panel.classList.add('active');
-
-  // Trigger game resets or draws if needed
-  if (tabId === 'meme') {
-    drawMeme();
-  }
-  if (tabId === 'sashimi') {
-    startSashimiGameIfNeeded();
-  }
-}
-
-/* ─── BAMBOO CURRENCY SYSTEM ─────────────────────────── */
-let bambooTotal = parseInt(localStorage.getItem('panda_bamboo') || '150', 10);
-function updateBambooDisplay() {
-  document.getElementById('bambooCount').innerText = bambooTotal;
-  localStorage.setItem('panda_bamboo', bambooTotal);
-}
-function addBamboo(amt) {
-  bambooTotal += amt;
-  updateBambooDisplay();
-}
-
-/* ─── BACKGROUND FALLING BAMBOO LEAVES CANVAS ────────── */
-const bgCanvas = document.getElementById('canvasBg');
-const bgCtx = bgCanvas.getContext('2d');
-let bgLeaves = [];
-
-function resizeBg() {
-  bgCanvas.width = window.innerWidth;
-  bgCanvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeBg);
-resizeBg();
-
-class BambooLeaf {
-  constructor() {
-    this.x = Math.random() * bgCanvas.width;
-    this.y = Math.random() * -bgCanvas.height;
-    this.size = Math.random() * 14 + 10;
-    this.speedY = Math.random() * 1.5 + 0.8;
-    this.speedX = Math.sin(Math.random() * 3) * 0.8;
-    this.angle = Math.random() * Math.PI * 2;
-    this.rotSpeed = (Math.random() - 0.5) * 0.04;
-    this.opacity = Math.random() * 0.35 + 0.2;
-  }
-  update() {
-    this.y += this.speedY;
-    this.x += this.speedX + Math.sin(this.y * 0.01) * 0.4;
-    this.angle += this.rotSpeed;
-    if (this.y > bgCanvas.height + 20) {
-      this.y = -20;
-      this.x = Math.random() * bgCanvas.width;
-    }
-  }
-  draw(ctx) {
-    ctx.save();
-    ctx.translate(this.x, this.y);
-    ctx.rotate(this.angle);
-    ctx.fillStyle = `rgba(34, 197, 94, ${this.opacity})`;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, this.size, this.size * 0.35, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-}
-
-for (let i = 0; i < 28; i++) {
-  bgLeaves.push(new BambooLeaf());
-}
-
-function animateBg() {
-  bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-  bgLeaves.forEach(leaf => {
-    leaf.update();
-    leaf.draw(bgCtx);
-  });
-  requestAnimationFrame(animateBg);
-}
-animateBg();
-
-/* ─── TAB 1: INTERACTIVE PANDA PET (BÉ GẤU BẢO BẢO) ──── */
-let petData = {
-  hunger: 75,
-  happy: 90,
-  sleep: 60,
-  weight: 128.5
-};
-
-const pandaDialogs = [
-  "Bụng tui lại réo rồi, cho cọng tre đi đại ca! 🎋",
-  "Cuộc đời này ngoài ăn với ngủ ra thì làm gì nữa đâu~ 💤",
-  "Vô tri là đỉnh cao của sự thông thái! 🧠",
-  "Đừng chọc nữa, mỡ rung như thạch rau câu nè! 🍮",
-  "Ai bảo gấu trúc béo? Đây là phì nhiêu màu mỡ nha!",
-  "Đang tích mỡ để trở thành bảo vật quốc gia siêu bự! ✨",
-  "Nhai rôm rốp ròn rụm ngon xỉu luôn á! 😋"
-];
-
-function updatePetUI() {
-  document.getElementById('hungerBar').style.width = petData.hunger + '%';
-  document.getElementById('hungerVal').innerText = petData.hunger + '%';
-
-  document.getElementById('happyBar').style.width = petData.happy + '%';
-  document.getElementById('happyVal').innerText = petData.happy + '%';
-
-  document.getElementById('sleepBar').style.width = petData.sleep + '%';
-  document.getElementById('sleepVal').innerText = petData.sleep + '%';
-
-  document.getElementById('pandaWeight').innerText = petData.weight.toFixed(1);
-}
-
-function setBubble(text) {
-  const b = document.getElementById('petBubble');
-  b.innerText = text;
-  b.style.display = 'block';
-}
-
-function pokePanda(e) {
-  playSound('giggle');
-  petData.happy = Math.min(100, petData.happy + 5);
-  updatePetUI();
-
-  // Anim eyes
-  const eyes = document.getElementById('pandaEyes');
-  const happyEyes = document.getElementById('pandaHappyEyes');
-  eyes.style.display = 'none';
-  happyEyes.style.display = 'block';
-
-  // Wiggle container
-  const el = document.getElementById('petPanda');
-  el.style.transform = 'scale(1.15) rotate(6deg)';
-  setTimeout(() => {
-    el.style.transform = 'scale(1) rotate(0deg)';
-    eyes.style.display = 'block';
-    happyEyes.style.display = 'none';
-  }, 400);
-
-  const randomDialog = pandaDialogs[Math.floor(Math.random() * pandaDialogs.length)];
-  setBubble(randomDialog);
-  addBamboo(1);
-}
-
-function feedPanda(item) {
-  playSound('chomp');
-  if (item === 'bamboo') {
-    petData.hunger = Math.min(100, petData.hunger + 15);
-    petData.weight += 0.2;
-    setBubble("Măng tre non giòn sần sật đã quá! +15 No 🎋");
-    showToast("Gấu ăn măng tre rột rột 🎋");
-  } else if (item === 'dumpling') {
-    petData.hunger = Math.min(100, petData.hunger + 25);
-    petData.weight += 0.5;
-    setBubble("Bánh bao nhân thịt thơm phức mọng nước! +25 No 🥟");
-    showToast("Gấu xơi bánh bao béo mẫm 🥟");
-  } else if (item === 'boba') {
-    petData.hunger = Math.min(100, petData.hunger + 10);
-    petData.happy = Math.min(100, petData.happy + 15);
-    petData.weight += 0.3;
-    setBubble("Trà sữa trân châu măng trúc 100% đường béo ngậy! 🧋");
-    showToast("Gấu húp cạn ly trà sữa 🧋");
-  }
-
-  // Mouth open anim
-  const mouth = document.getElementById('pandaMouth');
-  mouth.setAttribute('d', 'M 90 112 Q 100 130 110 112');
-  setTimeout(() => {
-    mouth.setAttribute('d', 'M 92 114 Q 100 120 108 114');
-  }, 350);
-
-  addBamboo(2);
-  updatePetUI();
-}
-
-function ticklePanda() {
-  playSound('giggle');
-  petData.happy = Math.min(100, petData.happy + 10);
-  setBubble("Hahaha nhột quá nhột quá tha cho tuiii! 🤣");
-  const el = document.getElementById('petPanda');
-  el.style.animation = 'wiggle 0.3s infinite ease-in-out';
-  setTimeout(() => {
-    el.style.animation = '';
-  }, 900);
-  updatePetUI();
-}
-
-let isDisco = false;
-function danceParty() {
-  playSound('win');
-  isDisco = !isDisco;
-  const stage = document.getElementById('petStage');
-  const panda = document.getElementById('petPanda');
-  if (isDisco) {
-    stage.classList.add('disco-mode');
-    panda.style.animation = 'wiggle 0.5s infinite ease-in-out';
-    setBubble("Quẩy lên là quẩy lên! Lắc cái mông bự nào anh em! 🕺💃");
-    showToast("Bật đèn Disco Panda nhảy tưng bừng! ✨");
-    petData.happy = 100;
-    petData.weight = Math.max(90, petData.weight - 0.4);
-    if (!isMusicOn) toggleBgm();
-  } else {
-    stage.classList.remove('disco-mode');
-    panda.style.animation = '';
-    setBubble("Mệt quá thở không ra hơi luôn rồi... 😮‍💨");
-  }
-  updatePetUI();
-}
-
-function napPanda() {
-  playSound('pop');
-  petData.sleep = 100;
-  petData.happy = Math.min(100, petData.happy + 10);
-  setBubble("Khò khò khò... Đừng đánh thức tui nha~ 💤");
-  showToast("Bé gấu chìm vào giấc ngủ ngàn thu... à nhầm ngàn giấc mơ 😴");
-  updatePetUI();
-}
-
-// Accessory Toggles
-let accessories = { shades: false, crown: false, bamboo: false };
-function toggleAccessory(acc) {
-  playSound('pop');
-  accessories[acc] = !accessories[acc];
-  const btnMap = {
-    shades: 'btnAccShades',
-    crown: 'btnAccCrown',
-    bamboo: 'btnAccBamboo'
-  };
-  const svgMap = {
-    shades: 'accShades',
-    crown: 'accCrown',
-    bamboo: 'accBamboo'
-  };
-
-  const btn = document.getElementById(btnMap[acc]);
-  const el = document.getElementById(svgMap[acc]);
-
-  if (accessories[acc]) {
-    btn.classList.add('active');
-    el.style.display = 'block';
-  } else {
-    btn.classList.remove('active');
-    el.style.display = 'none';
-  }
-}
-
-function pandaEasterEgg() {
-  playSound('coin');
-  addBamboo(10);
-  showToast("🎉 Bạn vừa kích hoạt bí mật gấu trúc: +10 Măng Tre!");
-}
-
-/* ─── TAB 2: ĐẬP GẤU BỰA (WHACK-A-PANDA) ─────────────── */
-const whackGrid = document.getElementById('whackGrid');
-let whackScore = 0;
-let whackTime = 30;
-let whackTimer = null;
-let moleTimer = null;
-let isWhackPlaying = false;
-let isWhackPaused = false;
-let whackHighScore = parseInt(localStorage.getItem('panda_whack_high') || '0', 10);
-document.getElementById('whackHigh').innerText = whackHighScore;
-
-// SVG Panda Faces for Whack-a-mole
-const PANDA_MEME_FACES = {
-  normal: `<svg viewBox="0 0 100 100" width="80" height="80">
-    <circle cx="50" cy="50" r="42" fill="#fff" stroke="#1e1e24" stroke-width="4"/>
-    <circle cx="20" cy="24" r="14" fill="#1e1e24"/>
-    <circle cx="80" cy="24" r="14" fill="#1e1e24"/>
-    <ellipse cx="34" cy="48" rx="12" ry="14" fill="#1e1e24"/>
-    <ellipse cx="66" cy="48" rx="12" ry="14" fill="#1e1e24"/>
-    <circle cx="36" cy="48" r="4" fill="#fff"/>
-    <circle cx="64" cy="48" r="4" fill="#fff"/>
-    <path d="M 46 60 Q 50 56 54 60 Q 50 66 46 60 Z" fill="#1e1e24"/>
-    <path d="M 38 68 Q 50 78 62 68" fill="none" stroke="#1e1e24" stroke-width="3"/>
-  </svg>`,
-  bua: `<svg viewBox="0 0 100 100" width="80" height="80">
-    <circle cx="50" cy="50" r="42" fill="#fff" stroke="#1e1e24" stroke-width="4"/>
-    <circle cx="20" cy="24" r="14" fill="#1e1e24"/>
-    <circle cx="80" cy="24" r="14" fill="#1e1e24"/>
-    <!-- Wechat Troll Grin Eyes -->
-    <path d="M 24 46 Q 35 38 44 46" fill="none" stroke="#1e1e24" stroke-width="4" stroke-linecap="round"/>
-    <path d="M 56 46 Q 65 38 76 46" fill="none" stroke="#1e1e24" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="28" cy="54" r="5" fill="#f43f5e" opacity="0.6"/>
-    <circle cx="72" cy="54" r="5" fill="#f43f5e" opacity="0.6"/>
-    <!-- Huge smug teeth grin -->
-    <path d="M 28 62 Q 50 82 72 62 Z" fill="#fff" stroke="#1e1e24" stroke-width="3"/>
-    <line x1="40" y1="62" x2="40" y2="70" stroke="#1e1e24" stroke-width="2"/>
-    <line x1="50" y1="62" x2="50" y2="72" stroke="#1e1e24" stroke-width="2"/>
-    <line x1="60" y1="62" x2="60" y2="70" stroke="#1e1e24" stroke-width="2"/>
-  </svg>`,
-  baby: `<svg viewBox="0 0 100 100" width="80" height="80">
-    <circle cx="50" cy="50" r="42" fill="#fff" stroke="#ec4899" stroke-width="4"/>
-    <circle cx="20" cy="24" r="14" fill="#f472b6"/>
-    <circle cx="80" cy="24" r="14" fill="#f472b6"/>
-    <circle cx="34" cy="46" r="11" fill="#ec4899"/>
-    <circle cx="66" cy="46" r="11" fill="#ec4899"/>
-    <circle cx="36" cy="44" r="5" fill="#fff"/>
-    <circle cx="68" cy="44" r="5" fill="#fff"/>
-    <circle cx="24" cy="58" r="6" fill="#f472b6" opacity="0.8"/>
-    <circle cx="76" cy="58" r="6" fill="#f472b6" opacity="0.8"/>
-    <path d="M 44 64 Q 50 72 56 64" fill="none" stroke="#ec4899" stroke-width="3"/>
-  </svg>`,
-  gold: `<svg viewBox="0 0 100 100" width="80" height="80">
-    <circle cx="50" cy="50" r="42" fill="#fef08a" stroke="#ca8a04" stroke-width="4"/>
-    <circle cx="20" cy="24" r="14" fill="#ca8a04"/>
-    <circle cx="80" cy="24" r="14" fill="#ca8a04"/>
-    <ellipse cx="34" cy="48" rx="12" ry="14" fill="#854d0e"/>
-    <ellipse cx="66" cy="48" rx="12" ry="14" fill="#854d0e"/>
-    <circle cx="36" cy="48" r="4" fill="#fff"/>
-    <circle cx="64" cy="48" r="4" fill="#fff"/>
-    <!-- Gold Crown -->
-    <polygon points="36,18 42,6 50,14 58,6 64,18" fill="#eab308" stroke="#a16207" stroke-width="2"/>
-    <path d="M 38 68 Q 50 78 62 68" fill="none" stroke="#ca8a04" stroke-width="3"/>
-  </svg>`
-};
-
-// Build 9 holes
-for (let i = 0; i < 9; i++) {
-  const hole = document.createElement('div');
-  hole.className = 'hole-box';
-  hole.innerHTML = `
-    <div class="whack-target" id="target-${i}" onclick="hitMole(${i})"></div>
-    <div class="hole-dirt"></div>
-    <div class="splat-text" id="splat-${i}">BỐP!</div>
-  `;
-  whackGrid.appendChild(hole);
-}
-
-function startWhackGame() {
-  if (isWhackPlaying && !isWhackPaused) return;
-  playSound('win');
-  isWhackPlaying = true;
-  isWhackPaused = false;
-  whackScore = 0;
-  whackTime = 30;
-  document.getElementById('whackScore').innerText = whackScore;
-  document.getElementById('whackTime').innerText = whackTime;
-  document.getElementById('btnStartWhack').style.display = 'none';
-  const pauseBtn = document.getElementById('btnPauseWhack');
-  pauseBtn.style.display = 'inline-flex';
-  pauseBtn.innerText = '⏸️ Tạm Dừng';
-  pauseBtn.classList.remove('pause-active');
-  document.getElementById('btnRestartWhack').style.display = 'inline-flex';
-
-  clearInterval(whackTimer);
-  clearTimeout(moleTimer);
-  whackTimer = setInterval(() => {
-    whackTime--;
-    document.getElementById('whackTime').innerText = whackTime;
-    if (whackTime <= 0) {
-      endWhackGame();
-    }
-  }, 1000);
-
-  popMoleLoop();
-}
-
-function togglePauseWhack() {
-  if (!isWhackPlaying) return;
-  isWhackPaused = !isWhackPaused;
-  const btn = document.getElementById('btnPauseWhack');
-  if (isWhackPaused) {
-    clearInterval(whackTimer);
-    clearTimeout(moleTimer);
-    btn.innerText = '▶️ Tiếp Tục';
-    btn.classList.add('pause-active');
-    showToast('Đã tạm dừng đập gấu ⏸️');
-  } else {
-    btn.innerText = '⏸️ Tạm Dừng';
-    btn.classList.remove('pause-active');
-    whackTimer = setInterval(() => {
-      whackTime--;
-      document.getElementById('whackTime').innerText = whackTime;
-      if (whackTime <= 0) {
-        endWhackGame();
-      }
-    }, 1000);
-    popMoleLoop();
-    showToast('Tiếp tục đập gấu! 🔨');
-  }
-}
-
-function restartWhackGame() {
-  clearInterval(whackTimer);
-  clearTimeout(moleTimer);
-  document.querySelectorAll('.whack-target').forEach(t => t.classList.remove('up'));
-  isWhackPlaying = false;
-  isWhackPaused = false;
-  startWhackGame();
-}
-
-function popMoleLoop() {
-  if (!isWhackPlaying) return;
-
-  const idx = Math.floor(Math.random() * 9);
-  const target = document.getElementById(`target-${idx}`);
-  
-  if (!target.classList.contains('up')) {
-    // Choose type: normal, bua (troll), baby (do not hit!), gold (bonus!)
-    const rand = Math.random();
-    let type = 'bua';
-    if (rand < 0.2) type = 'baby';
-    else if (rand < 0.35) type = 'gold';
-    else if (rand < 0.6) type = 'normal';
-
-    target.innerHTML = PANDA_MEME_FACES[type];
-    target.dataset.type = type;
-    target.classList.add('up');
-
-    const stayTime = Math.random() * 600 + 600;
-    setTimeout(() => {
-      if (target.classList.contains('up')) {
-        target.classList.remove('up');
-      }
-    }, stayTime);
-  }
-
-  const nextDelay = Math.random() * 400 + 400;
-  moleTimer = setTimeout(popMoleLoop, nextDelay);
-}
-
-function hitMole(idx) {
-  if (!isWhackPlaying) return;
-  const target = document.getElementById(`target-${idx}`);
-  if (!target.classList.contains('up')) return;
-
-  const splat = document.getElementById(`splat-${idx}`);
-  const type = target.dataset.type;
-
-  target.classList.remove('up');
-  target.classList.add('hit');
-  setTimeout(() => target.classList.remove('hit'), 300);
-
-  if (type === 'baby') {
-    // Minus score!
-    playSound('boom');
-    whackScore = Math.max(0, whackScore - 15);
-    splat.innerText = 'TRỪ 15! 😭';
-    splat.style.color = '#ef4444';
-  } else if (type === 'gold') {
-    // Big bonus!
-    playSound('coin');
-    whackScore += 30;
-    addBamboo(5);
-    splat.innerText = '+30 ĐIỂM! 🌟';
-    splat.style.color = '#eab308';
-  } else {
-    // Regular / Bua
-    playSound('slap');
-    whackScore += 10;
-    addBamboo(1);
-    splat.innerText = 'BỐP! +10';
-    splat.style.color = '#10b981';
-  }
-
-  splat.classList.add('show');
-  setTimeout(() => splat.classList.remove('show'), 600);
-
-  document.getElementById('whackScore').innerText = whackScore;
-}
-
-function endWhackGame() {
-  isWhackPlaying = false;
-  isWhackPaused = false;
-  clearInterval(whackTimer);
-  clearTimeout(moleTimer);
-  playSound('win');
-
-  document.querySelectorAll('.whack-target').forEach(t => t.classList.remove('up'));
-  const startBtn = document.getElementById('btnStartWhack');
-  startBtn.style.display = 'inline-flex';
-  startBtn.innerText = 'BẮT ĐẦU CHƠI 🔥';
-  startBtn.style.opacity = '1';
-  document.getElementById('btnPauseWhack').style.display = 'none';
-  document.getElementById('btnRestartWhack').style.display = 'none';
-
-  if (whackScore > whackHighScore) {
-    whackHighScore = whackScore;
-    localStorage.setItem('panda_whack_high', whackHighScore);
-    document.getElementById('whackHigh').innerText = whackHighScore;
-    showToast(`🏆 KỶ LỤC MỚI: ${whackScore} điểm! Bạn là Bậc Thầy Đập Gấu!`);
-  } else {
-    showToast(`Hết giờ! Bạn đạt ${whackScore} điểm! Chúc mừng! 🎉`);
-  }
-}
-
-/* ─── TAB 3: HỨNG MĂNG TRE (BAMBOO CATCH) ─────────────── */
-const catchCanvas = document.getElementById('catchCanvas');
-const catchCtx = catchCanvas.getContext('2d');
-let catchPlaying = false;
-let catchPaused = false;
-let catchScore = 0;
-let catchLives = 3;
-let catchItems = [];
-let catchBasket = { x: 200, width: 90, height: 45, speed: 7 };
-let catchKeys = {};
-
-window.addEventListener('keydown', e => {
-  catchKeys[e.key] = true;
-  if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
-    const tabCatch = document.getElementById('tab-catch');
-    const tabFlappy = document.getElementById('tab-flappy');
-    const tabWhack = document.getElementById('tab-whack');
-    const tabSashimi = document.getElementById('tab-sashimi');
-    if (tabCatch && tabCatch.classList.contains('active')) {
-      togglePauseCatch();
-    } else if (tabFlappy && tabFlappy.classList.contains('active')) {
-      togglePauseFlappy();
-    } else if (tabWhack && tabWhack.classList.contains('active')) {
-      togglePauseWhack();
-    } else if (tabSashimi && tabSashimi.classList.contains('active')) {
-      togglePauseSashimi();
-    }
-  }
-});
-window.addEventListener('keyup', e => { catchKeys[e.key] = false; });
-
-// Touch / Mouse control
-catchCanvas.addEventListener('pointermove', e => {
-  if (!catchPlaying || catchPaused) return;
-  const rect = catchCanvas.getBoundingClientRect();
-  const scale = catchCanvas.width / rect.width;
-  catchBasket.x = (e.clientX - rect.left) * scale - catchBasket.width / 2;
-  catchBasket.x = Math.max(0, Math.min(catchCanvas.width - catchBasket.width, catchBasket.x));
-});
-
-catchCanvas.addEventListener('pointerdown', e => {
-  const rect = catchCanvas.getBoundingClientRect();
-  const scaleX = catchCanvas.width / rect.width;
-  const scaleY = catchCanvas.height / rect.height;
-  const clickX = (e.clientX - rect.left) * scaleX;
-  const clickY = (e.clientY - rect.top) * scaleY;
-
-  if (catchPlaying && catchPaused) {
-    togglePauseCatch();
-    return;
-  }
-  // Click on top-right pause icon
-  if (catchPlaying && clickX > catchCanvas.width - 55 && clickY < 55) {
-    togglePauseCatch();
-  }
-});
-
-function startCatchGame() {
-  playSound('win');
-  catchPlaying = true;
-  catchPaused = false;
-  catchScore = 0;
-  catchLives = 3;
-  catchItems = [];
-  catchBasket.x = catchCanvas.width / 2 - catchBasket.width / 2;
-  document.getElementById('catchScore').innerText = catchScore;
-  document.getElementById('catchLives').innerText = '❤️❤️❤️';
-  document.getElementById('btnStartCatch').style.display = 'none';
-  const pauseBtn = document.getElementById('btnPauseCatch');
-  pauseBtn.style.display = 'inline-flex';
-  pauseBtn.innerText = '⏸️ Tạm Dừng';
-  pauseBtn.classList.remove('pause-active');
-  document.getElementById('btnRestartCatch').style.display = 'inline-flex';
-
-  loopCatchGame();
-}
-
-function togglePauseCatch() {
-  if (!catchPlaying) return;
-  catchPaused = !catchPaused;
-  const btn = document.getElementById('btnPauseCatch');
-
-  if (catchPaused) {
-    btn.innerText = '▶️ Tiếp Tục';
-    btn.classList.add('pause-active');
-
-    // Draw pause screen overlay
-    catchCtx.fillStyle = 'rgba(15, 23, 42, 0.72)';
-    catchCtx.fillRect(0, 0, catchCanvas.width, catchCanvas.height);
-
-    catchCtx.fillStyle = '#ffffff';
-    catchCtx.strokeStyle = '#1e293b';
-    catchCtx.lineWidth = 4;
-    catchCtx.beginPath();
-    catchCtx.roundRect(40, 150, 380, 210, 24);
-    catchCtx.fill();
-    catchCtx.stroke();
-
-    catchCtx.font = "900 28px 'Bungee', cursive, sans-serif";
-    catchCtx.fillStyle = '#065f46';
-    catchCtx.textAlign = 'center';
-    catchCtx.fillText('⏸️ ĐÃ TẠM DỪNG', catchCanvas.width / 2, 210);
-
-    catchCtx.font = "700 16px 'Nunito', sans-serif";
-    catchCtx.fillStyle = '#334155';
-    catchCtx.fillText('Gấu đang ngồi nhai măng xả hơi... 🎋', catchCanvas.width / 2, 250);
-    catchCtx.fillText('Bấm nút TIẾP TỤC hoặc chạm màn hình để chơi tiếp!', catchCanvas.width / 2, 280);
-
-    catchCtx.fillStyle = '#10b981';
-    catchCtx.strokeStyle = '#064e3b';
-    catchCtx.lineWidth = 2;
-    catchCtx.beginPath();
-    catchCtx.roundRect(catchCanvas.width / 2 - 95, 305, 190, 38, 19);
-    catchCtx.fill();
-    catchCtx.stroke();
-
-    catchCtx.fillStyle = '#ffffff';
-    catchCtx.font = "900 16px 'Nunito', sans-serif";
-    catchCtx.fillText('▶️ TIẾP TỤC CHƠI', catchCanvas.width / 2, 330);
-
-    showToast('Đã tạm dừng game hứng măng ⏸️');
-  } else {
-    btn.innerText = '⏸️ Tạm Dừng';
-    btn.classList.remove('pause-active');
-    showToast('Tiếp tục hứng măng nào! 🎋');
-    requestAnimationFrame(loopCatchGame);
-  }
-}
-
-function spawnCatchItem() {
-  const rand = Math.random();
-  let type = 'bamboo';
-  let emoji = '🎋';
-  let points = 10;
-  let isBad = false;
-
-  if (rand < 0.4) {
-    type = 'bamboo'; emoji = '🎋'; points = 10;
-  } else if (rand < 0.65) {
-    type = 'dumpling'; emoji = '🥟'; points = 15;
-  } else if (rand < 0.8) {
-    type = 'melon'; emoji = '🍉'; points = 20;
-  } else if (rand < 0.92) {
-    type = 'poop'; emoji = '💩'; points = -15; isBad = true;
-  } else {
-    type = 'bomb'; emoji = '💣'; points = 0; isBad = true;
-  }
-
-  catchItems.push({
-    x: Math.random() * (catchCanvas.width - 40) + 20,
-    y: -30,
-    size: 32,
-    speed: Math.random() * 2 + 2.5 + (catchScore * 0.05),
-    emoji: emoji,
-    points: points,
-    isBad: isBad
-  });
-}
-
-let catchSpawnCounter = 0;
-function loopCatchGame() {
-  if (!catchPlaying || catchPaused) return;
-
-  // Key controls
-  if (catchKeys['ArrowLeft'] || catchKeys['a'] || catchKeys['A']) {
-    catchBasket.x -= catchBasket.speed;
-  }
-  if (catchKeys['ArrowRight'] || catchKeys['d'] || catchKeys['D']) {
-    catchBasket.x += catchBasket.speed;
-  }
-  catchBasket.x = Math.max(0, Math.min(catchCanvas.width - catchBasket.width, catchBasket.x));
-
-  // Spawn items
-  catchSpawnCounter++;
-  if (catchSpawnCounter % 40 === 0) {
-    spawnCatchItem();
-  }
-
-  // Clear canvas
-  catchCtx.fillStyle = '#ecfdf5';
-  catchCtx.fillRect(0, 0, catchCanvas.width, catchCanvas.height);
-
-  // Draw Ground
-  catchCtx.fillStyle = '#10b981';
-  catchCtx.fillRect(0, catchCanvas.height - 20, catchCanvas.width, 20);
-
-  // Draw Pause Icon on top-right of canvas
-  catchCtx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-  catchCtx.strokeStyle = '#1e293b';
-  catchCtx.lineWidth = 2;
-  catchCtx.beginPath();
-  catchCtx.arc(catchCanvas.width - 28, 28, 16, 0, Math.PI * 2);
-  catchCtx.fill();
-  catchCtx.stroke();
-  catchCtx.font = '14px sans-serif';
-  catchCtx.fillStyle = '#1e293b';
-  catchCtx.textAlign = 'center';
-  catchCtx.fillText('⏸️', catchCanvas.width - 28, 33);
-
-  // Update & Draw items
-  for (let i = catchItems.length - 1; i >= 0; i--) {
-    const item = catchItems[i];
-    item.y += item.speed;
-
-    // Draw Emoji Item
-    catchCtx.font = '28px sans-serif';
-    catchCtx.textAlign = 'center';
-    catchCtx.fillText(item.emoji, item.x, item.y);
-
-    // Collision with basket
-    const basketY = catchCanvas.height - 55;
-    if (
-      item.y >= basketY &&
-      item.y <= basketY + 30 &&
-      item.x >= catchBasket.x &&
-      item.x <= catchBasket.x + catchBasket.width
-    ) {
-      if (item.emoji === '💣') {
-        playSound('boom');
-        catchLives--;
-        updateCatchHearts();
-        if (catchLives <= 0) {
-          endCatchGame();
-          return;
+      init() {
+        if (!this.ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) this.ctx = new AC();
         }
-      } else if (item.emoji === '💩') {
-        playSound('boom');
-        catchScore = Math.max(0, catchScore - 15);
-        document.getElementById('catchScore').innerText = catchScore;
+        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      }
+      toggle() {
+        this.muted = !this.muted;
+        if (this.muted) {
+          this.stopBgm();
+        } else {
+          this.init();
+          this.startBgm();
+        }
+        return this.muted;
+      }
+      playTone(freq, type = 'sine', duration = 0.1, gainVal = 0.1) {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {}
+      }
+      stepSfx() {
+        if (this.muted) return;
+        this.playTone(200 + Math.random() * 40, 'sine', 0.04, 0.02);
+      }
+      cookSfx() {
+        this.playTone(320, 'square', 0.08, 0.04);
+        setTimeout(() => this.playTone(420, 'sine', 0.1, 0.05), 60);
+      }
+      readySfx() {
+        this.playTone(784, 'triangle', 0.12, 0.1);
+        setTimeout(() => this.playTone(1046, 'triangle', 0.2, 0.12), 100);
+      }
+      coinSfx() {
+        this.playTone(987, 'sine', 0.08, 0.1);
+        setTimeout(() => this.playTone(1318, 'sine', 0.2, 0.12), 60);
+      }
+      angrySfx() {
+        this.playTone(280, 'sawtooth', 0.12, 0.12);
+        setTimeout(() => this.playTone(180, 'sawtooth', 0.2, 0.15), 100);
+      }
+      trashSfx() {
+        this.playTone(150, 'square', 0.12, 0.05);
+      }
+      startBgm() {
+        if (this.muted || this.bgmTimer) return;
+        this.init();
+        const melody = [523.25, 659.25, 783.99, 659.25, 880.00, 783.99, 659.25, 523.25];
+        this.bgmTimer = setInterval(() => {
+          if (this.muted) return this.stopBgm();
+          this.playTone(melody[this.bgmStep % melody.length], 'sine', 0.35, 0.02);
+          this.bgmStep++;
+        }, 700);
+      }
+      stopBgm() {
+        if (this.bgmTimer) {
+          clearInterval(this.bgmTimer);
+          this.bgmTimer = null;
+        }
+      }
+    }
+
+    const sound = new SoundSynth();
+
+    /* =========================================================================
+       2. CANVAS SETUP & MAP ARCHITECTURE
+       ========================================================================= */
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const MAP_WIDTH = 960;
+    const MAP_HEIGHT = 580;
+
+    // Player Object
+    const player = {
+      x: 240,
+      y: 320,
+      width: 44,
+      height: 48,
+      speed: 4.8,
+      vx: 0,
+      vy: 0,
+      facing: 'down', // 'up', 'down', 'left', 'right'
+      heldItem: null, // { id: 'ramen', name: 'Mì Ramen', emoji: '🍜', type: 'food' }
+      isWalking: false,
+      walkFrame: 0,
+      lastStepTime: 0
+    };
+
+    // Stations Definitions
+    // Left: Quán Sashimi (0 <= x <= 480)
+    // Right: Tiệm Gấu Trúc (480 < x <= 960)
+    const STATIONS = [
+      // 1. Quán Sashimi Stations
+      {
+        id: 'stove_ramen',
+        name: 'Bếp Mì Ramen',
+        emoji: '🍜',
+        x: 60,
+        y: 130,
+        width: 80,
+        height: 60,
+        color: '#0284c7',
+        cookingTime: 1.8,
+        cookTimer: 0,
+        state: 'idle', // 'idle', 'cooking', 'ready'
+        outputItem: { id: 'ramen', name: 'Mì Ramen Nóng', emoji: '🍜', type: 'food', price: 30, hearts: 3 }
+      },
+      {
+        id: 'station_milktea',
+        name: 'Máy Trà Sữa',
+        emoji: '🧋',
+        x: 180,
+        y: 130,
+        width: 80,
+        height: 60,
+        color: '#38bdf8',
+        cookingTime: 1.4,
+        cookTimer: 0,
+        state: 'idle',
+        outputItem: { id: 'milktea', name: 'Trà Sữa Trân Châu', emoji: '🧋', type: 'food', price: 22, hearts: 2 }
+      },
+      {
+        id: 'station_chicken',
+        name: 'Chảo Gà Rán',
+        emoji: '🍗',
+        x: 300,
+        y: 130,
+        width: 80,
+        height: 60,
+        color: '#f59e0b',
+        cookingTime: 2.0,
+        cookTimer: 0,
+        state: 'idle',
+        outputItem: { id: 'chicken', name: 'Gà Rán Giòn Rụm', emoji: '🍗', type: 'food', price: 35, hearts: 4 }
+      },
+      {
+        id: 'station_trash',
+        name: 'Thùng Rác',
+        emoji: '🗑️',
+        x: 410,
+        y: 130,
+        width: 50,
+        height: 60,
+        color: '#64748b',
+        type: 'trash'
+      },
+
+      // 2. Tiệm Gấu Trúc Nhồi Bông Stations
+      {
+        id: 'shelf_panda_classic',
+        name: 'Kệ Gấu Trúc Múp Míp',
+        emoji: '🐼',
+        x: 520,
+        y: 130,
+        width: 90,
+        height: 60,
+        color: '#0f172a',
+        cookingTime: 1.2,
+        cookTimer: 0,
+        state: 'idle',
+        outputItem: { id: 'panda_classic', name: 'Gấu Trúc Múp Míp', emoji: '🐼', type: 'plushie', price: 45, hearts: 5 }
+      },
+      {
+        id: 'table_panda_dino',
+        name: 'Bàn May Gấu Khủng Long',
+        emoji: '🦖',
+        x: 650,
+        y: 130,
+        width: 90,
+        height: 60,
+        color: '#10b981',
+        cookingTime: 1.8,
+        cookTimer: 0,
+        state: 'idle',
+        outputItem: { id: 'panda_dino', name: 'Panda Khủng Long', emoji: '🦖', type: 'plushie', price: 60, hearts: 6 }
+      },
+      {
+        id: 'station_arcade_claw',
+        name: 'Máy Gắp Gấu Arcade',
+        emoji: '🕹️',
+        x: 790,
+        y: 130,
+        width: 100,
+        height: 70,
+        color: '#ec4899',
+        type: 'claw_machine'
+      },
+
+      // 3. Serving Counters (Quầy Giao Món Cho Khách ở phía dưới)
+      {
+        id: 'counter_sashimi_food',
+        name: 'Quầy Giao Món Sashimi',
+        emoji: '🛎️',
+        x: 120,
+        y: 430,
+        width: 200,
+        height: 40,
+        color: '#0284c7',
+        type: 'serve_food'
+      },
+      {
+        id: 'counter_panda_plushie',
+        name: 'Quầy Giao Gấu Trúc',
+        emoji: '🎁',
+        x: 600,
+        y: 430,
+        width: 200,
+        height: 40,
+        color: '#047857',
+        type: 'serve_plushie'
+      }
+    ];
+
+    // Customers waiting at counters
+    let customers = [];
+    let nextCustomerTimer = 2.0;
+
+    const CUSTOMER_AVATARS = ['👧', '👦', '🐰', '🐶', '🐱', '🎩'];
+
+    function spawnCustomer() {
+      if (customers.length >= 4) return;
+
+      const isSashimiPrank = Math.random() < 0.22; // Asks for sashimi joke
+      const isCombo = !isSashimiPrank && Math.random() < 0.35;
+
+      const foods = [
+        { id: 'ramen', name: 'Mì Ramen', emoji: '🍜' },
+        { id: 'milktea', name: 'Trà Sữa', emoji: '🧋' },
+        { id: 'chicken', name: 'Gà Rán', emoji: '🍗' }
+      ];
+      const plushies = [
+        { id: 'panda_classic', name: 'Gấu Trúc', emoji: '🐼' },
+        { id: 'panda_dino', name: 'Panda Khủng Long', emoji: '🦖' }
+      ];
+
+      const chosenFood = foods[Math.floor(Math.random() * foods.length)];
+      const chosenPlushie = plushies[Math.floor(Math.random() * plushies.length)];
+
+      let wants = [];
+      let type = 'food';
+      let targetCounter = 'counter_sashimi_food';
+
+      if (isSashimiPrank) {
+        type = 'prank_sashimi';
+        wants = [{ id: 'sashimi', name: 'Cá Hồi Sashimi', emoji: '🍣' }];
+        targetCounter = 'counter_sashimi_food';
+      } else if (isCombo) {
+        type = 'combo';
+        wants = [chosenFood, chosenPlushie];
+        targetCounter = 'counter_sashimi_food';
+      } else if (Math.random() < 0.55) {
+        type = 'food';
+        wants = [chosenFood];
+        targetCounter = 'counter_sashimi_food';
       } else {
-        playSound('coin');
-        catchScore += item.points;
-        addBamboo(1);
-        document.getElementById('catchScore').innerText = catchScore;
+        type = 'plushie';
+        wants = [chosenPlushie];
+        targetCounter = 'counter_panda_plushie';
       }
-      catchItems.splice(i, 1);
-      continue;
+
+      // Find an available slot at counter
+      const slotIndex = customers.length;
+      const posX = targetCounter === 'counter_sashimi_food' ? (150 + (slotIndex % 2) * 90) : (630 + (slotIndex % 2) * 90);
+
+      customers.push({
+        id: Date.now() + Math.random(),
+        avatar: CUSTOMER_AVATARS[Math.floor(Math.random() * CUSTOMER_AVATARS.length)],
+        type,
+        wants, // array of desired items
+        fulfilled: [],
+        counter: targetCounter,
+        x: posX,
+        y: 490,
+        maxPatience: 32,
+        patience: 32,
+        speechBubble: isSashimiPrank ? 'Có bán Sashimi hông?' : null
+      });
     }
 
-    // Missed bottom
-    if (item.y > catchCanvas.height + 10) {
-      catchItems.splice(i, 1);
+    /* Floating visual particles (Hearts, Coins, Steam) */
+    let particles = [];
+    function addParticle(x, y, text, color = '#0284c7') {
+      particles.push({
+        x,
+        y,
+        text,
+        color,
+        vy: -1.2,
+        alpha: 1.0,
+        life: 50
+      });
     }
-  }
 
-  // Draw Basket / Panda Cart
-  const bY = catchCanvas.height - 55;
-  catchCtx.fillStyle = '#b45309';
-  catchCtx.strokeStyle = '#1e293b';
-  catchCtx.lineWidth = 3;
-  catchCtx.beginPath();
-  catchCtx.roundRect(catchBasket.x, bY, catchBasket.width, catchBasket.height, 10);
-  catchCtx.fill();
-  catchCtx.stroke();
+    /* =========================================================================
+       3. CONTROLS & INPUT SYSTEM
+       ========================================================================= */
+    const keys = {};
 
-  // Cute Panda Peeking from basket
-  catchCtx.font = '32px sans-serif';
-  catchCtx.textAlign = 'center';
-  catchCtx.fillText('🐼', catchBasket.x + catchBasket.width / 2, bY + 28);
-
-  requestAnimationFrame(loopCatchGame);
-}
-
-function updateCatchHearts() {
-  let hearts = '';
-  for (let i = 0; i < catchLives; i++) hearts += '❤️';
-  document.getElementById('catchLives').innerText = hearts || '💀 Hết Mạng';
-}
-
-function endCatchGame() {
-  catchPlaying = false;
-  catchPaused = false;
-  playSound('boom');
-  document.getElementById('btnStartCatch').style.display = 'inline-flex';
-  document.getElementById('btnStartCatch').innerText = 'CHƠI LẠI 🎮';
-  document.getElementById('btnStartCatch').style.opacity = '1';
-  document.getElementById('btnPauseCatch').style.display = 'none';
-  document.getElementById('btnRestartCatch').style.display = 'none';
-  showToast(`Toang rồi! Bạn đạt được ${catchScore} điểm hứng trúc! 🎋`);
-}
-
-/* ─── TAB 4: FLAPPY PANDA GAME ───────────────────────── */
-const flappyCanvas = document.getElementById('flappyCanvas');
-const flappyCtx = flappyCanvas.getContext('2d');
-let flappyPlaying = false;
-let flappyPaused = false;
-let flappyScore = 0;
-let flappyHigh = parseInt(localStorage.getItem('panda_flappy_high') || '0', 10);
-document.getElementById('flappyHigh').innerText = flappyHigh;
-
-let pandaBird = { x: 80, y: 200, vy: 0, gravity: 0.38, jump: -6.8, radius: 18 };
-let pipes = [];
-let flappyFrame = 0;
-
-function startFlappyGame() {
-  playSound('jump');
-  flappyPlaying = true;
-  flappyPaused = false;
-  flappyScore = 0;
-  pandaBird.y = 220;
-  pandaBird.vy = 0;
-  pipes = [];
-  flappyFrame = 0;
-  document.getElementById('flappyScore').innerText = '0';
-  document.getElementById('btnStartFlappy').style.display = 'none';
-  const pauseBtn = document.getElementById('btnPauseFlappy');
-  pauseBtn.style.display = 'inline-flex';
-  pauseBtn.innerText = '⏸️ Tạm Dừng';
-  pauseBtn.classList.remove('pause-active');
-  document.getElementById('btnRestartFlappy').style.display = 'inline-flex';
-
-  loopFlappy();
-}
-
-function togglePauseFlappy() {
-  if (!flappyPlaying) return;
-  flappyPaused = !flappyPaused;
-  const btn = document.getElementById('btnPauseFlappy');
-
-  if (flappyPaused) {
-    btn.innerText = '▶️ Tiếp Tục';
-    btn.classList.add('pause-active');
-
-    // Draw pause screen overlay
-    flappyCtx.fillStyle = 'rgba(15, 23, 42, 0.72)';
-    flappyCtx.fillRect(0, 0, flappyCanvas.width, flappyCanvas.height);
-
-    flappyCtx.fillStyle = '#ffffff';
-    flappyCtx.strokeStyle = '#1e293b';
-    flappyCtx.lineWidth = 4;
-    flappyCtx.beginPath();
-    flappyCtx.roundRect(40, 150, 380, 210, 24);
-    flappyCtx.fill();
-    flappyCtx.stroke();
-
-    flappyCtx.font = "900 28px 'Bungee', cursive, sans-serif";
-    flappyCtx.fillStyle = '#065f46';
-    flappyCtx.textAlign = 'center';
-    flappyCtx.fillText('⏸️ ĐÃ TẠM DỪNG', flappyCanvas.width / 2, 210);
-
-    flappyCtx.font = "700 16px 'Nunito', sans-serif";
-    flappyCtx.fillStyle = '#334155';
-    flappyCtx.fillText('Chú gấu đang lơ lửng ngắm cảnh tre... 🕊️', flappyCanvas.width / 2, 250);
-    flappyCtx.fillText('Bấm nút TIẾP TỤC hoặc chạm màn hình để bay tiếp!', flappyCanvas.width / 2, 280);
-
-    flappyCtx.fillStyle = '#10b981';
-    flappyCtx.strokeStyle = '#064e3b';
-    flappyCtx.lineWidth = 2;
-    flappyCtx.beginPath();
-    flappyCtx.roundRect(flappyCanvas.width / 2 - 95, 305, 190, 38, 19);
-    flappyCtx.fill();
-    flappyCtx.stroke();
-
-    flappyCtx.fillStyle = '#ffffff';
-    flappyCtx.font = "900 16px 'Nunito', sans-serif";
-    flappyCtx.fillText('▶️ TIẾP TỤC BAY', flappyCanvas.width / 2, 330);
-
-    showToast('Đã tạm dừng Flappy Panda ⏸️');
-  } else {
-    btn.innerText = '⏸️ Tạm Dừng';
-    btn.classList.remove('pause-active');
-    showToast('Bay tiếp nào! 🚀');
-    requestAnimationFrame(loopFlappy);
-  }
-}
-
-function flappyJump() {
-  if (!flappyPlaying) {
-    startFlappyGame();
-    return;
-  }
-  if (flappyPaused) {
-    togglePauseFlappy();
-    return;
-  }
-  playSound('jump');
-  pandaBird.vy = pandaBird.jump;
-}
-
-window.addEventListener('keydown', e => {
-  if (e.code === 'Space') {
-    const tabFlappy = document.getElementById('tab-flappy');
-    if (tabFlappy && tabFlappy.classList.contains('active')) {
-      e.preventDefault();
-      flappyJump();
-    }
-  }
-});
-
-flappyCanvas.addEventListener('pointerdown', e => {
-  e.preventDefault();
-  const rect = flappyCanvas.getBoundingClientRect();
-  const scaleX = flappyCanvas.width / rect.width;
-  const scaleY = flappyCanvas.height / rect.height;
-  const clickX = (e.clientX - rect.left) * scaleX;
-  const clickY = (e.clientY - rect.top) * scaleY;
-
-  if (flappyPlaying && flappyPaused) {
-    togglePauseFlappy();
-    return;
-  }
-  if (flappyPlaying && clickX > flappyCanvas.width - 55 && clickY < 55) {
-    togglePauseFlappy();
-    return;
-  }
-  flappyJump();
-});
-
-function loopFlappy() {
-  if (!flappyPlaying || flappyPaused) return;
-
-  flappyFrame++;
-
-  // Update Panda Physics
-  pandaBird.vy += pandaBird.gravity;
-  pandaBird.y += pandaBird.vy;
-
-  // Spawn Bamboo Pipes
-  if (flappyFrame % 95 === 0) {
-    const gap = 145;
-    const minTop = 60;
-    const maxTop = flappyCanvas.height - gap - 90;
-    const topHeight = Math.random() * (maxTop - minTop) + minTop;
-
-    pipes.push({
-      x: flappyCanvas.width,
-      topHeight: topHeight,
-      gap: gap,
-      passed: false
+    window.addEventListener('keydown', (e) => {
+      keys[e.key] = true;
+      keys[e.code] = true;
+      if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
+        e.preventDefault();
+      }
+      if (e.code === 'Space' || e.key === 'e' || e.key === 'E') {
+        performInteraction();
+      }
     });
-  }
 
-  // Clear Sky
-  flappyCtx.fillStyle = '#bae6fd';
-  flappyCtx.fillRect(0, 0, flappyCanvas.width, flappyCanvas.height);
+    window.addEventListener('keyup', (e) => {
+      keys[e.key] = false;
+      keys[e.code] = false;
+    });
 
-  // Clouds
-  flappyCtx.fillStyle = '#ffffff';
-  flappyCtx.beginPath();
-  flappyCtx.arc(120, 80, 25, 0, Math.PI * 2);
-  flappyCtx.arc(150, 75, 35, 0, Math.PI * 2);
-  flappyCtx.arc(180, 80, 25, 0, Math.PI * 2);
-  flappyCtx.fill();
+    // Touch D-pad buttons
+    const btnUp = document.getElementById('btnUp');
+    const btnDown = document.getElementById('btnDown');
+    const btnLeft = document.getElementById('btnLeft');
+    const btnRight = document.getElementById('btnRight');
+    const btnAction = document.getElementById('btnAction');
 
-  // Draw Pause Icon on top-right of canvas
-  flappyCtx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-  flappyCtx.strokeStyle = '#1e293b';
-  flappyCtx.lineWidth = 2;
-  flappyCtx.beginPath();
-  flappyCtx.arc(flappyCanvas.width - 28, 28, 16, 0, Math.PI * 2);
-  flappyCtx.fill();
-  flappyCtx.stroke();
-  flappyCtx.font = '14px sans-serif';
-  flappyCtx.fillStyle = '#1e293b';
-  flappyCtx.textAlign = 'center';
-  flappyCtx.fillText('⏸️', flappyCanvas.width - 28, 33);
-
-  // Update & Draw Pipes (Bamboo Columns)
-  for (let i = pipes.length - 1; i >= 0; i--) {
-    const p = pipes[i];
-    p.x -= 2.6;
-
-    // Top Bamboo stalk
-    flappyCtx.fillStyle = '#15803d';
-    flappyCtx.strokeStyle = '#052e16';
-    flappyCtx.lineWidth = 3;
-    flappyCtx.fillRect(p.x, 0, 52, p.topHeight);
-    flappyCtx.strokeRect(p.x, 0, 52, p.topHeight);
-
-    // Bamboo joints
-    flappyCtx.fillStyle = '#22c55e';
-    for (let j = 30; j < p.topHeight; j += 40) {
-      flappyCtx.fillRect(p.x - 3, j, 58, 8);
+    function attachTouch(btn, keyName) {
+      const start = (e) => { e.preventDefault(); keys[keyName] = true; };
+      const end = (e) => { e.preventDefault(); keys[keyName] = false; };
+      btn.addEventListener('mousedown', start);
+      btn.addEventListener('mouseup', end);
+      btn.addEventListener('mouseleave', end);
+      btn.addEventListener('touchstart', start, { passive: false });
+      btn.addEventListener('touchend', end, { passive: false });
     }
 
-    // Bottom Bamboo stalk
-    const bottomY = p.topHeight + p.gap;
-    const bottomH = flappyCanvas.height - bottomY;
-    flappyCtx.fillStyle = '#15803d';
-    flappyCtx.fillRect(p.x, bottomY, 52, bottomH);
-    flappyCtx.strokeRect(p.x, bottomY, 52, bottomH);
+    attachTouch(btnUp, 'ArrowUp');
+    attachTouch(btnDown, 'ArrowDown');
+    attachTouch(btnLeft, 'ArrowLeft');
+    attachTouch(btnRight, 'ArrowRight');
 
-    for (let j = bottomY + 30; j < flappyCanvas.height; j += 40) {
-      flappyCtx.fillStyle = '#22c55e';
-      flappyCtx.fillRect(p.x - 3, j, 58, 8);
+    btnAction.addEventListener('click', (e) => {
+      e.preventDefault();
+      performInteraction();
+    });
+
+    /* =========================================================================
+       4. INTERACTION LOGIC
+       ========================================================================= */
+    function getNearestStation() {
+      let nearest = null;
+      let minDist = 75; // Interaction reach radius
+
+      for (const st of STATIONS) {
+        const cx = st.x + st.width / 2;
+        const cy = st.y + st.height / 2;
+        const dist = Math.hypot(player.x - cx, player.y - cy);
+        if (dist < minDist) {
+          minDist = dist;
+          nearest = st;
+        }
+      }
+      return nearest;
     }
 
-    // Check Score
-    if (!p.passed && p.x + 52 < pandaBird.x) {
-      p.passed = true;
-      flappyScore++;
-      playSound('coin');
-      addBamboo(1);
-      document.getElementById('flappyScore').innerText = flappyScore;
+    function getNearestCustomer() {
+      let nearest = null;
+      let minDist = 75;
+
+      for (const c of customers) {
+        const dist = Math.hypot(player.x - c.x, player.y - c.y + 40);
+        if (dist < minDist) {
+          minDist = dist;
+          nearest = c;
+        }
+      }
+      return nearest;
     }
 
-    // Collision check
-    const inPipeX = pandaBird.x + pandaBird.radius > p.x && pandaBird.x - pandaBird.radius < p.x + 52;
-    const hitTop = pandaBird.y - pandaBird.radius < p.topHeight;
-    const hitBottom = pandaBird.y + pandaBird.radius > bottomY;
-
-    if (inPipeX && (hitTop || hitBottom)) {
-      endFlappyGame();
-      return;
-    }
-
-    // Remove off-screen
-    if (p.x < -60) pipes.splice(i, 1);
-  }
-
-  // Check ceiling & floor
-  if (pandaBird.y + pandaBird.radius >= flappyCanvas.height - 20 || pandaBird.y - pandaBird.radius <= 0) {
-    endFlappyGame();
-    return;
-  }
-
-  // Draw Ground
-  flappyCtx.fillStyle = '#16a34a';
-  flappyCtx.fillRect(0, flappyCanvas.height - 20, flappyCanvas.width, 20);
-
-  // Draw Flappy Panda
-  flappyCtx.save();
-  flappyCtx.translate(pandaBird.x, pandaBird.y);
-  flappyCtx.rotate(Math.min(Math.PI / 4, Math.max(-Math.PI / 4, pandaBird.vy * 0.07)));
-
-  // Angel wings
-  flappyCtx.font = '22px sans-serif';
-  flappyCtx.fillText('🪽', -24, -4);
-
-  // Panda Body
-  flappyCtx.font = '36px sans-serif';
-  flappyCtx.textAlign = 'center';
-  flappyCtx.textBaseline = 'middle';
-  flappyCtx.fillText('🐼', 0, 0);
-
-  flappyCtx.restore();
-
-  requestAnimationFrame(loopFlappy);
-}
-
-function endFlappyGame() {
-  flappyPlaying = false;
-  flappyPaused = false;
-  playSound('boom');
-  document.getElementById('btnStartFlappy').style.display = 'inline-flex';
-  document.getElementById('btnStartFlappy').innerText = 'BAY LẠI 🚀';
-  document.getElementById('btnPauseFlappy').style.display = 'none';
-  document.getElementById('btnRestartFlappy').style.display = 'none';
-  if (flappyScore > flappyHigh) {
-    flappyHigh = flappyScore;
-    localStorage.setItem('panda_flappy_high', flappyHigh);
-    document.getElementById('flappyHigh').innerText = flappyHigh;
-    showToast(`🎉 KỶ LỤC FLAPPY MỚI: ${flappyScore} điểm! Siêu gấu bay!`);
-  } else {
-    showToast(`Rụng cánh rồi! Bạn bay được ${flappyScore} cọc tre! 🎋`);
-  }
-}
-
-/* ─── TAB 5: ĐỐ VUI VÔ TRI (TROLL QUIZ) ───────────────── */
-const quizData = [
-  {
-    q: "Gấu trúc ăn tre để làm gì trong suốt 12 tiếng mỗi ngày?",
-    options: [
-      "Để nạp đầy đủ chất dinh dưỡng và vitamin A B C",
-      "Để khỏi phải đau đầu suy nghĩ 'Trưa nay ăn gì?'",
-      "Để chuẩn bị đi thi thố Siêu Trí Tuệ Rừng Xanh",
-      "Vì quán phở bò gần hang hôm nay nghỉ bán"
-    ],
-    ans: 1,
-    explain: "Chính xác! Câu hỏi 'Hôm nay ăn gì?' làm đau đầu nhân loại, nhưng gấu trúc chọn giải pháp tre là chân ái! 🎋"
-  },
-  {
-    q: "Tại sao gấu trúc luôn có hai quầng mắt thâm đen xì xì?",
-    options: [
-      "Do di truyền của tổ tiên loài gấu",
-      "Do thức đêm cày phim bộ và lướt TikTok đến 3h sáng",
-      "Bị gấu khác đấm nhưng ngại không dám nói",
-      "Đeo kính áp tròng màu đen bị phai màu"
-    ],
-    ans: 1,
-    explain: "Chuẩn meme! Biểu tượng của dân cày deadline và lướt điện thoại ban đêm không ai khác chính là gấu trúc! 📱"
-  },
-  {
-    q: "Nếu một chú gấu trúc tròn xoe bị lăn từ đỉnh đồi xuống dốc, bạn nên làm gì?",
-    options: [
-      "Hốt hoảng chạy lại đỡ lấy bé gấu",
-      "Bật camera điện thoại quay video ngắn up mạng kiếm triệu view",
-      "Gọi cứu hỏa 114 nhờ điều xe thang",
-      "Lăn theo cùng cho có bạn có bè"
-    ],
-    ans: 1,
-    explain: "Quá đúng bản chất cõi mạng! Clip gấu trúc lăn dốc luôn thu hút hàng triệu view trên toàn thế giới! 📹"
-  },
-  {
-    q: "Tư thế ngủ yêu thích nhất của gấu trúc là gì?",
-    options: [
-      "Ngủ nằm ngửa chổng 4 chân lên trời",
-      "Treo lủng lẳng trên cành cây như bao gạo bị bỏ quên",
-      "Nằm úp mặt xuống đất giả vờ biến mất",
-      "Tất cả các tư thế kỳ quặc trên!"
-    ],
-    ans: 3,
-    explain: "Gấu trúc có thể ngủ ở bất cứ đâu, với bất cứ tư thế khó đỡ nào mà không cần gối đệm! 🛌"
-  },
-  {
-    q: "Khi một chú gấu trúc hắt xì hơi cực to, chuyện gì xảy ra?",
-    options: [
-      "Mẹ nó sẽ giật bắn mình nhảy dựng lên như phim hài",
-      "Cả khu rừng tre bị bão tố cuốn bay",
-      "Nó được thăng chức thành gấu bông",
-      "Không có gì xảy ra cả"
-    ],
-    ans: 0,
-    explain: "Video kinh điển: Gấu con hắt xì 'HẮT-CHÌ' làm gấu mẹ giật nảy mình huyền thoại hơn 300 triệu view! 💥"
-  }
-];
-
-let quizIndex = 0;
-let quizScore = 0;
-
-function renderQuiz() {
-  const item = quizData[quizIndex];
-  document.getElementById('quizProgFill').style.width = ((quizIndex + 1) / quizData.length * 100) + '%';
-  document.getElementById('quizQuestion').innerText = `Câu ${quizIndex + 1}: ${item.q}`;
-  
-  const optBox = document.getElementById('quizOptions');
-  optBox.innerHTML = '';
-
-  item.options.forEach((opt, idx) => {
-    const btn = document.createElement('button');
-    btn.className = 'opt-btn';
-    btn.innerHTML = `<span>🎋</span> <span>${opt}</span>`;
-    btn.onclick = () => selectOption(idx);
-    optBox.appendChild(btn);
-  });
-
-  const fb = document.getElementById('quizFeedback');
-  fb.className = 'quiz-feedback';
-  fb.style.display = 'none';
-  document.getElementById('btnNextQuiz').style.display = 'none';
-}
-
-function selectOption(idx) {
-  const item = quizData[quizIndex];
-  const buttons = document.querySelectorAll('.opt-btn');
-  const fb = document.getElementById('quizFeedback');
-
-  buttons.forEach(b => b.disabled = true);
-
-  if (idx === item.ans) {
-    playSound('coin');
-    buttons[idx].classList.add('correct');
-    fb.className = 'quiz-feedback show win';
-    fb.innerHTML = `🎉 <b>VÔ CÙNG VÔ TRI!</b> ${item.explain}`;
-    quizScore++;
-    addBamboo(5);
-  } else {
-    playSound('boom');
-    buttons[idx].classList.add('wrong');
-    buttons[item.ans].classList.add('correct');
-    fb.className = 'quiz-feedback show lose';
-    fb.innerHTML = `❌ <b>HỤT RỒI!</b> ${item.explain}`;
-  }
-
-  document.getElementById('btnNextQuiz').style.display = 'inline-block';
-}
-
-function nextQuestion() {
-  playSound('pop');
-  quizIndex++;
-  if (quizIndex < quizData.length) {
-    renderQuiz();
-  } else {
-    // Show End Certificate
-    const card = document.getElementById('quizCard');
-    card.innerHTML = `
-      <div style="text-align: center; padding: 20px;">
-        <div style="font-size: 4rem;">🎓🐼📜</div>
-        <div class="box-title" style="justify-content: center;">BẰNG KHEN TIẾN SĨ GẤU HỌC</div>
-        <p style="font-weight: 800; font-size: 1.1rem; margin: 16px 0;">
-          Bạn đã trả lời đúng <b>${quizScore}/${quizData.length}</b> câu hỏi!
-        </p>
-        <p style="font-size: 1rem; color: #047857; font-weight: 700; margin-bottom: 24px;">
-          Danh hiệu danh dự: <b>${quizScore >= 4 ? "🌟 ĐỆ NHẤT THÁNH GẤU VÔ TRI VŨ TRỤ" : "🎋 TẬP SỰ GẤU TRÚC NGÁO NGƠ"}</b>
-        </p>
-        <button class="btn-big" onclick="resetQuiz()">LÀM LẠI BÀI TEST 🔄</button>
-      </div>
-    `;
-    playSound('win');
-  }
-}
-
-function resetQuiz() {
-  quizIndex = 0;
-  quizScore = 0;
-  location.reload();
-}
-
-renderQuiz();
-
-/* ─── TAB 6: GACHA RÚT QUẺ NHÂN PHẨM ─────────────────── */
-const gachaPool = [
-  { tier: "UR", art: "🐼✨", title: "GẤU TRÚC GIÁC NGỘ", quote: "Tại sao phải đi làm khi bạn có thể giả vờ là cục đá trong rừng trúc?" },
-  { tier: "SSR", art: "🐼👑", title: "CHÚA TỂ ĂN BÁM", quote: "Ăn bám cũng là một loại nghệ thuật, và người ăn bám là một nghệ sĩ đại tài." },
-  { tier: "SSR", art: "🐼🥋", title: "KUNGFU VÔ TRI", quote: "Chiêu thức tối thượng: Lăn tròn đè bẹp mọi âu lo phiền muộn!" },
-  { tier: "SR", art: "🐼🕶️", title: "DÂN CHƠI XÓM TRÚC", quote: "Ngầu lòi cả khu rừng, bước ra đường là ai cũng phải nhường... cọng măng." },
-  { tier: "SR", art: "🐼💤", title: "THẦN NGỦ ĐẠI HIỆP", quote: "Đặt đâu nằm đấy, nhắm mắt 3 giây là đi vào cõi mộng mơ." },
-  { tier: "R", art: "🐼🥟", title: "THÁNH CUỒNG BÁNH BAO", quote: "Có thực mới vực được đạo, bánh bao hấp 100 cái vẫn chưa no." },
-  { tier: "R", art: "🐼🎋", title: "TIÊU THỤ TRE ĐẠI TÀI", quote: "Một ngày không nhai tre rồm rộp, lòng cảm thấy trống vắng khôn nguôi." }
-];
-
-function pullGacha() {
-  if (bambooTotal < 10) {
-    showToast("Bạn không đủ 10 🎋 măng tre để rút quẻ! Hãy chơi game kiếm thêm nha!");
-    return;
-  }
-  bambooTotal -= 10;
-  updateBambooDisplay();
-
-  playSound('coin');
-  const chest = document.getElementById('chestBox');
-  chest.classList.add('shake');
-
-  setTimeout(() => {
-    chest.classList.remove('shake');
-    playSound('win');
-
-    const item = gachaPool[Math.floor(Math.random() * gachaPool.length)];
-    const res = document.getElementById('gachaResult');
-    const tier = document.getElementById('cardTier');
-    const art = document.getElementById('cardArt');
-    const title = document.getElementById('cardTitle');
-    const quote = document.getElementById('cardQuote');
-
-    tier.className = `card-tier tier-${item.tier}`;
-    tier.innerText = item.tier;
-    art.innerText = item.art;
-    title.innerText = item.title;
-    quote.innerText = item.quote;
-
-    res.classList.remove('show');
-    void res.offsetWidth; // trigger reflow
-    res.classList.add('show');
-
-    showToast(`Chúc mừng! Bạn mở được thẻ [${item.tier}] ${item.title}!`);
-  }, 600);
-}
-
-/* ─── TAB 7: SOUNDBOARD MEME ─────────────────────────── */
-const soundList = [
-  { icon: "🤧", name: "Gấu Hắt Xì", type: "boom" },
-  { icon: "🎋", name: "Nhai Tre", type: "chomp" },
-  { icon: "👋", name: "Tát Bốp", type: "slap" },
-  { icon: "🤣", name: "Cười Ngất", type: "giggle" },
-  { icon: "🦘", name: "Boing Nhảy", type: "jump" },
-  { icon: "🔔", name: "Ting Ting", type: "coin" },
-  { icon: "💥", name: "Nổ Bùm", type: "boom" },
-  { icon: "🎺", name: "Chiến Thắng", type: "win" },
-  { icon: "✨", name: "Bóng Bay", type: "pop" }
-];
-
-const soundboardGrid = document.getElementById('soundboardGrid');
-soundList.forEach(item => {
-  const btn = document.createElement('button');
-  btn.className = 'sound-btn';
-  btn.innerHTML = `<span>${item.icon}</span><span>${item.name}</span>`;
-  btn.onclick = () => {
-    playSound(item.type);
-    showToast(`Đang phát âm thanh: ${item.name}! 🔊`);
-  };
-  soundboardGrid.appendChild(btn);
-});
-
-/* ─── TAB 8: XƯỞNG CHẾ MEME GẤU TRÚC (MEME MAKER) ────── */
-const memeCanvas = document.getElementById('memeCanvas');
-const memeCtx = memeCanvas.getContext('2d');
-let currentTemplate = 0;
-
-const memeTemplates = [
-  { id: 0, icon: "🐼", name: "Gấu Bựa", draw: drawMemePanda1 },
-  { id: 1, icon: "🕶️", name: "Thug Life", draw: drawMemePanda2 },
-  { id: 2, icon: "😭", name: "Khóc Mếu", draw: drawMemePanda3 },
-  { id: 3, icon: "🎋", name: "Ôm Tre", draw: drawMemePanda4 }
-];
-
-const templatePicker = document.getElementById('templatePicker');
-memeTemplates.forEach((t, i) => {
-  const thumb = document.createElement('div');
-  thumb.className = `tmpl-thumb ${i === 0 ? 'active' : ''}`;
-  thumb.innerText = t.icon;
-  thumb.title = t.name;
-  thumb.onclick = () => {
-    playSound('pop');
-    document.querySelectorAll('.tmpl-thumb').forEach(el => el.classList.remove('active'));
-    thumb.classList.add('active');
-    currentTemplate = i;
-    drawMeme();
-  };
-  templatePicker.appendChild(thumb);
-});
-
-function drawMemePanda1(ctx) {
-  // Chinese troll face panda
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, 400, 400);
-
-  // Big Panda Outline
-  ctx.fillStyle = "#1e1e24";
-  ctx.beginPath();
-  ctx.arc(100, 100, 45, 0, Math.PI * 2);
-  ctx.arc(300, 100, 45, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#ffffff";
-  ctx.strokeStyle = "#1e1e24";
-  ctx.lineWidth = 8;
-  ctx.beginPath();
-  ctx.arc(200, 200, 130, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  // Eyebrows troll
-  ctx.beginPath();
-  ctx.lineWidth = 5;
-  ctx.arc(150, 170, 25, Math.PI * 1.1, Math.PI * 1.9);
-  ctx.arc(250, 170, 25, Math.PI * 1.1, Math.PI * 1.9);
-  ctx.stroke();
-
-  // Eyes Wechat Grin
-  ctx.beginPath();
-  ctx.lineWidth = 6;
-  ctx.arc(150, 180, 22, 0, Math.PI);
-  ctx.arc(250, 180, 22, 0, Math.PI);
-  ctx.stroke();
-
-  // Big troll teeth smile
-  ctx.beginPath();
-  ctx.lineWidth = 5;
-  ctx.arc(200, 220, 55, 0, Math.PI);
-  ctx.stroke();
-
-  for (let x = 160; x <= 240; x += 20) {
-    ctx.beginPath();
-    ctx.moveTo(x, 220);
-    ctx.lineTo(x, 260);
-    ctx.stroke();
-  }
-}
-
-function drawMemePanda2(ctx) {
-  // Thug Life Panda
-  ctx.fillStyle = "#fef08a";
-  ctx.fillRect(0, 0, 400, 400);
-
-  ctx.fillStyle = "#1e1e24";
-  ctx.beginPath();
-  ctx.arc(110, 120, 40, 0, Math.PI * 2);
-  ctx.arc(290, 120, 40, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#ffffff";
-  ctx.strokeStyle = "#1e1e24";
-  ctx.lineWidth = 8;
-  ctx.beginPath();
-  ctx.arc(200, 220, 120, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  // Pixel Shades
-  ctx.fillStyle = "#000000";
-  ctx.fillRect(130, 190, 60, 32);
-  ctx.fillRect(210, 190, 60, 32);
-  ctx.fillRect(180, 200, 40, 10);
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(136, 196, 10, 8);
-  ctx.fillRect(216, 196, 10, 8);
-
-  // Joint/Bamboo in mouth
-  ctx.fillStyle = "#16a34a";
-  ctx.fillRect(210, 270, 70, 12);
-}
-
-function drawMemePanda3(ctx) {
-  // Crying panda
-  ctx.fillStyle = "#dbeafe";
-  ctx.fillRect(0, 0, 400, 400);
-
-  ctx.fillStyle = "#1e1e24";
-  ctx.beginPath();
-  ctx.arc(110, 120, 40, 0, Math.PI * 2);
-  ctx.arc(290, 120, 40, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#ffffff";
-  ctx.strokeStyle = "#1e1e24";
-  ctx.lineWidth = 8;
-  ctx.beginPath();
-  ctx.arc(200, 220, 120, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  // Waterfalls of tears
-  ctx.fillStyle = "#38bdf8";
-  ctx.fillRect(140, 210, 24, 110);
-  ctx.fillRect(236, 210, 24, 110);
-
-  // Sad mouth
-  ctx.beginPath();
-  ctx.lineWidth = 6;
-  ctx.arc(200, 290, 35, Math.PI * 1.1, Math.PI * 1.9);
-  ctx.stroke();
-}
-
-function drawMemePanda4(ctx) {
-  // Hugging bamboo
-  ctx.fillStyle = "#dcfce7";
-  ctx.fillRect(0, 0, 400, 400);
-
-  // Huge Bamboo in center
-  ctx.fillStyle = "#15803d";
-  ctx.fillRect(175, 40, 50, 320);
-
-  // Panda Clinging
-  ctx.fillStyle = "#ffffff";
-  ctx.strokeStyle = "#1e1e24";
-  ctx.lineWidth = 6;
-  ctx.beginPath();
-  ctx.arc(140, 200, 60, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.fillStyle = "#1e1e24";
-  ctx.beginPath();
-  ctx.arc(110, 160, 20, 0, Math.PI * 2);
-  ctx.arc(160, 160, 20, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.font = '40px sans-serif';
-  ctx.fillText('🐼', 140, 210);
-}
-
-function drawMeme() {
-  const topText = document.getElementById('memeTop').value.toUpperCase();
-  const bottomText = document.getElementById('memeBottom').value.toUpperCase();
-  const fontSize = parseInt(document.getElementById('memeFontSize').value, 10);
-
-  // Render chosen template
-  memeTemplates[currentTemplate].draw(memeCtx);
-
-  // Render Top & Bottom Text with meme outline
-  memeCtx.font = `900 ${fontSize}px 'Nunito', sans-serif`;
-  memeCtx.textAlign = 'center';
-  memeCtx.fillStyle = '#ffffff';
-  memeCtx.strokeStyle = '#000000';
-  memeCtx.lineWidth = 6;
-  memeCtx.lineJoin = 'round';
-
-  if (topText) {
-    memeCtx.strokeText(topText, 200, 48);
-    memeCtx.fillText(topText, 200, 48);
-  }
-
-  if (bottomText) {
-    memeCtx.strokeText(bottomText, 200, 375);
-    memeCtx.fillText(bottomText, 200, 375);
-  }
-}
-
-function downloadMeme() {
-  playSound('coin');
-  const link = document.createElement('a');
-  link.download = `panda-meme-${Date.now()}.png`;
-  link.href = memeCanvas.toDataURL('image/png');
-  link.click();
-  showToast('Đã tải ảnh meme gấu trúc về máy của bạn! 📸');
-}
-
-/* ═══════════════════════════════════════════════════════════════ */
-/* 🍣 GAME ENGINE: TIỆM SASHIMI & THÚ BÔNG GẤU TRÚC 🧸           */
-/* ═══════════════════════════════════════════════════════════════ */
-
-let sashimiMoney = parseInt(localStorage.getItem('panda_sashimi_money') || '80', 10);
-let sashimiPaused = false;
-let sashimiGameRunning = false;
-let customerLoopTimer = null;
-let currentPlate = [];
-let clawPosition = 50; // percentage
-let isDroppingClaw = false;
-
-// Shop Upgrades
-let sashimiUpgrades = {
-  knife: false,
-  fish: false,
-  claw: false
-};
-
-// Seated customers: array of 3
-let sashimiSeats = [null, null, null];
-
-const SASHIMI_RECIPES = [
-  {
-    id: 'salmon',
-    name: 'Sashimi Cá Hồi',
-    icon: '🍣',
-    ingredients: ['salmon', 'wasabi'],
-    price: 30
-  },
-  {
-    id: 'tuna',
-    name: 'Sashimi Cá Ngừ Đại Dương',
-    icon: '🍣',
-    ingredients: ['tuna', 'leaf'],
-    price: 35
-  },
-  {
-    id: 'shrimp',
-    name: 'Sashimi Tôm Ngọt Ebi',
-    icon: '🍤',
-    ingredients: ['shrimp', 'wasabi'],
-    price: 40
-  },
-  {
-    id: 'octopus',
-    name: 'Sashimi Bạch Tuộc Tako',
-    icon: '🐙',
-    ingredients: ['octopus', 'leaf'],
-    price: 45
-  },
-  {
-    id: 'combo',
-    name: 'Thuyền Sashimi Thượng Hạng',
-    icon: '🍱',
-    ingredients: ['salmon', 'tuna', 'shrimp'],
-    price: 85
-  }
-];
-
-const PANDA_CUSTOMERS = [
-  { avatar: "🐼", name: "Bé Tròn" },
-  { avatar: "🐼🎀", name: "Bé Nơ Xinh" },
-  { avatar: "🐼🕶️", name: "Gấu Ngầu" },
-  { avatar: "🐼🎩", name: "Bác Gấu" },
-  { avatar: "🐼🌸", name: "Gấu Điệu" },
-  { avatar: "🐼🥟", name: "Gấu Tham Ăn" }
-];
-
-const PANDA_PLUSHIES = [
-  { id: 0, icon: "🧸", name: "Gấu Trúc Mini Cổ Điển", price: 40, rate: 0.35, unlocked: true },
-  { id: 1, icon: "🍣", name: "Gấu Bông Ngậm Cá Hồi", price: 65, rate: 0.25, unlocked: true },
-  { id: 2, icon: "👨‍🍳", name: "Gấu Trúc Đầu Bếp Sushi", price: 85, rate: 0.18, unlocked: false },
-  { id: 3, icon: "🎒", name: "Gấu Trúc Ba Lô Măng", price: 110, rate: 0.12, unlocked: false },
-  { id: 4, icon: "🕶️", name: "Gấu Trúc Thug Life", price: 140, rate: 0.07, unlocked: false },
-  { id: 5, icon: "👑", name: "Gấu Trúc Đại Đế Khổng Lồ", price: 200, rate: 0.03, unlocked: false }
-];
-
-let shelfInventory = [
-  { id: 0, count: 2 },
-  { id: 1, count: 1 },
-  { id: 2, count: 0 },
-  { id: 3, count: 0 },
-  { id: 4, count: 0 },
-  { id: 5, count: 0 }
-];
-
-function updateSashimiMoney() {
-  const el = document.getElementById('sashimiMoney');
-  if (el) el.innerText = sashimiMoney;
-  localStorage.setItem('panda_sashimi_money', sashimiMoney);
-}
-
-function startSashimiGameIfNeeded() {
-  if (sashimiGameRunning) return;
-  sashimiGameRunning = true;
-  sashimiPaused = false;
-  renderSashimiSeats();
-  renderPlushieShelf();
-  renderPlushieCollection();
-  updateSashimiMoney();
-
-  if (customerLoopTimer) clearInterval(customerLoopTimer);
-  customerLoopTimer = setInterval(sashimiGameTick, 1000);
-  spawnSashimiCustomer();
-}
-
-function togglePauseSashimi() {
-  sashimiPaused = !sashimiPaused;
-  const btn = document.getElementById('btnPauseSashimi');
-  if (btn) {
-    if (sashimiPaused) {
-      btn.innerText = '▶️ Tiếp Tục';
-      btn.classList.add('pause-active');
-      showToast('Đã tạm dừng tiệm Sashimi ⏸️');
-    } else {
-      btn.innerText = '⏸️ Tạm Dừng';
-      btn.classList.remove('pause-active');
-      showToast('Tiếp tục mở tiệm Sashimi! 🍣');
-    }
-  }
-}
-
-function restartSashimiGame() {
-  sashimiPaused = false;
-  sashimiSeats = [null, null, null];
-  currentPlate = [];
-  renderSashimiSeats();
-  updatePlateUI();
-  spawnSashimiCustomer();
-  showToast('Đã mở ca làm việc mới tại tiệm Sashimi! 🍣');
-}
-
-function toggleBlueWhiteTheme() {
-  playSound('pop');
-  const isBlue = document.body.classList.toggle('blue-white-theme');
-  const btn = document.getElementById('btnThemeToggle');
-  if (btn) {
-    if (isBlue) {
-      btn.innerText = '🍃 Tông Xanh Lá';
-      showToast('Đã bật Tông Xanh Trắng mát lạnh phong cách Sashimi! ❄️🍣');
-    } else {
-      btn.innerText = '❄️ Tông Xanh Trắng';
-      showToast('Đã chuyển về tông giao diện mặc định! 🎋');
-    }
-  }
-}
-
-function sashimiGameTick() {
-  if (sashimiPaused) return;
-
-  let activeCount = 0;
-  for (let i = 0; i < sashimiSeats.length; i++) {
-    const cust = sashimiSeats[i];
-    if (cust) {
-      activeCount++;
-      cust.patience -= 3.5;
-      if (cust.patience <= 0) {
-        playSound('boom');
-        showToast(`${cust.name} đợi lâu quá nên đã rời quán rồi! 😭`);
-        sashimiSeats[i] = null;
+    function performInteraction() {
+      sound.init();
+
+      // Check nearest customer first
+      const customer = getNearestCustomer();
+      if (customer) {
+        handleCustomerInteraction(customer);
+        return;
+      }
+
+      // Check nearest station
+      const station = getNearestStation();
+      if (!station) return;
+
+      if (station.type === 'trash') {
+        if (player.heldItem) {
+          sound.trashSfx();
+          addParticle(player.x, player.y - 20, '🗑️ Đã vứt món!', '#64748b');
+          player.heldItem = null;
+        }
+        return;
+      }
+
+      if (station.type === 'claw_machine') {
+        openClawModal();
+        return;
+      }
+
+      // Cooking / Preparing stations
+      if (station.cookingTime) {
+        if (station.state === 'idle') {
+          // Start cooking / sewing
+          if (!player.heldItem) {
+            station.state = 'cooking';
+            station.cookTimer = 0;
+            sound.cookSfx();
+            addParticle(station.x + 30, station.y, '🔥 Bắt đầu nấu...', '#0284c7');
+          } else {
+            addParticle(player.x, player.y - 30, 'Tay bạn đang bận cầm đồ!', '#ef4444');
+          }
+        } else if (station.state === 'ready') {
+          // Pick up cooked food / plushie
+          if (!player.heldItem) {
+            player.heldItem = { ...station.outputItem };
+            station.state = 'idle';
+            station.cookTimer = 0;
+            sound.readySfx();
+            addParticle(player.x, player.y - 30, `+1 ${player.heldItem.name}`, '#0284c7');
+          } else {
+            addParticle(player.x, player.y - 30, 'Tay bạn đang cầm đồ khác rồi!', '#ef4444');
+          }
+        }
       }
     }
-  }
 
-  // Randomly spawn new customer if free seats exist
-  if (activeCount < 3 && Math.random() < 0.45) {
-    spawnSashimiCustomer();
-  }
+    function handleCustomerInteraction(customer) {
+      // 1. Easter egg: Customer asking for Sashimi
+      if (customer.type === 'prank_sashimi') {
+        sound.angrySfx();
+        openComicModal(
+          '👨‍🍳💢',
+          'ỦA ALO?! ĐÃ BẢO LÀ KHÔNG CÓ BÁN SASHIMI MÀ!',
+          'Bếp Trưởng Mèo Sa vung muôi canh: "Khách ơi là khách! Bảng hiệu ghi rõ rành rành là SASHIMI nhưng cam kết 100% KHÔNG BÁN SASHIMI rồi mà! Tui chỉ bán Mì Ramen nóng hổi, Gà Rán giòn rụm với Trà Sữa thui! Đừng đòi cá sống nữa tui quạu á!"'
+        );
+        // Customer apologizes and converts to Ramen order
+        customer.type = 'food';
+        customer.wants = [{ id: 'ramen', name: 'Mì Ramen', emoji: '🍜' }];
+        customer.speechBubble = 'Dạ em đổi qua ăn Ramen ạ!';
+        customer.patience = customer.maxPatience;
+        gameState.coins += 10; // Bonus pity coin
+        saveGame();
+        return;
+      }
 
-  renderSashimiSeats();
-}
+      // 2. Normal / Combo Delivery
+      if (player.heldItem) {
+        const itemIdx = customer.wants.findIndex(w => w.id === player.heldItem.id);
+        if (itemIdx !== -1) {
+          // Match!
+          const item = customer.wants.splice(itemIdx, 1)[0];
+          customer.fulfilled.push(item);
+          sound.coinSfx();
 
-function spawnSashimiCustomer() {
-  const emptyIndices = [];
-  sashimiSeats.forEach((c, idx) => { if (!c) emptyIndices.push(idx); });
-  if (emptyIndices.length === 0) return;
+          const earnedCoin = (player.heldItem.price || 25);
+          const earnedHeart = (player.heldItem.hearts || 2);
+          gameState.coins += earnedCoin;
+          gameState.hearts += earnedHeart;
+          gameState.totalServed++;
 
-  const targetIdx = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-  const custType = PANDA_CUSTOMERS[Math.floor(Math.random() * PANDA_CUSTOMERS.length)];
-  const recipe = SASHIMI_RECIPES[Math.floor(Math.random() * SASHIMI_RECIPES.length)];
+          addParticle(customer.x, customer.y - 40, `+${earnedCoin} 🪙`, '#b45309');
+          addParticle(customer.x + 20, customer.y - 60, `+${earnedHeart} 💖`, '#be185d');
 
-  sashimiSeats[targetIdx] = {
-    id: Date.now() + Math.random(),
-    avatar: custType.avatar,
-    name: custType.name,
-    order: recipe,
-    patience: 100,
-    maxPatience: 100
-  };
+          player.heldItem = null;
 
-  playSound('pop');
-}
+          // If fully completed
+          if (customer.wants.length === 0) {
+            customer.speechBubble = 'Ngon quá / Gấu cưng xỉu! Cảm ơn shop nha! 💖';
+            setTimeout(() => {
+              const idx = customers.indexOf(customer);
+              if (idx !== -1) customers.splice(idx, 1);
+            }, 800);
+          }
 
-function renderSashimiSeats() {
-  const container = document.getElementById('sashimiSeats');
-  if (!container) return;
-  container.innerHTML = '';
-
-  let seatedCount = 0;
-  sashimiSeats.forEach((c, i) => {
-    const seatDiv = document.createElement('div');
-    if (!c) {
-      seatDiv.className = 'seat-box empty';
-      seatDiv.innerHTML = `<span>Ghế ${i + 1}<br>Đang trống 🥢</span>`;
-    } else {
-      seatedCount++;
-      seatDiv.className = 'seat-box';
-      const pct = Math.max(0, Math.min(100, c.patience));
-      const color = pct > 50 ? '#10b981' : (pct > 25 ? '#f59e0b' : '#ef4444');
-
-      seatDiv.innerHTML = `
-        <div class="order-bubble">${c.order.icon} ${c.order.name}</div>
-        <div class="customer-avatar">${c.avatar}</div>
-        <div style="font-weight: 800; font-size: 0.78rem; color: #1e293b;">${c.name}</div>
-        <div class="patience-bar-track">
-          <div class="patience-bar-fill" style="width: ${pct}%; background-color: ${color};"></div>
-        </div>
-      `;
+          // Level up check
+          if (gameState.hearts >= gameState.level * 30) {
+            gameState.level++;
+            sound.readySfx();
+            addParticle(480, 250, `🎉 LÊN CẤP ${gameState.level}!`, '#10b981');
+          }
+          saveGame();
+        } else {
+          sound.angrySfx();
+          addParticle(customer.x, customer.y - 40, 'Khách không gọi món này!', '#ef4444');
+        }
+      } else {
+        addParticle(player.x, player.y - 30, 'Hãy mang món ăn hoặc gấu bông lại đây!', '#0284c7');
+      }
     }
-    container.appendChild(seatDiv);
-  });
 
-  const seatInfo = document.getElementById('seatInfo');
-  if (seatInfo) {
-    seatInfo.innerText = `${seatedCount}/3 khách đang ngồi`;
-  }
-}
+    /* =========================================================================
+       5. MODALS & MINIGAMES
+       ========================================================================= */
+    const comicModal = document.getElementById('comicModal');
+    const modalEmoji = document.getElementById('modalEmoji');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
 
-// Kitchen Interaction
-function selectIngredient(ing) {
-  if (sashimiPaused) return;
-  playSound('chomp');
-  if (currentPlate.includes(ing)) {
-    showToast('Nguyên liệu này đã có trên thớt!');
-    return;
-  }
-  if (currentPlate.length >= 4) {
-    showToast('Đĩa đã đầy nguyên liệu rồi!');
-    return;
-  }
-  currentPlate.push(ing);
-  updatePlateUI();
-}
-
-function clearCuttingBoard() {
-  playSound('pop');
-  currentPlate = [];
-  updatePlateUI();
-}
-
-const ING_NAMES = {
-  salmon: '🐟 Cá Hồi',
-  tuna: '🍣 Cá Ngừ',
-  shrimp: '🍤 Tôm Ngọt',
-  octopus: '🐙 Bạch Tuộc',
-  wasabi: '🌱 Wasabi',
-  leaf: '🍃 Tía Tô'
-};
-
-function checkPlateMatch() {
-  for (let r of SASHIMI_RECIPES) {
-    if (r.ingredients.length === currentPlate.length) {
-      const match = r.ingredients.every(item => currentPlate.includes(item));
-      if (match) return r;
+    function openComicModal(emoji, title, desc) {
+      modalEmoji.textContent = emoji;
+      modalTitle.textContent = title;
+      modalDesc.textContent = desc;
+      comicModal.classList.add('open');
     }
-  }
-  return null;
-}
+    modalCloseBtn.addEventListener('click', () => comicModal.classList.remove('open'));
 
-function updatePlateUI() {
-  const container = document.getElementById('currentPlateItems');
-  const preview = document.getElementById('dishNamePreview');
-  if (!container || !preview) return;
+    // Claw Machine Minigame
+    const clawModal = document.getElementById('clawModal');
+    const clawArm = document.getElementById('clawArm');
+    const clawHead = document.getElementById('clawHead');
+    const clawBtnLeft = document.getElementById('clawBtnLeft');
+    const clawBtnRight = document.getElementById('clawBtnRight');
+    const clawBtnDrop = document.getElementById('clawBtnDrop');
+    const clawCloseBtn = document.getElementById('clawCloseBtn');
 
-  if (currentPlate.length === 0) {
-    container.innerHTML = '<span class="empty-hint" style="color: #64748b; font-size: 0.85rem; font-weight: 700;">👉 Hãy nhấn chọn nguyên liệu ở trên để làm đĩa Sashimi!</span>';
-    preview.innerText = 'Món: Chưa có món';
-    return;
-  }
+    let clawPos = 50; // %
+    let isClawBusy = false;
 
-  container.innerHTML = '';
-  currentPlate.forEach(ing => {
-    const tag = document.createElement('div');
-    tag.className = 'cutting-item-tag';
-    tag.innerText = ING_NAMES[ing] || ing;
-    container.appendChild(tag);
-  });
-
-  const matched = checkPlateMatch();
-  if (matched) {
-    preview.innerHTML = `Món: <b style="color: #0284c7;">${matched.icon} ${matched.name}</b> (${matched.price} 💴)`;
-  } else {
-    preview.innerText = 'Món: Chưa thành món chuẩn...';
-  }
-}
-
-function serveCurrentDish() {
-  if (sashimiPaused) return;
-  const matched = checkPlateMatch();
-  if (!matched) {
-    playSound('boom');
-    showToast('Chưa đúng công thức món Sashimi nào! Hãy xem khách gọi gì nhé!');
-    return;
-  }
-
-  // Find seated customer who wants this
-  let servedIdx = -1;
-  for (let i = 0; i < sashimiSeats.length; i++) {
-    if (sashimiSeats[i] && sashimiSeats[i].order.id === matched.id) {
-      servedIdx = i;
-      break;
+    function openClawModal() {
+      clawModal.classList.add('open');
     }
-  }
+    clawCloseBtn.addEventListener('click', () => clawModal.classList.remove('open'));
 
-  if (servedIdx === -1) {
-    playSound('boom');
-    showToast(`Không có khách nào đang gọi món ${matched.name}!`);
-    return;
-  }
+    clawBtnLeft.addEventListener('click', () => {
+      if (isClawBusy) return;
+      clawPos = Math.max(15, clawPos - 10);
+      clawArm.style.left = `${clawPos}%`;
+      clawHead.style.left = `calc(${clawPos}% - 16px)`;
+    });
 
-  // Serve success!
-  playSound('coin');
-  const cust = sashimiSeats[servedIdx];
-  let earned = matched.price;
-  if (sashimiUpgrades.knife) earned += 10;
-  if (sashimiUpgrades.fish) earned += 20;
+    clawBtnRight.addEventListener('click', () => {
+      if (isClawBusy) return;
+      clawPos = Math.min(85, clawPos + 10);
+      clawArm.style.left = `${clawPos}%`;
+      clawHead.style.left = `calc(${clawPos}% - 16px)`;
+    });
 
-  sashimiMoney += earned;
-  updateSashimiMoney();
-  showToast(`🎉 Phục vụ ${cust.name} thành công! Nhận +${earned} 💴 Yên!`);
+    clawBtnDrop.addEventListener('click', () => {
+      if (isClawBusy) return;
+      if (gameState.coins < 15) {
+        alert('Cần 15 xu để gắp gấu nhé! Hãy nấu ăn phục vụ khách để kiếm thêm!');
+        return;
+      }
+      gameState.coins -= 15;
+      saveGame();
 
-  sashimiSeats[servedIdx] = null;
-  currentPlate = [];
-  updatePlateUI();
-  renderSashimiSeats();
-
-  // 60% chance customer walks to Plushie Store and buys a plushie!
-  setTimeout(() => {
-    customerBuysPlushie(cust.name);
-  }, 1200);
-}
-
-function customerBuysPlushie(custName) {
-  const inStock = shelfInventory.filter(item => item.count > 0);
-  if (inStock.length === 0) return;
-
-  const itemToBuy = inStock[Math.floor(Math.random() * inStock.length)];
-  const plushInfo = PANDA_PLUSHIES.find(p => p.id === itemToBuy.id);
-  if (!plushInfo) return;
-
-  itemToBuy.count--;
-  const plushGain = plushInfo.price;
-  sashimiMoney += plushGain;
-  updateSashimiMoney();
-  renderPlushieShelf();
-  playSound('win');
-  showToast(`🛍️ ${custName} vừa ghé tiệm thú bông mua 1 [${plushInfo.name}] +${plushGain} 💴 Yên!`);
-}
-
-// Plushie Shelf & Collection
-function renderPlushieShelf() {
-  const grid = document.getElementById('plushieShelfGrid');
-  const stockCount = document.getElementById('shelfStockCount');
-  if (!grid) return;
-  grid.innerHTML = '';
-
-  let totalItems = 0;
-  shelfInventory.forEach(inv => {
-    totalItems += inv.count;
-    const p = PANDA_PLUSHIES.find(x => x.id === inv.id);
-    if (inv.count > 0 && p) {
-      const el = document.createElement('div');
-      el.className = 'shelf-item';
-      el.innerHTML = `
-        <span class="plush-icon">${p.icon}</span>
-        <div class="plush-title">${p.name}</div>
-        <div class="plush-price">Còn: ${inv.count} con · ${p.price} 💴</div>
-      `;
-      grid.appendChild(el);
-    }
-  });
-
-  if (grid.children.length === 0) {
-    grid.innerHTML = '<div style="grid-column: 1/-1; padding: 12px; text-align: center; color: #94a3b8; font-weight: 700;">Hết thú bông trên kệ rồi! Hãy dùng máy gắp thú bông bên dưới để gắp thêm nha! 🕹️</div>';
-  }
-
-  if (stockCount) {
-    stockCount.innerText = `Còn ${totalItems} thú bông trên kệ`;
-  }
-}
-
-function renderPlushieCollection() {
-  const container = document.getElementById('collectionIcons');
-  if (!container) return;
-  container.innerHTML = '';
-
-  PANDA_PLUSHIES.forEach(p => {
-    const el = document.createElement('div');
-    el.className = `col-item ${p.unlocked ? '' : 'locked'}`;
-    el.innerHTML = p.icon;
-    el.title = `${p.name} (${p.unlocked ? 'Đã mở khóa' : 'Chưa có'})`;
-    container.appendChild(el);
-  });
-}
-
-// Claw Machine Engine
-function moveClaw(delta) {
-  if (isDroppingClaw || sashimiPaused) return;
-  playSound('pop');
-  clawPosition = Math.max(15, Math.min(85, clawPosition + delta));
-  const carriage = document.getElementById('craneCarriage');
-  if (carriage) {
-    carriage.style.left = clawPosition + '%';
-  }
-}
-
-function dropClaw() {
-  if (isDroppingClaw || sashimiPaused) return;
-  if (sashimiMoney < 15) {
-    playSound('boom');
-    showToast('Bạn không đủ 15 Yên để chơi gắp gấu! Hãy bán thêm Sashimi nha!');
-    return;
-  }
-
-  sashimiMoney -= 15;
-  updateSashimiMoney();
-  isDroppingClaw = true;
-  playSound('jump');
-
-  const wire = document.getElementById('craneWire');
-  const claw = document.getElementById('craneClaw');
-  const btn = document.getElementById('btnDropClaw');
-  if (btn) btn.disabled = true;
-
-  // Drop wire down
-  if (wire) wire.style.height = '105px';
-
-  setTimeout(() => {
-    // Claw grabs
-    if (claw) claw.style.transform = 'scale(1.3) rotate(-15deg)';
-    playSound('pop');
-
-    // Decide win/loss
-    const winRate = sashimiUpgrades.claw ? 0.85 : 0.52;
-    const isWin = Math.random() < winRate;
-
-    setTimeout(() => {
-      // Pull wire back up
-      if (wire) wire.style.height = '35px';
+      isClawBusy = true;
+      clawArm.style.height = '120px';
+      clawHead.style.top = '120px';
 
       setTimeout(() => {
-        if (claw) claw.style.transform = 'scale(1) rotate(0deg)';
-        isDroppingClaw = false;
-        if (btn) btn.disabled = false;
+        clawHead.textContent = '✊';
+        const win = Math.random() < 0.75;
 
-        if (isWin) {
-          const rand = Math.random();
-          let wonPlushie = PANDA_PLUSHIES[0];
-          if (rand < 0.05) wonPlushie = PANDA_PLUSHIES[5]; // Giant King
-          else if (rand < 0.15) wonPlushie = PANDA_PLUSHIES[4]; // Thug life
-          else if (rand < 0.3) wonPlushie = PANDA_PLUSHIES[3]; // Backpack
-          else if (rand < 0.5) wonPlushie = PANDA_PLUSHIES[2]; // Chef
-          else if (rand < 0.75) wonPlushie = PANDA_PLUSHIES[1]; // Salmon bite
-          else wonPlushie = PANDA_PLUSHIES[0];
+        setTimeout(() => {
+          clawArm.style.height = '30px';
+          clawHead.style.top = '30px';
 
-          wonPlushie.unlocked = true;
-          const invItem = shelfInventory.find(x => x.id === wonPlushie.id);
-          if (invItem) invItem.count++;
+          setTimeout(() => {
+            if (win) {
+              sound.readySfx();
+              const gifts = ['Panda Ôm Tre Vàng', 'Panda Áo Xanh Trắng', 'Panda Cosplay Gà Rán', 'Panda Thần Tài'];
+              const g = gifts[Math.floor(Math.random() * gifts.length)];
+              alert(`🎉 TUYỆT VỜI! Bạn đã gắp trúng [${g}] siêu cấp múp míp!`);
+              gameState.hearts += 10;
+              saveGame();
+            } else {
+              clawHead.textContent = '🖐️';
+              alert('Hơi trượt xíu rồi! Chú gấu múp quá trôi khỏi càng gắp, thử lại nha!');
+            }
+            clawHead.textContent = '🦾';
+            isClawBusy = false;
+          }, 600);
+        }, 500);
+      }, 600);
+    });
 
-          renderPlushieShelf();
-          renderPlushieCollection();
-          playSound('win');
-          showToast(`🎉 GẮP TRÚNG RỒI! Bạn nhận được 1 [${wonPlushie.name}]! Đã lên kệ bán! 🧸`);
+    /* =========================================================================
+       6. UPDATE & RENDER LOOP (60 FPS)
+       ========================================================================= */
+    function update(dt) {
+      // 1. Player Movement
+      let dx = 0;
+      let dy = 0;
+      if (keys['w'] || keys['W'] || keys['ArrowUp']) dy -= 1;
+      if (keys['s'] || keys['S'] || keys['ArrowDown']) dy += 1;
+      if (keys['a'] || keys['A'] || keys['ArrowLeft']) dx -= 1;
+      if (keys['d'] || keys['D'] || keys['ArrowRight']) dx += 1;
+
+      if (dx !== 0 && dy !== 0) {
+        dx *= 0.7071;
+        dy *= 0.7071;
+      }
+
+      if (dx !== 0 || dy !== 0) {
+        player.isWalking = true;
+        player.walkFrame += 0.2;
+        if (Math.abs(dx) > Math.abs(dy)) {
+          player.facing = dx > 0 ? 'right' : 'left';
         } else {
-          playSound('boom');
-          showToast('Càng gắp bị trượt tay mất rồi! Thử lại phát nữa xem sao! 🕹️');
+          player.facing = dy > 0 ? 'down' : 'up';
         }
-      }, 700);
-    }, 600);
-  }, 700);
-}
 
-// Upgrades
-function buySashimiUpgrade(type) {
-  if (sashimiUpgrades[type]) {
-    showToast('Nâng cấp này bạn đã sở hữu rồi!');
-    return;
-  }
+        // Footstep sound
+        if (Date.now() - player.lastStepTime > 260) {
+          sound.stepSfx();
+          player.lastStepTime = Date.now();
+        }
+      } else {
+        player.isWalking = false;
+      }
 
-  const costs = { knife: 60, fish: 100, claw: 120 };
-  const cost = costs[type];
+      // Apply movement with boundary & obstacle collisions
+      const nextX = player.x + dx * player.speed;
+      const nextY = player.y + dy * player.speed;
 
-  if (sashimiMoney < cost) {
-    playSound('boom');
-    showToast(`Bạn cần ${cost} Yên để mua nâng cấp này!`);
-    return;
-  }
+      // Boundaries (Kitchen inside: 30 <= x <= 930, 200 <= y <= 420)
+      if (nextX >= 40 && nextX <= MAP_WIDTH - 40) player.x = nextX;
+      if (nextY >= 200 && nextY <= 420) player.y = nextY;
 
-  playSound('coin');
-  sashimiMoney -= cost;
-  sashimiUpgrades[type] = true;
-  updateSashimiMoney();
+      // 2. Cooking Stations Timers
+      for (const st of STATIONS) {
+        if (st.state === 'cooking') {
+          st.cookTimer += dt;
+          if (st.cookTimer >= st.cookingTime) {
+            st.state = 'ready';
+            sound.readySfx();
+            addParticle(st.x + 35, st.y, '✨ Xong rồi!', '#10b981');
+          }
+        }
+      }
 
-  const cardId = { knife: 'upCardKnife', fish: 'upCardFish', claw: 'upCardClaw' }[type];
-  const btnId = { knife: 'upBtnKnife', fish: 'upBtnFish', claw: 'upBtnClaw' }[type];
+      // 3. Customers Timer & Spawning
+      nextCustomerTimer -= dt;
+      if (nextCustomerTimer <= 0) {
+        spawnCustomer();
+        nextCustomerTimer = 4.5 + Math.random() * 3.0;
+      }
 
-  const card = document.getElementById(cardId);
-  const btn = document.getElementById(btnId);
-  if (card) card.classList.add('bought');
-  if (btn) btn.innerText = 'ĐÃ SỞ HỮU ✓';
+      for (let i = customers.length - 1; i >= 0; i--) {
+        const c = customers[i];
+        c.patience -= dt;
+        if (c.patience <= 0) {
+          customers.splice(i, 1);
+          addParticle(c.x, c.y - 20, 'Khách đợi lâu quá nên bỏ về rồi! 😢', '#ef4444');
+        }
+      }
 
-  showToast('Nâng cấp thành công! Cửa hàng đã được tăng sức mạnh! ✨');
-}
+      // 4. Update Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.y += p.vy;
+        p.life -= 1;
+        p.alpha = p.life / 50;
+        if (p.life <= 0) particles.splice(i, 1);
+      }
 
-// Initial draw of meme
-drawMeme();
-updateBambooDisplay();
-updatePetUI();
-startSashimiGameIfNeeded();
-</script>
+      // 5. Update Floating Interaction Prompt
+      const promptEl = document.getElementById('interactPrompt');
+      const promptText = document.getElementById('promptText');
+      const promptIcon = document.getElementById('promptIcon');
 
+      const nearCust = getNearestCustomer();
+      const nearSt = getNearestStation();
+
+      if (nearCust) {
+        promptEl.classList.add('visible');
+        promptIcon.textContent = '🤝';
+        if (nearCust.type === 'prank_sashimi') {
+          promptText.textContent = '[CÁCH / E]: Giải thích quán KHÔNG BÁN SASHIMI!';
+        } else {
+          promptText.textContent = '[CÁCH / E]: Phục vụ đơn hàng cho khách';
+        }
+      } else if (nearSt) {
+        promptEl.classList.add('visible');
+        promptIcon.textContent = nearSt.emoji || '🖐️';
+        if (nearSt.type === 'trash') {
+          promptText.textContent = '[CÁCH / E]: Vứt món đang cầm vào thùng rác';
+        } else if (nearSt.type === 'claw_machine') {
+          promptText.textContent = '[CÁCH / E]: Chơi Máy Gắp Gấu Arcade';
+        } else if (nearSt.state === 'cooking') {
+          promptText.textContent = `Đang nấu... (${Math.round((nearSt.cookTimer / nearSt.cookingTime) * 100)}%)`;
+        } else if (nearSt.state === 'ready') {
+          promptText.textContent = `[CÁCH / E]: Lấy ${nearSt.outputItem.name}!`;
+        } else {
+          promptText.textContent = `[CÁCH / E]: Nấu / Chuẩn bị ${nearSt.name}`;
+        }
+      } else {
+        promptEl.classList.remove('visible');
+      }
+    }
+
+    /* Drawing Helpers */
+    function render() {
+      ctx.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
+
+      // 1. Draw Floor (Pastel Cozy Tiles)
+      // Left Floor: Sashimi Eatery (Pastel Light Blue & White tiles)
+      ctx.fillStyle = '#f0f9ff';
+      ctx.fillRect(0, 0, MAP_WIDTH / 2, 450);
+
+      // Tile grid lines left
+      ctx.strokeStyle = '#e0f2fe';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < MAP_WIDTH / 2; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 100); ctx.lineTo(x, 450); ctx.stroke();
+      }
+      for (let y = 100; y < 450; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(MAP_WIDTH / 2, y); ctx.stroke();
+      }
+
+      // Right Floor: Panda Plushie Shop (Soft Clean White / Mint-Ice tiles)
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(MAP_WIDTH / 2, 0, MAP_WIDTH / 2, 450);
+      ctx.strokeStyle = '#e2e8f0';
+      for (let x = MAP_WIDTH / 2; x < MAP_WIDTH; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 100); ctx.lineTo(x, 450); ctx.stroke();
+      }
+      for (let y = 100; y < 450; y += 40) {
+        ctx.beginPath(); ctx.moveTo(MAP_WIDTH / 2, y); ctx.lineTo(MAP_WIDTH, y); ctx.stroke();
+      }
+
+      // Divider line between two shops (cute blue wooden border)
+      ctx.fillStyle = '#bae6fd';
+      ctx.fillRect(MAP_WIDTH / 2 - 4, 100, 8, 350);
+
+      // Sidewalk at bottom (450 -> 580)
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillRect(0, 450, MAP_WIDTH, 130);
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0, 450); ctx.lineTo(MAP_WIDTH, 450); ctx.stroke();
+
+      // Sidewalk paving bricks
+      ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+      for (let x = 0; x < MAP_WIDTH; x += 60) {
+        ctx.beginPath(); ctx.moveTo(x, 450); ctx.lineTo(x, 580); ctx.stroke();
+      }
+
+      // 2. Draw Top Wall & Blue-White Striped Awnings
+      // Wall
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(0, 0, MAP_WIDTH, 100);
+
+      // Striped Awning
+      const stripeW = 30;
+      for (let x = 0; x < MAP_WIDTH; x += stripeW) {
+        ctx.fillStyle = (Math.floor(x / stripeW) % 2 === 0) ? '#0284c7' : '#ffffff';
+        ctx.fillRect(x, 0, stripeW, 40);
+        // Valance scalloped bottom
+        ctx.beginPath();
+        ctx.arc(x + stripeW / 2, 40, stripeW / 2, 0, Math.PI);
+        ctx.fill();
+      }
+
+      // Signboard Left: Quán Sashimi
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.roundRect(40, 45, 400, 48, 12);
+      ctx.fill();
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = '#0369a1';
+      ctx.font = '900 16px Nunito';
+      ctx.textAlign = 'center';
+      ctx.fillText('🍜 QUÁN ĂN SASHIMI (KHÔNG BÁN SASHIMI!)', 240, 68);
+      ctx.fillStyle = '#e11d48';
+      ctx.font = '800 11px Nunito';
+      ctx.fillText('Đầu Bếp Mèo Sa • Chuyên Món Nóng Nấu Chín 100%', 240, 84);
+
+      // Signboard Right: Tiệm Gấu Trúc Nhồi Bông
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.roundRect(520, 45, 400, 48, 12);
+      ctx.fill();
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = '900 16px Nunito';
+      ctx.fillText('🐼 TIỆM GẤU TRÚC PANDA MÚP MÍP', 720, 68);
+      ctx.fillStyle = '#059669';
+      ctx.font = '800 11px Nunito';
+      ctx.fillText('Thú Nhồi Bông Cực Mềm • Máy Gắp Gấu May Mắn', 720, 84);
+
+      // 3. Draw Stations
+      for (const st of STATIONS) {
+        // Station shadow
+        ctx.fillStyle = 'rgba(0,0,0,0.08)';
+        ctx.beginPath();
+        ctx.ellipse(st.x + st.width / 2, st.y + st.height + 4, st.width / 2 + 4, 10, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Station base counter
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.roundRect(st.x, st.y, st.width, st.height, 12);
+        ctx.fill();
+        ctx.strokeStyle = st.color;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Station Header Icon & Title
+        ctx.font = '28px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(st.emoji, st.x + st.width / 2, st.y + 36);
+
+        ctx.fillStyle = '#1e293b';
+        ctx.font = '800 11px Nunito';
+        ctx.fillText(st.name, st.x + st.width / 2, st.y + st.height - 8);
+
+        // Progress bar if cooking
+        if (st.state === 'cooking') {
+          const pct = Math.min(1, st.cookTimer / st.cookingTime);
+          ctx.fillStyle = '#e2e8f0';
+          ctx.fillRect(st.x + 8, st.y - 12, st.width - 16, 6);
+          ctx.fillStyle = '#0284c7';
+          ctx.fillRect(st.x + 8, st.y - 12, (st.width - 16) * pct, 6);
+        } else if (st.state === 'ready') {
+          // Ready bubble
+          ctx.fillStyle = '#10b981';
+          ctx.beginPath();
+          ctx.roundRect(st.x + st.width / 2 - 20, st.y - 18, 40, 16, 8);
+          ctx.fill();
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '900 10px Nunito';
+          ctx.fillText('XONG!', st.x + st.width / 2, st.y - 6);
+        }
+      }
+
+      // 4. Draw Customers on Sidewalk
+      for (const c of customers) {
+        // Customer shadow
+        ctx.fillStyle = 'rgba(0,0,0,0.15)';
+        ctx.beginPath();
+        ctx.ellipse(c.x, c.y + 12, 16, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Customer Avatar
+        ctx.font = '32px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(c.avatar, c.x, c.y + 8);
+
+        // Order Thought Bubble above Customer
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.roundRect(c.x - 38, c.y - 56, 76, 34, 10);
+        ctx.fill();
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Bubble pointer tail
+        ctx.beginPath();
+        ctx.moveTo(c.x - 6, c.y - 22);
+        ctx.lineTo(c.x + 6, c.y - 22);
+        ctx.lineTo(c.x, c.y - 16);
+        ctx.fill();
+
+        // Display requested items
+        if (c.type === 'prank_sashimi') {
+          ctx.font = '18px sans-serif';
+          ctx.fillText('🍣❓', c.x, c.y - 34);
+        } else {
+          let icons = c.wants.map(w => w.emoji).join(' ');
+          ctx.font = '18px sans-serif';
+          ctx.fillText(icons || '💖', c.x, c.y - 34);
+        }
+
+        // Patience bar under bubble
+        const pPct = Math.max(0, c.patience / c.maxPatience);
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fillRect(c.x - 30, c.y - 62, 60, 4);
+        ctx.fillStyle = pPct > 0.4 ? '#10b981' : '#ef4444';
+        ctx.fillRect(c.x - 30, c.y - 62, 60 * pPct, 4);
+      }
+
+      // 5. Draw Player Character (Chef Cat)
+      const px = player.x;
+      const py = player.y;
+
+      // Player shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.18)';
+      ctx.beginPath();
+      ctx.ellipse(px, py + 20, 18, 7, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Bobbing walking animation
+      const bob = player.isWalking ? Math.sin(player.walkFrame) * 3 : 0;
+
+      // Character body (Cute White Cat / Chef)
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(px, py + bob, 18, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Cat Ears
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(px - 14, py - 10 + bob);
+      ctx.lineTo(px - 6, py - 22 + bob);
+      ctx.lineTo(px - 2, py - 12 + bob);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(px + 14, py - 10 + bob);
+      ctx.lineTo(px + 6, py - 22 + bob);
+      ctx.lineTo(px + 2, py - 12 + bob);
+      ctx.fill();
+      ctx.stroke();
+
+      // Chef Hat (Blue & White Striped)
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(px - 12, py - 28 + bob, 24, 8);
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(px, py - 32 + bob, 14, 0, Math.PI, true);
+      ctx.fill();
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Face (Cute Chef Eyes & Whiskers)
+      ctx.fillStyle = '#1e293b';
+      if (player.facing === 'left') {
+        ctx.beginPath(); ctx.arc(px - 6, py + bob, 2.5, 0, Math.PI * 2); ctx.fill();
+      } else if (player.facing === 'right') {
+        ctx.beginPath(); ctx.arc(px + 6, py + bob, 2.5, 0, Math.PI * 2); ctx.fill();
+      } else {
+        ctx.beginPath(); ctx.arc(px - 6, py + bob, 2.5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(px + 6, py + bob, 2.5, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Blue Apron
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(px - 10, py + 8 + bob, 20, 10);
+
+      // Carried Item floating above character
+      if (player.heldItem) {
+        const itemBob = Math.sin(Date.now() / 150) * 4;
+        ctx.font = '30px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(player.heldItem.emoji, px, py - 46 + itemBob);
+
+        // Small tag
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.beginPath();
+        ctx.roundRect(px - 34, py - 78 + itemBob, 68, 16, 6);
+        ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 10px Nunito';
+        ctx.fillText(player.heldItem.name, px, py - 66 + itemBob);
+      }
+
+      // 6. Draw Particles
+      for (const p of particles) {
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.font = '900 14px Nunito';
+        ctx.textAlign = 'center';
+        ctx.fillText(p.text, p.x, p.y);
+        ctx.restore();
+      }
+    }
+
+    // Main Game Loop with Delta Time
+    let lastTime = performance.now();
+    function gameLoop(now) {
+      const dt = Math.min(0.1, (now - lastTime) / 1000);
+      lastTime = now;
+
+      update(dt);
+      render();
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    /* =========================================================================
+       7. INITIALIZATION & AUDIO TOGGLE
+       ========================================================================= */
+    loadGame();
+    saveGame();
+
+    // Spawn first 2 customers
+    spawnCustomer();
+    spawnCustomer();
+
+    requestAnimationFrame(gameLoop);
+
+    // Audio Toggle
+    const audioBtn = document.getElementById('audioBtn');
+    audioBtn.addEventListener('click', () => {
+      const isMuted = sound.toggle();
+      audioBtn.textContent = isMuted ? '🔇' : '🎵';
+    });
+
+    // Help Dialog
+    document.getElementById('helpBtn').addEventListener('click', () => {
+      openComicModal(
+        '📖',
+        'HƯỚNG DẪN CHƠI',
+        '• Dùng WASD hoặc phím Mũi tên (hoặc nút ảo trên màn hình) để di chuyển nhân vật mèo đầu bếp.\n• Đi lại các bếp (Mì Ramen, Trà Sữa, Gà Rán) hoặc Kệ gấu bông và bấm [PHÍM CÁCH / E] để nấu và lấy đồ.\n• Mang đồ ăn hoặc gấu bông chạy xuống quầy giao cho khách đang chờ!\n• Nhớ nhé: Quán tên Sashimi nhưng 100% KHÔNG BÁN SASHIMI đâu nha!'
+      );
+    });
+
+    // Reset Data
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (confirm('Bạn có chắc muốn chơi lại từ đầu không?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        gameState = { coins: 100, hearts: 10, level: 1, totalServed: 0, unlockedPlushies: [] };
+        saveGame();
+        player.x = 240;
+        player.y = 320;
+        player.heldItem = null;
+        customers = [];
+        spawnCustomer();
+        spawnCustomer();
+      }
+    });
+
+    // Start audio on first user touch / click
+    window.addEventListener('click', function onFirstClick() {
+      sound.init();
+      sound.startBgm();
+      window.removeEventListener('click', onFirstClick);
+    }, { once: true });
+  </script>
 </body>
 </html>
